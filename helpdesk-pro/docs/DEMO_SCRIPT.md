@@ -1,6 +1,6 @@
 # Demonstration and individual technical rehearsal
 
-**Planned final demonstration; not executable at Checkpoint A.** Confirm the instructor's duration and scope agreement. Use only fictitious data, keep passwords out of slides/repository, and demonstrate the submitted revision.
+**Planned final demonstration; application journey not executable at Checkpoint B.** The sample database/accounts and admin setup now exist, but ticket/frontend/report pages remain later checkpoints. Confirm the instructor's duration and scope agreement. Use only fictitious data, keep passwords out of slides/repository, and demonstrate the submitted revision.
 
 ## Guide-prescribed order
 

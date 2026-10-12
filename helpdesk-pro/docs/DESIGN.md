@@ -1,6 +1,6 @@
 # Approved architecture and implementation contracts
 
-Approved by the user's implementation request and subsequent eight amendments on 12 October 2026. The official guide is primary. This document incorporates the audit corrections and amended structure; it is the final target for upcoming checkpoints, not a claim that those features already exist. Instructor agreement remains unverified. Work is authorized for Checkpoint A only until its review.
+Approved by the user's implementation request and subsequent eight amendments on 12 October 2026. Checkpoint A is reviewed/approved and Checkpoint B is delivered; C requires explicit review/approval. The official guide is primary. The database/auth foundation below is implemented and verified; application services/views/forms and reports remain the final target for C/D. Instructor agreement remains unverified.
 
 ## Structure and responsibilities
 
@@ -62,6 +62,16 @@ Technician eligibility is an active non-superuser account with exactly the Techn
 
 Regular IT Admin is staff and receives only Department view/add/change/delete model permissions. Categories are managed in the application. Superusers provision accounts through guarded User admin forms. These forms reject conflicting roles and reject deactivation or loss of Technician role while active tickets remain assigned. Reassign first; historical terminal assignments remain valid. Guard built-in Group administration against rename/delete of the three reserved role groups. Ticket and TicketComment admin are view-only even for superusers, with no add/change/delete or delete-selected action. Direct shell/database maintenance is privileged outside the supported workflow.
 
+### Implemented authentication boundary (B)
+
+`constants.py` supplies choices/active statuses; `permissions.py` supplies get_role/require_role/has_role, eligible_technicians/is_eligible_technician, visible_tickets/can_create_ticket and the ticket_permissions action dictionary. Invalid accounts raise PermissionDenied on role/scoped-query access and get all-false action flags. Django's existing authentication backend handles password hashing and inactive-account login rejection; no new backend/user model is added.
+
+`accounts.py` validates proposed membership and active-assignee eligibility. Guarded built-in User admin/forms use it and require one regular application role. Small auth-only hooks in `signals.py` reject ordinary save/membership changes that strand active tickets, including reverse membership changes; they also protect reserved group names/deletion. Temporary zero-role membership during provisioning is permitted by the hooks but rejected by finished admin provisioning and fails closed for application access. Bulk ORM/through-table/raw SQL maintenance bypasses some hooks and remains privileged outside supported write paths. No ordinary ticket workflow uses signals.
+
+Role resolution, membership validation, superuser admin permissions and group deletion consult persisted flags/identity rather than unsaved or cached object changes. The standard admin transaction reduces a superuser's multiple memberships to the validated final selection before demotion, preventing invalid combinations and unhandled save-hook errors. Proposed flag changes still undergo active-assignment validation before persistence.
+
+Post-migrate provisions the three groups with canonical minimal permissions: IT Admin gets four Department setup permissions; Employee/Technician get no admin model permissions. Regular IT Admin cannot provision users/groups or inspect ticket/comment admin; those admin views are superuser-only. All ticket/comment admin mutation permissions/actions are disabled. User account timestamps and reserved group name/permissions are read-only in admin. Normal workflow views/services must reuse and enforce the B helpers in C rather than trusting hidden controls.
+
 ## Workflow and HTTP contracts
 
 Active statuses are one shared constant: new, assigned, in_progress. Terminal statuses are resolved/cancelled. Services re-fetch current state and scope in a transaction; authorize the actor again and never mutate stale posted model instances. Reassignment immediately removes old technician visibility. Do not claim SQLite row-locking behavior or enterprise concurrency guarantees.
@@ -79,7 +89,7 @@ Active statuses are one shared constant: new, assigned, in_progress. Terminal st
 
 All mutations require POST/CSRF. Success redirects and shows a message. Anonymous requests redirect to login; out-of-scope/missing objects return 404; forbidden role/action returns 403; unsupported method returns 405. Invalid form values return 200 with bound form errors; state conflicts return a friendly 409 page without mutation. Resolve/comment/assignment errors render the ticket detail with the appropriate bound form. Filter parameters are independently validated: retain valid fields and ignore invalid ones with useful feedback. Invalid order defaults to newest; nonnumeric page selects first, out-of-range page selects last.
 
-### Final route map (not wired at Checkpoint A except admin)
+### Final route map (at Checkpoint B only admin routes are wired)
 
 | Name | Path | Methods |
 | --- | --- | --- |
@@ -109,6 +119,10 @@ Select requester/assignee/category/department in list/detail; retrieve comments 
 ## Deterministic demo data
 
 Usernames: employee1, employee2, technician1, technician2, itadmin. Fictional identities only. Four departments: Finance, Human Resources, Operations, Sales. Categories: Hardware, Software, Network, Accounts, Unused. Reserve ticket IDs 10001–10012 and comment IDs 20001 onward for seeded fixtures; preflight collisions and abort atomically rather than overwrite unrelated data. Reserved usernames/record IDs are documented; preserve existing passwords and user changes on repeat. No destructive reset option.
+
+Fixture users use reserved IDs 9001–9005; Departments 1101–1104; Categories 1201–1205. Seed provenance uses existing date_joined/created_at fields anchored at the fictional 10 October 2026 06:00 UTC fixture time, with deterministic offsets. No marker columns, state file or additional entity is added. Before adoption the command checks user IDs/timestamps/username collisions and ticket/comment identity timestamps; reserved reference-data IDs are recognized only after a known user fixture bundle is established. Editing provenance timestamps through privileged maintenance causes a safe collision rejection, not overwriting. Recognized reference names, ticket fields, user names/profiles/passwords are preserved.
+
+Seed accounts receive a validated runtime DEMO_PASSWORD only on creation. Seeding an already recognized dataset needs no password. New comments are validated while tickets are active before initial terminal states are saved. A missing historical comment on an existing terminal ticket causes rollback rather than reopening. Missing-resource/assignment failures roll back the entire command. Stable timestamps are set through narrowly limited offline fixture updates because auto_now fields normally use current time; general workflow mutations still require validated services in C.
 
 | Ticket IDs | Status | Active category distribution | Technician |
 | --- | --- | --- | --- |

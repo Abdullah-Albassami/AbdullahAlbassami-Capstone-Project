@@ -1,6 +1,6 @@
 # Verification record
 
-Only executed checks may be marked PASS. NOT RUN means planned or unavailable in the current checkpoint. Command-level HTTP/template checks are not a real browser walkthrough. No custom migrations or database workflow checks have been performed at Checkpoint A.
+Only executed checks may be marked PASS. NOT RUN means planned or unavailable in the current checkpoint. Command-level HTTP/template checks are not a real browser walkthrough. Historical A results below remain separate from the current B database/auth checks.
 
 ## Historical Checkpoint A checks before the structure amendment
 
@@ -35,6 +35,45 @@ See CHECKPOINT_A_REPORT.md for the amended file inventory, commands and results.
 
 The first relocated verification harness passed R02–R06, then failed an assertion expecting `/` to return 404 with DEBUG=true. Inspection confirmed Django's normal development welcome response when only admin is configured. The corrected R07 check asserts absence of business URL patterns, the debug welcome page, and 404s with DEBUG=false; that rerun passed. This was a corrected check assumption, not an implemented dashboard. No business suite, migration or browser acceptance PASS is claimed.
 
+## Checkpoint B executed verification
+
+Executed on 12 October 2026 in helpdesk-pro using Python 3.14.7 / Django 5.2.18. Runtime keys/passwords were generated in process memory, never printed or committed.
+
+| ID | Scenario | Expected | Actual | Status | Notes |
+| --- | --- | --- | --- | --- | --- |
+| B01 | Runtime/dependency consistency | Verified pinned environment, no new packages | Python/Django/asgiref/sqlparse unchanged; pip check reports no broken requirements | PASS | No dependency installation needed |
+| B02 | Generate/apply migrations | Four final custom tables and auth prerequisites | makemigrations tickets generated 0001_initial; migrate --noinput applied all migrations successfully | PASS | Working ignored SQLite database |
+| B03 | System/schema consistency | No checks, migration drift or pending migrations | check --database default: zero issues; makemigrations --check --dry-run: no changes; migrate --check: exit 0 | PASS | Final schema unchanged after validation fix |
+| B04 | Automated foundation suite | Model/constraint/relationship/role/account/seed behavior correct | Final 60 tests passed, no failures, fresh migrated test DB created/destroyed | PASS | Fast hashing only in test overrides |
+| B05 | Guarded admin server requests | View-only ticket/comment even for superuser; safe provisioning/protected deletion | AdminTests pass: change/add/delete bypasses 403, valid provisioning persists hashed credentials, invalid account changes return form errors/no mutation | PASS | Django test client; real browser M11 remains NOT RUN |
+| B06 | Repeated actual seed and known metrics | Same records/passwords/timestamps on repeat; 12/8/2/2 totals | First seed 12 new, second 0 without password; exact snapshots preserved; category 3/2/2/1/0 and technicians 3/2 | PASS | Normal runtime hasher; local DB; CLI math is not rendered report evidence |
+| B07 | Independent fresh SQLite reproducibility | Migrations/role bootstrap/seed/integrity work without original DB | New temporary file migrated; three groups/four IT permissions; seeded twice; constraints/system check passed; file removed | PASS | Not a complete fresh checkout/environment/browser setup |
+| B08 | Source/Git/link/secret hygiene | Guide/dependency pins unchanged; runtime DB/credentials ignored; docs links/whitespace valid | 45 source files checked; guide/config/pins unchanged; local links/Python syntax valid; runtime ignored; no literal credentials; diff whitespace clean | PASS | Final staged check repeated before commit |
+
+Initial results were not hidden: a first ad hoc migration wrapper omitted DJANGO_SETTINGS_MODULE and stopped before executing migrations; the corrected wrapper invoked manage.py properly and succeeded. The first 53-test run had one failure: optional non-null text could contain None because Django skips blank-enabled fields. Explicit model rejection fixed that defect; 53 tests passed on rerun, then two meaningful seed recovery cases were added and an interim 55-test run passed. No unexecuted UI check is marked PASS.
+
+Code review also reproduced a deletion bypass when a reserved Group's name was changed only in memory before delete. Its targeted regression initially failed. The pre-delete guard now checks the persisted database name; its regression brought the intermediate suite to 56 passing tests.
+
+The same review reproduced two unsaved-user-flag bypasses in role resolution and forward membership validation. Both targeted checks failed before fixes. Roles and membership guards now read current persisted flags, including stale deactivation and unsaved-user cases; that 58-test run passed. Admin superuser permissions also check persisted state, and valid multi-role superuser demotion reduces memberships before saving flags inside the existing admin transaction. The final suite has 60 passing tests; migration/system checks passed again. Smaller totals above describe intermediate results.
+
+Exact principal commands, all from helpdesk-pro with a private runtime DJANGO_SECRET_KEY:
+
+```sh
+.venv/bin/python -B manage.py makemigrations tickets
+.venv/bin/python -B manage.py migrate --noinput
+.venv/bin/python -B manage.py check
+.venv/bin/python -B manage.py test tickets.tests --verbosity 2
+.venv/bin/python -B manage.py test tickets.tests --verbosity 1
+.venv/bin/python -B manage.py makemigrations --check --dry-run
+.venv/bin/python -B manage.py migrate --check
+.venv/bin/python -B manage.py check --database default
+.venv/bin/python -B manage.py seed_demo
+.venv/bin/python -B manage.py seed_demo
+.venv/bin/python -m pip --no-cache-dir check
+```
+
+The subprocess commands above were launched by stdin Python wrappers that generated keys/passwords without printing them. The second real seed ran with DEMO_PASSWORD removed. An additional stdin harness pointed settings at a temporary fresh SQLite file before Django setup, invoked migrate/seed twice/check, asserted exact snapshots/groups/counts and removed the file. Root commands git diff --check and git diff --cached --check plus source/link/ignore assertions establish B08; full command/file detail is in CHECKPOINT_B_REPORT.md.
+
 ## Required final manual scenarios
 
 | ID | Scenario | Expected | Actual | Status | Notes |
@@ -54,10 +93,12 @@ The first relocated verification harness passed R02–R06, then failed an assert
 | M13 | Separate fresh checkout setup | Configure/install/migrate/seed twice/check/test/run succeeds | Not executed | NOT RUN | No dependency on original DB/environment |
 | M14 | Guide-ordered demonstration and student explanation | Workflow/failure/reports/relationships/value explained | Not executed | NOT RUN | Final submitted revision; duration confirmed |
 
-## Automated coverage to implement
+## Automated coverage delivered and remaining
 
 Authentication/no-role/conflicting-role/inactive/staff-only/superuser behavior; session-derived identity and field whitelists; object GET/POST restrictions; all transitions and terminal operations; reassignment/current-state checks; trimmed/choice/FK/name validations; inactive/invalid assignees; database state checks; PROTECT and retained dependencies; guarded admin/provisioning; search/order/pagination/malformed input; known aggregate/annotation and zero/multi-row results; seed idempotency/collisions/change/password preservation; fresh migrations and system checks. Use Django's test tools; no arbitrary coverage quota.
 
+B delivers 60 tests covering the database/auth/admin/seed portions of that list. Session-derived application identities, HTTP workflow/object/state transitions and list/report UI tests still require C/D/E implementation. The permission action matrix is tested now but does not substitute for future view/service enforcement.
+
 ## Current limitations
 
-Checkpoint A contains the foundation and design only. No custom schema, seeded accounts, application routes, business tests, browser workflow or full fresh-checkout verification exists yet. Instructor scope approval, access and presentation duration remain unconfirmed. No production deployment/concurrency assurance or grade guarantee is made.
+Checkpoint B delivers the custom schema, role/permission/account helpers, guarded admin, seeded local data and automated foundation tests. Application ticket/login/report frontend routes, workflow services/forms, real browser/mobile acceptance and full fresh-checkout verification remain pending. Instructor scope approval, access and presentation duration remain unconfirmed. Direct bulk ORM/raw SQL maintenance bypasses some validation/signals; supported admin and upcoming services enforce the approved boundary. No production concurrency assurance or grade guarantee is made.

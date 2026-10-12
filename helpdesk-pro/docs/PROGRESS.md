@@ -1,12 +1,12 @@
 # Checkpoint progress
 
-Last updated: 12 October 2026 (Asia/Riyadh). The user approved the architecture audit with eight amendments, including the original `helpdesk-pro/` application structure and Checkpoint A-only authorization. Each checkpoint delivers integrated work and then stops for review. Approximately 20 focused hours are estimated; actual completion speed is not guaranteed.
+Last updated: 12 October 2026 (Asia/Riyadh). The user reviewed/approved A and authorized B only, preserving all eight amendments and the `helpdesk-pro/` structure. B is complete; stop for explicit review/approval before C. Approximately 20 focused hours are estimated across two days; actual completion speed is not guaranteed.
 
 | Checkpoint | Estimate | Completion condition | Status |
 | --- | --- | --- | --- |
-| A: design/foundation | 1h | Approved amendments, ERD/contracts/wireframes, safe scaffold inside helpdesk-pro, compatibility before install, actual checks and coherent commit | Complete; awaiting explicit review/approval before B |
-| B: data/accounts | 2h | Models/constraints/migrations, guarded admin, roles/seed and integrity/provisioning tests | Awaiting A review |
-| C: support workflow | 4h | Complete persisted role journey, usable forms/pages and focused security/state tests | Not started |
+| A: design/foundation | 1h | Approved amendments, ERD/contracts/wireframes, safe scaffold inside helpdesk-pro, compatibility before install, actual checks and coherent commit | Reviewed/approved |
+| B: data/accounts | 2h | Models/constraints/migrations, guarded admin, roles/seed and integrity/provisioning tests | Complete; awaiting review/approval before C |
+| C: support workflow | 4h | Complete persisted role journey, usable forms/pages and focused security/state tests | Not started; requires approval |
 | D: CRUD/reports | 2h | Category CRUD, list queries/pagination, known aggregate/annotation counts | Not started |
 | E: reliability/UX | 3h | Complete important tests and mobile/accessibility/error-state verification | Not started |
 | F: final evidence | 2h | Final README/design/matrix/actual verification/demo documents | Not started |
@@ -28,10 +28,19 @@ Last updated: 12 October 2026 (Asia/Riyadh). The user approved the architecture 
 
 ## Remaining work and blockers
 
-- User review/approval of amended A before B. The validated structure milestone is committed with this record; Git history identifies its commit without a self-referential hash. Historical root checks remain separate from current verification.
-- B–G product features and their acceptance evidence remain to be implemented/verified.
+- User review/approval of B before C. The validated B milestone is committed with its report; Git history identifies its commit without a self-referential hash. Historical A checks remain separate from current verification.
+- C–G product features and their acceptance evidence remain to be implemented/verified.
 - External facts unresolved: instructor scope agreement, presentation duration, instructor repository access and available focused development hours. No claim of confirmation is made.
-- No deployment is required. Credentials/secret key are runtime-only; no seeded accounts exist yet.
+- No deployment is required. Credentials/secret key are runtime-only; the local ignored database now contains the five fictitious demo accounts. Verification used a generated undisclosed password; choose known local credentials with Django changepassword as documented.
+
+## Checkpoint B delivered and verified
+
+- Four final models with approved types/defaults/relationships/deletion rules; four database checks; trimmed meaningful text and business validation.
+- Generated/applied initial migration plus Django auth/admin/session migrations; schema matched to ERD and independently migrated into a fresh temporary SQLite file.
+- Three post-migration role groups, scoped-query/action/eligibility helpers, guarded built-in provisioning, auth mutation hooks and read-only ticket/comment admin. No custom user/profile/history/integration subsystem.
+- Deterministic, collision-safe transactional seed with runtime-only hashed credentials; initial 12/8/2/2 totals and category 3/2/2/1/0, technician 3/2 counts verified. Working and fresh SQLite databases seeded twice without resets.
+- 60 automated tests passed, including model/database/relationship/deletion/role/account/admin-HTTP/seed checks. The first 53-test run found the blank-enabled/null-text validation gap; it was fixed and verified before two recovery checks were added. Final review reproduced an unsaved Group-name deletion bypass; the guard now checks persisted identity and its regression passes in the final suite.
+- System/database checks, migration consistency and dependency checks passed. Final Git/link/secret hygiene is recorded in ACCEPTANCE_TESTS and CHECKPOINT_B_REPORT. No browser workflow/mobile acceptance or rendered ORM-feature evidence is claimed at B.
 
 ## Acceptance discipline
 

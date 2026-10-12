@@ -9,6 +9,8 @@ The Django application and its setup/design/evidence documents live in **`helpde
 - [Checkpoint progress](helpdesk-pro/docs/PROGRESS.md)
 - [Verification record](helpdesk-pro/docs/ACCEPTANCE_TESTS.md)
 
-Checkpoint A contains the design and Django foundation. The four custom models, migrations, seeded accounts and ticket features are later checkpoints and require their own verification. Checkpoint B will begin only after the user reviews and approves the amended Checkpoint A.
+Checkpoint B contains the verified four-model database, applied migrations, role/permission helpers, guarded Django administration, deterministic sample data and 60 passing automated tests. Application ticket workflows/pages and rendered reports remain later checkpoints. Checkpoint C will begin only after user review and explicit approval.
 
 Start setup from `helpdesk-pro/`, following its README. The repository-wide `.gitignore` excludes local environments, credentials, databases and generated assets. No credentials or real personal data belong in the submission.
+
+See the [Checkpoint B report](helpdesk-pro/docs/CHECKPOINT_B_REPORT.md) for file inventory, commands, actual results and remaining limitations.
