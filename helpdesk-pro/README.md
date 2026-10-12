@@ -2,7 +2,7 @@
 
 An internal Django IT support application for employees and a small IT team. It is designed to replace scattered email or spreadsheet requests with clear ownership, consistent status, retained discussion and visible backlog.
 
-**Current delivery: Checkpoint E — reliability, security and interface verification.** The full ticket/Category/query/report application is retained. Audit corrections isolate feedback across accounts, provide helpful 405 pages, improve technician names and requester display, and make long-text confirmations/tables usable at narrow widths. **149 Django tests and 39 real headless Chrome checks pass.** Schema/seed/dependencies and working demo records are unchanged. HD-10013's user-observed lifecycle remains separate from automation; human/device/accessibility and final readiness checks remain pending.
+**Current delivery: Checkpoint F — final documentation and demonstration preparation.** The complete ticket, category, query and reporting application was delivered through E. Its latest executed regression evidence is **149 passing Django tests and 39 real headless Chrome checks**. F changes documentation only. HD-10013's user-observed lifecycle remains separate from automation; outstanding human acceptance, a full fresh checkout and student rehearsal are pending. Checkpoint G requires explicit approval; final submission readiness is not yet established.
 
 ## Final project structure
 
@@ -24,6 +24,7 @@ repository-root/
     templates/       # inherited login, workflow and error pages
     static/css/style.css
     docs/            # design, ERD, wireframes, evidence, progress and demo script
+    scripts/         # optional isolated Chrome verification, no app dependency
     .venv/           # local only; ignored and recreated at this location
 ```
 
@@ -34,6 +35,8 @@ The `tickets` package contains models, shared roles/account guards/permissions, 
 Employees submit and follow their requests; IT Admin assigns and prioritizes work; technicians start, discuss and resolve assigned requests. Tickets are retained through cancellation. Administrators manage categories and inspect backlog by category and technician. Departments are selected per issue.
 
 The proposed organizational value is less ambiguity over responsibility and unresolved requests. Those benefits are hypotheses, not measured customer results; no market study or paying-customer claim is made. An organization could adopt the tool internally. No commercial launch or deployment is part of this capstone. The final product retains discussion and outcomes, not a complete status/assignment audit log.
+
+The target is a small organization's employees, its technicians and the person coordinating IT support. Compared with email/shared spreadsheets, each request has one persisted owner, controlled lifecycle, related discussion and live workload counts. A realistic adoption model is a pilot within one IT team: a setup administrator provisions roles/departments/categories, employees submit requests and IT Admin assigns work. Staff could then review whether ownership and backlog visibility help them before any wider rollout. This is an adoption proposal, not a deployed pilot or validated demand. Executed workflows and reports demonstrate feasibility; they do not measure time savings or user satisfaction.
 
 No API, file uploads, email notifications, AI, external services, multi-tenancy, SLA scheduling, Docker, payments or charts library is included. Authentication, role/object access, CRUD, search, ordering, reporting, validation, documentation and verification are required final features.
 
@@ -46,11 +49,11 @@ No API, file uploads, email notifications, AI, external services, multi-tenancy,
 
 `requirements.txt` pins the installed dependencies. Use Python 3.14 for a matching environment. The application uses SQLite and local assets; no third-party service is needed.
 
-Compatibility was checked **before installation into this application environment**: official Django documentation supports Python 3.14 from 5.2.8, and its supported-release table lists Django 5.2.18 LTS with extended support through April 2028. The pinned Django/asgiref/sqlparse package metadata permits Python >=3.10. Runtime/dependency checks are recorded separately from these compatibility facts. [Python support](https://docs.djangoproject.com/en/5.2/releases/5.2/), [supported releases](https://www.djangoproject.com/download/).
+Compatibility was checked **before installation into this application environment** in A: official Django documentation supports Python 3.14 from 5.2.8, and the supported-release table at that verification listed Django 5.2.18 LTS with extended support through April 2028. The pinned Django/asgiref/sqlparse package metadata permits Python >=3.10. These are recorded compatibility checks, not a claim that this pin is the latest available patch. [Python support](https://docs.djangoproject.com/en/5.2/releases/5.2/), [supported releases](https://www.djangoproject.com/download/).
 
-## Foundation setup
+## Installation and configuration
 
-From the repository root on macOS/Linux:
+Start from a checkout of this repository, not a copy of the local database or virtual environment. On macOS/Linux, ensure `python3 --version` reports the verified Python 3.14.7 (or select that installed interpreter explicitly). These commands use a bash/zsh shell; no application packages need to be installed globally.
 
 ```sh
 cd helpdesk-pro
@@ -63,7 +66,7 @@ python manage.py check
 
 Generate your own key; the command captures it into the environment rather than displaying it. Never put the actual key in a commit, screenshot or shared command log. A new shell needs the environment variable again. `.env.example` documents the variable names only; the application does not load `.env` files automatically.
 
-If you are already inside `helpdesk-pro/`, omit the first `cd`. Recreate the environment at this path instead of moving an old `.venv`, because activation scripts and executable paths depend on its location. The ignored root environment from the earlier foundation is no longer used; it is not part of the submitted source.
+If you are already inside `helpdesk-pro/`, omit the first `cd`. Recreate the environment at this path instead of moving an old `.venv`, because activation scripts and executable paths depend on its location. A complete fresh-checkout/environment execution remains the G readiness check; earlier temporary-database checks and E's test database are evidence for migrations/seed, not that full installation.
 
 | Variable | Behavior |
 | --- | --- |
@@ -74,7 +77,7 @@ If you are already inside `helpdesk-pro/`, omit the first `cd`. Recreate the env
 
 ## Database, sample accounts and tests
 
-After the foundation setup above, from `helpdesk-pro/` with the virtual environment active and runtime secret key set:
+After installation above, from `helpdesk-pro/` with the virtual environment active and runtime secret key set:
 
 ```sh
 python manage.py migrate --noinput
@@ -83,6 +86,9 @@ read -rs DEMO_PASSWORD
 export DEMO_PASSWORD
 python manage.py seed_demo
 unset DEMO_PASSWORD
+# Repeat without a password: recognized records and credentials are preserved.
+python manage.py seed_demo
+python -m pip check
 python manage.py check --database default
 python manage.py makemigrations --check --dry-run
 python manage.py migrate --check
@@ -121,18 +127,33 @@ Missing/out-of-scope tickets return safe 404; forbidden role/action 403; stale/t
 
 Login/logout use small Django-view subclasses to clear previous-account feedback, including the existing admin logout URL; authentication, CSRF, sessions and safe redirects remain Django's responsibility. Authenticated application pages use no-store/private cache headers. Method failures retain 405/Allow with navigation guidance. Assignment choices show Full Name (username), falling back to username; IDs/eligibility are unchanged. Queues display requester/assignee consistently. Mobile tables scroll locally with a hint/focus; valid long names/titles wrap in confirmations.
 
+## Database design
+
+Four custom models use integer BigAutoField keys. Department has a required unique name; Category has a required unique name and optional description. Ticket holds the issue, priority/state, requesting department/category/requester, optional assignee and timestamps/resolution. TicketComment holds immutable discussion with an author and timestamp. Name uniqueness is case-sensitive; meaningful required text is trimmed. User and Group are Django's built-in models, with exactly one application role per regular account.
+
+| Foreign key | Required? | Deletion behavior |
+| --- | --- | --- |
+| Ticket → Category / Department / requester User | Yes, each | PROTECT |
+| Ticket → assignee User | No | PROTECT |
+| TicketComment → Ticket | Yes | CASCADE |
+| TicketComment → author User | Yes | PROTECT |
+
+Each parent has zero or more children; each child has one parent except the optional ticket assignee. There is no User–Department relationship: the department is selected for each issue. Database checks constrain allowed priority/status, assignment by state and resolution note/timestamp pairing. Model validation enforces meaningful text; services enforce actor, current state and terminal rules. `full_clean()` is explicit because `save()` does not invoke it. PROTECT retains referenced records; cancellation provides safe ticket retirement. CASCADE describes privileged physical deletion, which the supported application/admin ticket interfaces prohibit. See the [matching ERD](docs/ERD.md) and [business-rule design](docs/DESIGN.md).
+
 ## Search, pagination and reports
 
 Ticket filters are optional: q (case-insensitive title/description search, maximum 200 characters), status, priority and category. Valid filters combine with AND; category filtering traverses category__name using the selected category. Order choices are newest, oldest, priority (High → Medium → Low) and recently updated, with ID/time tie-breakers. Invalid fields are ignored independently with visible errors; ambiguous repeated filters are ignored; unexpected keys never enter the queries or pagination links. Valid selections are retained across ten-ticket pages. Missing/nonnumeric/negative/zero/repeated page values select the first page; positive out-of-range numbers select the last.
 
 Dashboard cards and five-status breakdown share one scoped aggregate query and show zeros for absent states. Only IT Admin sees every-category active-ticket annotations and eligible-technician active-assignment annotations, including zero rows. Active always means New + Assigned + In progress. Category backlog helps identify issue areas needing attention; workload supports assignment decisions and measures assigned work, not actual availability. Independent queries and distinct counts prevent relationship-based inflation. Employees see own metrics; technicians see assigned metrics.
 
+In [queries.py](tickets/queries.py), `ticket_summary()` uses `aggregate()` to return one set of queryset totals. `category_backlog()` and `technician_workload()` use `annotate()` to attach a filtered `Count(..., distinct=True)` to each category/eligible technician. They are rendered by the [dashboard](templates/tickets/dashboard.html) and [category table](templates/tickets/includes/category_report_table.html); [report tests](tickets/tests/test_reports.py) verify known values, zero/empty datasets, role scope and multiple related comments/groups. Search uses Q objects for title OR description, ANDs the other filters and traverses `category__name` for explicit related-model filtering.
+
 The pristine seed has 12/8/2/2 total/active/resolved/cancelled. The local database now includes user-created resolved HD-10013; read-only verification found **13/8/3/2**, with status counts 3/3/2/3/2. Reports calculate current persisted values, never seed constants. Repeated seed preserves edits and does not reset the database.
 
 ## Design and evidence
 
 - [Approved architecture, role matrix and URL contracts](docs/DESIGN.md)
-- [Target ERD](docs/ERD.md)
+- [Implemented ERD](docs/ERD.md)
 - [Wireframes](docs/WIREFRAMES.md)
 - [Rubric and working-evidence matrix](docs/REQUIREMENTS_MATRIX.md)
 - [Verification record](docs/ACCEPTANCE_TESTS.md)
@@ -144,12 +165,15 @@ The pristine seed has 12/8/2/2 total/active/resolved/cancelled. The local databa
 - [Checkpoint D file/command/result report](docs/CHECKPOINT_D_REPORT.md)
 - [Checkpoint E audit/file/command/result report](docs/CHECKPOINT_E_REPORT.md)
 - [Remaining human acceptance instructions](docs/MANUAL_BROWSER_CHECKS.md)
+- [Consolidated evidence and its limits](docs/EVIDENCE_INDEX.md)
+- [Actionable submission checklist](docs/SUBMISSION_CHECKLIST.md)
+- [Checkpoint F documentation delivery report](docs/CHECKPOINT_F_REPORT.md)
 
 ## Known issues and verification limits
 
 No unresolved functional defect is known from the executed E checks. Remaining grading evidence includes human review of HD-10013's final detail/thread/controls, full keyboard-only usability, 200% zoom, screen-reader behavior, physical mobile/other browsers, guarded-admin human checks, full fresh checkout and student demonstration. Automated Chrome covered fixed desktop/mobile viewports, basic key actions and selected computed contrast rules; it is not WCAG certification. M01 remains partial user-observed and M02–M14 manual checks remain unexecuted.
 
-SQLite transactions preserve validated writes but do not provide enterprise concurrent-write guarantees. Privileged bulk ORM/raw SQL may bypass application validation and is outside supported UI writes. Instructor scope/access/duration remain unconfirmed. F/G require explicit approval; E does not claim final submission readiness or a guaranteed score.
+SQLite transactions preserve validated writes but do not provide enterprise concurrent-write guarantees. Privileged bulk ORM/raw SQL may bypass application validation and is outside supported UI writes. Instructor scope/access/duration remain unconfirmed. G requires explicit approval; F prepares the documents and demonstration without claiming final submission readiness or a guaranteed score.
 
 The [official guide](../CapstoneProjectGuide.pdf) is primary. The [root specification](../HELPDESK_PRO_CODEX_SPEC_FINAL.md), audit corrections and eight user amendments describe the agreed design; evidence documents distinguish planned checks from executed results. Instructor scope approval, presentation duration and instructor repository access have not been independently confirmed.
 

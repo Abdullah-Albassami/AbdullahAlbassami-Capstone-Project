@@ -1,55 +1,78 @@
-# Demonstration and individual technical rehearsal
+# Demonstration and individual technical discussion
 
-**A–E functionality/audit is verified; final documentation/readiness/rehearsal still awaits F/G.** The user-observed HD-10013 lifecycle is preserved. E additionally executed 39 real Chrome checks on isolated fixtures (page/viewport/contrast/basic keyboard, workflows and guarded admin); this is distinct from human acceptance and rehearsal. Confirm instructor duration/scope, use fictional data, keep credentials out of slides/repository and demonstrate the submitted revision.
+Prepared in F; **not an executed rehearsal**. Follow the [official guide](../../CapstoneProjectGuide.pdf), p.5, in the six-step order below. Instructor duration/slot remain unconfirmed; adjust pacing after confirmation, preserving order. G setup/acceptance and the student's M14 rehearsal are still open. Use the exact submitted revision, fictional data and private credentials; do not expose passwords, keys or session tokens in the presentation.
 
-## Guide-prescribed order
+## Preparation before the presentation
 
-1. **Users, problem and supporting context.** Introduce employees and a small IT team. Explain fragmented email/spreadsheet requests and unclear responsibility. Describe only authentic observations; label demand and efficiency benefits as unvalidated assumptions.
-2. **Value and main workflow.** Employee1 submits an issue with category/requesting department/priority; shows persisted New reference in My Tickets. IT Admin assigns Technician1. Technician1 shows Assigned to Me, starts work, adds a comment and resolves with a meaningful note. Employee1 reads the saved outcome. Prefer separate browser sessions or explicit POST sign-out/sign-in.
-3. **Validation/failure.** Attempt a blank required field or missing resolution note and show feedback/no invalid save. Show employee2 cannot retrieve employee1's new demonstration ticket, including a forged direct URL.
-4. **Useful reports.** IT Admin displays total/active/resolved/cancelled aggregate cards, five-status breakdown, annotated category backlog and technician workload. Explain active New/Assigned/In Progress and how the demonstrated workflow changes counts. Show the unused category with zero; explain zero technician coverage in tests.
-5. **Relationships and one technical decision.** Present the matching ERD. Explain requesting department belongs to the issue; requester/assignee have different User reverse relationships; category PROTECT versus ticket-comment CASCADE. Explain cancellation and read-only terminal records or the shared service authorization boundary.
-6. **Market potential, limitations and next improvement.** Internal adoption without a commercial launch; clear ownership/backlog compared with email/spreadsheets. Local capstone scope excludes deployment/integrations and complete event history. A next practical improvement, after feedback, could be verified email notifications.
+Follow the [submission checklist](SUBMISSION_CHECKLIST.md). Start the server using [README](../README.md) commands only after private configuration is set. Have employee1, technician1 and itadmin credentials ready privately; use separate browser profiles or the application's POST Sign out between roles. Keep the ERD, queries.py, services.py and acceptance record available for discussion.
 
-## Reproducibility contract
+Record the actual starting dashboard counts and ticket reference created during rehearsal. The pristine seed has **12/8/2/2** total/active/resolved/cancelled; the preserved working data, including already-resolved HD-10013, has **13/8/3/2** at F. Re-seeding preserves changes/passwords and does not reset counts. Never reset the working database to obtain the pristine figures. A separate fresh setup belongs to G, not F.
 
-Final README must supply exact setup/configuration/migrations/seed/run/test instructions. Runtime demo password config creates employee1/employee2/technician1/technician2/itadmin without repository credentials. Seed initially supplies ticket IDs 10001–10012: total 12, active 8, resolved 2, cancelled 2; category active counts 3/2/2/1/0; technicians 3/2. Re-seeding preserves changes/passwords and is not a reset. A pristine demo requires a separate fresh local database configured through the documented setup, never a destructive reset of someone's working data.
+HD-10013's user-reported UC01–UC07 cover create/comment/assignment/start/resolve and employee dashboard Resolved. Its final employee detail/thread/controls remain unreported. It is already terminal: read it without changes; create a different fictional request for a live transition demonstration.
 
-Record the actual final demo ticket reference and submitted commit before rehearsal. Show category CRUD/cancellation separately when time permits; those are mandatory acceptance checks even if not all are narrated in the concise primary presentation.
+## 1. Target audience, problem and supporting evidence
 
-The user-created **HD-10013 is already resolved**. Read-only verification of the current local data shows total 13, active 8, resolved 3, cancelled 2; statuses New 3 / Assigned 3 / In progress 2 / Resolved 3 / Cancelled 2. Category backlog remains 3/2/2/1/0 and active technician workload 3/2. These are observed local values at D, not constants: future valid actions change them. Never reseed/reset to force old counts. Use a pristine separate setup for the initial 12-ticket demonstration if needed.
+Say: “HelpDesk Pro serves employees and a small IT team. Requests spread across email or spreadsheets can make ownership and unresolved work hard to follow. This application gives each request a persisted record, owner, controlled status and discussion.”
 
-## Checkpoint C walkthrough available for review
+Separate evidence from assumptions: the working persisted workflows, tests and user-observed HD-10013 establish technical feasibility. There is no documented market study, measured time saving, paying customer or validated demand. Add an authentic personal/user observation only if the student can substantiate it; do not invent one. Explain why this scope fits an individual Django capstone.
 
-Start the server using README instructions. Sign in at `/accounts/login/` as employee1 using your private runtime credential. Submit at `/tickets/new/`, optionally edit and comment while New, then use navigation's POST Sign out. Sign in as itadmin, open the saved ticket from All tickets and assign technician1. Sign out/in as technician1, open Assigned tickets, start progress, comment and supply a resolution note. Sign out/in as employee1 and read the retained resolution/discussion. A separate own New ticket can be cancelled from its confirmation page. This walkthrough is available to execute; it is not marked as a completed manual acceptance check.
+## 2. Product value and complete ticket workflow
 
-The reported HD-10013 journey covers employee login/create/comment, admin assignment, technician login/visibility/start/resolve and employee dashboard Resolved. Those user-observed steps are recorded as UC01–UC07. Final read-only controls and employee outcome/thread detail were not explicitly observed; do not treat them as completed manual checks.
+1. As employee1, use **Submit ticket** at `/tickets/new/`. Example: “Finance printer unavailable”, meaningful impact description, Hardware, Finance, High. Save and record the new reference. Show New status, requester and saved related fields. Edit the description while still New; add a comment if useful.
+2. Sign out via the page form; sign in as itadmin. Open All tickets and the new reference. Select **Lina Demo (technician1)** and assign. Show Assigned and technician ownership.
+3. Sign out/in as technician1. Open Assigned tickets, find that reference, start work, add a fictional troubleshooting comment and resolve with a meaningful outcome note. Show In progress before resolving and Resolved afterward.
+4. Sign out/in as employee1. Open the final detail: retained resolution note/date/discussion, no edit/cancel/assignment/start/resolve/comment controls. Refresh to show persisted data.
 
-## Checkpoint D walkthrough available for review
+Explain the value: clear ownership, consistent state and visible discussion. This is the complete primary journey; Category CRUD and cancellation are also implemented and must have acceptance evidence, even if presentation time does not permit every action.
 
-As IT Admin, create a category from Categories, open its detail, edit it and delete it through confirmation while unused. Attempt to delete Hardware to see the protected-reference explanation. Dashboard shows four aggregate cards, all five statuses, category backlog and eligible technician workload; explain zero rows and the difference between assignments and availability.
+## 3. Server validation or rejected action
 
-On Tickets, search a known phrase in title/description, combine category/status/priority, and select Priority: high to low. Try a no-match query and a malformed status in the URL. Verify valid parameters remain across Next/Previous pages (at least 11 matching records are needed). Sign in as employee/technician to confirm own/assigned totals and category URL denial. This is a review script, not a recorded browser PASS. Tests cover these cases with controlled fixtures even when the working dataset has too few matching records for a particular pagination demo.
+As employee1, open Submit ticket, choose valid related fields and enter **spaces only** for title/description. Submit; show bound server-side errors and that no ticket was saved. Spaces bypass simple browser required-field checks and exercise server validation. Return without saving.
 
-## Personal technical discussion
+If time permits, employee2's direct URL to employee1's demonstration ticket returns safe 404; opening a POST-only start URL with GET returns helpful 405. Do not represent clicking a forbidden GET as proof of a forged POST: the automated suite supplies separate HTTP-attack evidence.
 
-- Trace a ticket creation request: named URL → login/role guard → explicit ModelForm → actor-aware service → validated database record → redirect/detail template.
-- Explain why save alone does not validate the entire model, and why request-derived requester/author are excluded from form fields.
-- Explain database allowed-value/state checks versus service actor/previous-state checks.
-- Explain Employee/Technician/IT Admin groups, exactly-one-role rule, and why is_staff is separate.
-- Explain how per-user querysets prevent leaks in lists, detail, search and dashboard.
-- Show aggregate versus annotate, active status definition and one fixture arithmetic example. Explain join inflation/zero rows.
-- Explain a Django migration and prove setup without the original machine's database/configuration.
-- Explain honest limitations and significant Codex/resource assistance. The student must understand the actual implementation, not memorize claims about planned code.
+## 4. Aggregation and annotation reporting
 
-For remaining human review follow [MANUAL_BROWSER_CHECKS](MANUAL_BROWSER_CHECKS.md), particularly HD-10013's retained outcome/controls, full keyboard/zoom/device accessibility and guarded admin. Technician options now show Lina Demo (technician1); describe why only the label changes while IDs/eligibility remain server-enforced. E also isolates notifications across login/logout; request-method failures keep 405/Allow and provide navigation. Do not claim human checks or fresh-checkout rehearsal from the automated Chrome evidence.
+As itadmin, show `/` dashboard: Total, Active, Resolved, Cancelled and all five status counts. Active = New + Assigned + In progress. Explain `queries.ticket_summary()` uses **aggregate** to return one set of queryset totals, scoped to the actor.
 
-## Final readiness checklist
+Show Category backlog and Technician workload. `category_backlog()` and `technician_workload()` use **annotate** to add an active-ticket count to each category/eligible technician. Hardware/Software/Network/Accounts/Unused are **3/2/2/1/0** in the original seed; technician1/technician2 active assignments are **3/2**. Unused remains visible with zero. Zero-workload technician and completely empty datasets are covered by ReportingTests; do not claim the pristine UI contains a third technician.
 
-- [ ] All required manual checks executed with actual outcomes; important automated tests passed.
-- [ ] ERD matches final models/migrations and requirement matrix references actual UI/code/checks.
-- [ ] Fresh checkout verified and instructions reflect commands actually run.
-- [ ] Instructor repository access and presentation duration confirmed.
-- [ ] Repository contains no credentials/private data/unused files.
-- [ ] Demo revision matches submitted commit; core workflow rechecked.
-- [ ] Student rehearsed request/relationship/validation/query explanations.
+For the single new journey above, total and resolved each increase by one after completion; active/category/technician active counts return to their prior baseline. For example, **13/8/3/2 → 14/8/4/2** is the expected change if no other actions occur, not a recorded F result. During assignment, that category/technician count temporarily rises. Explain why active category counts sum to 8 while technician workload sums to 5 in the pristine data: three New requests are unassigned. Use actual current values if other checks have changed data.
+
+Category backlog helps prioritize issue areas; workload helps choose an assignee and measures assignments rather than real-time availability. Separate queries/filtered distinct Count avoid multiplied counts from several related comments/groups. Show `/categories/` and the related View tickets link if useful.
+
+## 5. Relationships and an important technical decision
+
+Show the [ERD](ERD.md): each Ticket has one Category, one requesting Department and one requester; optional one assignee; zero or more comments, each with one author. Built-in User–Group membership supplies roles; no profile/custom membership model is needed. Requesting Department belongs to the issue, so it is not copied from a user profile.
+
+Explain **PROTECT** for category/department/requester/assignee/comment author: referenced parents cannot be deleted, including historical tickets. **CASCADE** applies to comments if a ticket is physically removed through privileged maintenance; the application/admin prohibit ticket deletion. Cancellation preserves the ticket, assignee and thread while making it terminal.
+
+Choose one key decision: the shared atomic workflow service re-fetches current scope/state and authorizes the actor before validating/saving. Views bind explicit forms; client fields cannot choose requester/author/status. Database checks add allowed-value/state protection; they cannot implement actor or transition-history authorization. SQLite transactions are used, without claiming row locking or enterprise concurrency guarantees.
+
+## 6. Market potential, limitations and next improvement
+
+Describe a realistic internal adoption proposal: one IT team provisions roles/departments/categories, pilots requests and reviews whether ownership/backlog visibility helps before wider use. Compared with email/spreadsheets, the product integrates assignment, controlled outcomes, discussion and reports. Benefits remain hypotheses until user feedback or measurement; no commercial launch is required by the guide.
+
+State delivered limits: local SQLite capstone, no deployment/notifications/uploads/API/integrations, retained outcomes rather than a complete event audit log. Human acceptance/accessibility, full fresh checkout, instructor access and student rehearsal remain open until actually completed. A next practical improvement after feedback could be tested email notifications; it is outside the delivered scope.
+
+## Request trace to explain personally
+
+**Create POST:** [tickets/urls.py](../tickets/urls.py) `tickets:ticket_create` (`/tickets/new/`) → [views.py](../tickets/views.py) `application_view` login/current-role/method boundary and `ticket_create` → [forms.py](../tickets/forms.py) `TicketForm` validates its five allowed fields → [services.py](../tickets/services.py) `create_ticket` requires Employee/IT Admin, derives requester from actor, calls `apply_business_fields` and `save_validated` → [models.py](../tickets/models.py) `Ticket.full_clean()` plus database constraints, then INSERT → redirect to `tickets:ticket_detail` → fresh scoped `get_visible_ticket` SELECT/related retrieval → [ticket_detail.html](../templates/tickets/ticket_detail.html), inherited [base.html](../templates/base.html) and permission-controlled forms. Invalid input renders [ticket_form.html](../templates/tickets/ticket_form.html) with errors and no INSERT.
+
+**Filtered GET:** `/tickets/?q=printer&category=1201&order=priority` → `tickets:ticket_list` → `views.ticket_list` → [queries.py](../tickets/queries.py) `ticket_list_page`: authorized `visible_tickets`, validated parameters, Q title OR description, category__name relation, Case priority rank, stable order and ten/page → [ticket_list.html](../templates/tickets/ticket_list.html) and shared [ticket table](../templates/tickets/includes/ticket_table.html). User scope is applied before searching/counting/paging.
+
+## Likely instructor questions
+
+| Question | Concise answer with implementation evidence |
+| --- | --- |
+| Where is CRUD? Why cancel instead of delete? | Ticket create/detail/edit/cancel through services and forms; Category full create/list/detail/edit/delete. Cancellation is safe retirement retaining dependencies; terminal records are read-only. `test_cancellation_preserves_assignment_thread_and_ticket` and CategoryTests verify it. |
+| Which relationships and deletion behaviors matter? | Six custom FKs: five PROTECT, TicketComment.ticket CASCADE. A ticket assignee is nullable; all other FKs required. PROTECT keeps referenced historical data. `test_protected_deletion_all_five_parent_references` and schema test in ModelTests cover choices. |
+| How do constraints differ from validation? | Four DB checks enforce status, priority, assignment/state and resolution pairing even without full_clean. Trim/meaningful text and actor/current-state rules require model/services. save alone does not invoke full_clean; supported services explicitly do. |
+| How are authentication and authorization enforced? | Django authenticates/hashes/sessions; shared helpers read current persisted roles/flags. Employee own, Technician assigned, IT Admin all; no/conflicting role fails closed. is_staff alone grants no app role. Service authorization is repeated after state retrieval, and CSRF/POST protect mutations. |
+| What prevents forged identity/terminal changes or invalid technicians? | Five business fields only; session requester/author; server status/timestamps. Active single-role non-superuser technicians only; target/state rechecked in services. Terminal UI/services/model validation and read-only admin prevent supported edits. Account guards require reassignment before ineligibility. |
+| What are Q objects and relationship queries used for? | Q title OR description search, AND status/priority/category. `category__name` traverses a FK; select_related retrieves requester/assignee/category/department and comment authors. Ordering is whitelisted with explicit High→Medium→Low ranking and stable tie-breakers. |
+| Aggregate versus annotate? How are counts correct? | Aggregate returns one scoped summary; annotate adds per-row counts. Active is three states; zero rows retained. Separate report queries/filtered distinct counts avoid join inflation. ReportingTests verify seed totals, zero/empty/multiple groups/comments and workflow changes. |
+| How was it tested and reproduced? | E: 149 Django methods, fresh migrated test DB; 39 real Chrome checks on isolated normal-hasher/CSRF fixtures. User UC01–UC07 separate; M01 partial/M02–M14 unrun. README pins/config/migrations/seed; full fresh-checkout environment belongs to G and cannot yet be claimed passed. |
+| What assistance was used and what can the student explain? | README acknowledges significant Codex assistance and official Django/CDP/W3C resources. The student must review/adapt/understand the actual source and demonstrate these traces/calculations personally; generated preparation does not prove understanding. |
+
+Use [MANUAL_BROWSER_CHECKS](MANUAL_BROWSER_CHECKS.md) for remaining acceptance actions and [SUBMISSION_CHECKLIST](SUBMISSION_CHECKLIST.md) for final revision/access. M14 remains **NOT RUN** until the student actually rehearses, records the reference/baseline/duration/outcome and can answer the questions above.

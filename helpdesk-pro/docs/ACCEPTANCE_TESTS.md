@@ -1,6 +1,6 @@
 # Verification record
 
-Only executed or explicitly user-observed checks may be marked PASS, with their source named. NOT RUN means planned/unobserved. Command-level HTTP/template checks are not real browser walkthroughs. Historical A–C results remain separate from D checks and user-observed evidence.
+Only executed or explicitly user-observed checks may be marked PASS, with their source named. NOT RUN means planned/unobserved. Command-level HTTP/template checks are not real browser walkthroughs. Historical A–E records remain separate from F's documentation audit; [EVIDENCE_INDEX](EVIDENCE_INDEX.md) consolidates evidence without rewriting its provenance.
 
 ## Historical Checkpoint A checks before the structure amendment
 
@@ -177,6 +177,20 @@ HELPDESK_BROWSER_EVIDENCE=/private/tmp/helpdesk-e-evidence node helpdesk-pro/scr
 
 It creates a new temporary database/Chrome profile and a browser-only setup superuser, serves loopback, exercises the real app, retains images/result JSON and removes server/database/profile. A separate read-only SQL snapshot comparison included Department/Category/Ticket/Comment/User/membership/Group/GroupPermission values, revealing no change to the working records. This is not Checkpoint G fresh-checkout evidence. Model/migration/ERD and pins remain unchanged.
 
+## Checkpoint F documentation verification
+
+Executed 13 October 2026 (Asia/Riyadh), documentation only. A–E are reviewed/approved; G is not started. Existing automated evidence is preserved, not reported as a new run. All historical checkpoint reports and UC01–UC07/manual scenario entries remain unchanged.
+
+| ID | Scenario | Expected | Actual | Status | Notes |
+| --- | --- | --- | --- | --- | --- |
+| F01 | Official grading/design/source audit | Every normative guide requirement and all 100 marks map to actual features/source/evidence/gaps | All six guide pages re-read; eight criteria total 100; 14 source-linked feature entries plus exhaustive guide mapping; ERD/role/lifecycle/wireframes reviewed and README/demo/checklist finalized | PASS (document audit) | No market research, manual acceptance or final-readiness result invented |
+| F02 | Latest evidence remains applicable | E source/artifacts unchanged; historical/user/manual provenance preserved | 66 non-Markdown tracked files byte-identical to E, A–E reports and UC/M sections unchanged; AST confirms 149 methods and documented symbols; JSON validates 34 page + 5 other checks, final Chrome 155.0.8059.40 | PASS (retained evidence audit) | 149-test/39-browser results are E executions, not new F runs |
+| F03 | Current configuration/dependency/schema consistency | Documented versions/pins match; no check/drift/pending/dependency issues | Python 3.14.7/Django 5.2.18/asgiref 3.12.1/sqlparse 0.6.0/SQLite 3.53.4; check --database default zero issues, makemigrations no changes, migrate --check exit 0, pip check clean | PASS | Private runtime key; no install/migration application/seed/fresh checkout |
+| F04 | Markdown/path/setup/rubric/Git hygiene | Links and commands resolve, intended docs only, no tracked runtime files | 85 repository files/19 Markdown documents; 207 local links/targets/fragments valid; 8 shell blocks parse in bash/zsh; 15 app routes and 3 auth/admin logout reversals correct; eight criteria total 100 and 14 feature entries; 11 modified/3 created Markdown only; ignore rules and diff whitespace clean | PASS (document/command audit) | Shell parsing/source consistency is not clean-checkout execution; final staged paths/whitespace reviewed before commit |
+| F05 | Working database and HD-10013 preservation | Existing app/user/role records and file bytes untouched | Eight-table logical digest matches E; 13 tickets/5 comments/5 users retained; HD-10013 resolved with requester 9001/assignee 9003/note/timestamp; PRAGMA integrity ok, foreign_key_check empty; DB bytes unchanged before/after F checks | PASS (read-only) | No login/seed/reset or saved mutation; counts remain 13/8/3/2 |
+
+Commands and full inventory: [CHECKPOINT_F_REPORT](CHECKPOINT_F_REPORT.md). [EVIDENCE_INDEX](EVIDENCE_INDEX.md) consolidates historical totals/commands/limits; [SUBMISSION_CHECKLIST](SUBMISSION_CHECKLIST.md) lists unresolved human, G and external actions. Writing the six-step demo/Q&A is preparation, not M14 rehearsal.
+
 ## Required final manual scenarios
 
 | ID | Scenario | Expected | Actual | Status | Notes |
@@ -204,4 +218,4 @@ B delivered 60 tests; C added 41 and D added 32. E adds 16 ReliabilityTests (149
 
 ## Current limitations
 
-E fixes verified defects and adds real Chrome workflow/terminal/admin/page/viewport/basic-key/contrast evidence. UC01–UC07 remain user-observed; M01 remains partial for local final detail/thread, M02–M14 human checks remain NOT RUN. Follow MANUAL_BROWSER_CHECKS for full human keyboard/zoom/screen-reader/device/other-browser/admin review. Fresh checkout, final documents/rehearsal and instructor facts remain F/G work after approval. No unresolved defect is known from the executed checks. Privileged bulk/raw SQL and SQLite concurrent-write limits remain documented; no certification or grade guarantee is claimed.
+E fixes verified defects and adds real Chrome workflow/terminal/admin/page/viewport/basic-key/contrast evidence. UC01–UC07 remain user-observed; M01 remains partial for local final detail/thread, M02–M14 human checks remain NOT RUN. Follow MANUAL_BROWSER_CHECKS for full human keyboard/zoom/screen-reader/device/other-browser/admin review. F finalizes documents and prepares the demo; fresh checkout, actual student rehearsal and instructor facts remain outstanding, with G requiring approval. No unresolved defect is known from the executed checks. Privileged bulk/raw SQL and SQLite concurrent-write limits remain documented; no certification or grade guarantee is claimed.

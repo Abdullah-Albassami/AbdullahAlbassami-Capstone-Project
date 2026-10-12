@@ -1,6 +1,6 @@
 # Approved architecture and implementation contracts
 
-Approved by the user's implementation request and amendments. As of 13 October 2026 (Asia/Riyadh), A–D are reviewed/approved; E audit/corrections are verified, stopped before F/G pending explicit approval. The guide remains primary. The four-model schema/workflow/query contracts are unchanged. HD-10013's user-observed lifecycle is preserved; automated Chrome coverage and remaining human/readiness evidence are separately recorded. Instructor agreement remains unverified.
+Approved by the user's implementation request and amendments. As of 13 October 2026 (Asia/Riyadh), A–E are reviewed/approved; F finalizes documentation only. The guide remains primary. The four-model schema/workflow/query contracts are unchanged. HD-10013's user-observed lifecycle is preserved; automated Chrome coverage and remaining human/readiness evidence are separately recorded. Instructor agreement remains unverified; G requires separate approval.
 
 ## Structure and responsibilities
 
@@ -8,7 +8,7 @@ Project inside `helpdesk-pro/`; source guide/specification remain at repository 
 
 Before new dependency installation verify official Django/Python compatibility and actual package metadata, then pin installed/verified dependencies. Recreate the local `.venv` inside `helpdesk-pro/`; do not relocate virtual environments. Settings derive database/template/static paths from the application directory rather than the shell working directory.
 
-Views handle HTTP, bind explicit forms, use scoped retrieval and render/redirect. `permissions.py` resolves roles, visibility and action permissions. Mandatory `services.py` owns ticket mutations and rechecks current state/actor/target; `queries.py` may hold reporting/list queries when reuse improves readability. No repository layer, generic workflow engine, signals for ordinary ticket actions, or custom user model.
+Views handle HTTP, bind explicit forms, use scoped retrieval and render/redirect. [permissions.py](../tickets/permissions.py) resolves roles, visibility and action permissions. Mandatory [services.py](../tickets/services.py) owns ticket/category mutations and rechecks current state/actor/target; [queries.py](../tickets/queries.py) implements the scoped list and integrated reports. No repository layer, generic workflow engine, signals for ordinary ticket actions, or custom user model.
 
 Preserve final-first development: inspect each file's intended responsibilities and integration dependencies before writing it; implement the final behavior appropriate to its checkpoint, with genuine defect corrections as needed. Do not substitute temporary models, alternate workflows or extra account-management/audit/integration subsystems. Keep required grading evidence and actual verification mandatory; retain the two-day priority and checkpoint review stops.
 
@@ -117,7 +117,7 @@ All mutations require POST/CSRF. Success redirects and shows a message. Anonymou
 
 `views.py` binds forms, maps excluded-field validation to non-field errors, renders related objects/discussion, redirects with messages and applies login/role/method gates and private/no-store cache headers. Object retrieval precedes action validation: missing/out-of-scope 404, forbidden capabilities 403, invalid/terminal transitions 409. Unsupported methods retain 405/Allow with helpful navigation. Small Django-view subclasses clear messages on successful login and POST logout, including admin logout; native auth/CSRF/session/safe redirects remain. Expected errors work with local DEBUG; general missing routes use the 404 handler with DEBUG=false. CSRF failures request refresh without internals; the 500 page avoids database-backed user/messages.
 
-At C, dashboard summary cards and recent tickets plus the basic newest-first list were delivered; D extends these with the queries/reports described below. Detail continues to use author-related comments and permission-controlled forms. Local CSS supplies responsive grids, navigation, readable status labels, focus, confirmations and empty/error states. Rendered structure/forms are checked; actual desktop/mobile/keyboard acceptance remains pending.
+At C, dashboard summary cards and recent tickets plus the basic newest-first list were delivered; D extends these with the queries/reports described below. Detail continues to use author-related comments and permission-controlled forms. Local CSS supplies responsive grids, navigation, readable status labels, focus, confirmations and empty/error states. E executed real Chrome fixed-width desktop/emulated-mobile and basic keyboard checks; full human acceptance remains pending.
 
 ## Queries and metrics
 

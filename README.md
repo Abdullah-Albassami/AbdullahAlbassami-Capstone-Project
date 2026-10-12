@@ -9,12 +9,13 @@ The Django application and its setup/design/evidence documents live in **`helpde
 - [Checkpoint progress](helpdesk-pro/docs/PROGRESS.md)
 - [Verification record](helpdesk-pro/docs/ACCEPTANCE_TESTS.md)
 
-Checkpoint E audits and hardens the implemented application: feedback is cleared across account changes, 405 pages are helpful, technician choices show readable names/usernames, queues include requester information, and mobile confirmations/tables handle long text. **149 Django tests and 39 real headless Chrome checks pass.** Models/migrations and local demo data are unchanged. HD-10013 remains user-observed evidence; human/device/fresh-checkout/rehearsal checks are distinguished from automation. Work stops before F/G pending approval.
+Checkpoint F finalizes documentation for the delivered application. Checkpoint E verified **149 Django tests and 39 real headless Chrome checks**; F changes documentation only. HD-10013 remains user-observed evidence. Human acceptance, a full fresh checkout and student rehearsal remain pending; Checkpoint G requires explicit approval.
 
 Start setup from `helpdesk-pro/`, following its README. The repository-wide `.gitignore` excludes local environments, credentials, databases and generated assets. No credentials or real personal data belong in the submission.
 
-See the [Checkpoint B report](helpdesk-pro/docs/CHECKPOINT_B_REPORT.md) for file inventory, commands, actual results and remaining limitations.
-
-See the [Checkpoint C report](helpdesk-pro/docs/CHECKPOINT_C_REPORT.md) for the ticket workflow milestone and the [Checkpoint D report](helpdesk-pro/docs/CHECKPOINT_D_REPORT.md) for the query/report milestone. These are historical records; E adds the browser verification below.
-
-See the [Checkpoint E report](helpdesk-pro/docs/CHECKPOINT_E_REPORT.md) for current audit findings, exact verification and file inventory, and [remaining human browser checks](helpdesk-pro/docs/MANUAL_BROWSER_CHECKS.md) for reproducible instructions. Automated Chrome coverage includes emulated widths/basic keyboard/contrast; human usability, physical devices and final readiness remain pending.
+- [All 100 marks: requirements, code and evidence](helpdesk-pro/docs/REQUIREMENTS_MATRIX.md)
+- [Verification evidence index](helpdesk-pro/docs/EVIDENCE_INDEX.md)
+- [Guide-ordered demonstration and instructor questions](helpdesk-pro/docs/DEMO_SCRIPT.md)
+- [Submission checklist and outstanding confirmations](helpdesk-pro/docs/SUBMISSION_CHECKLIST.md)
+- [Checkpoint F delivery report](helpdesk-pro/docs/CHECKPOINT_F_REPORT.md)
+- [Remaining human browser checks](helpdesk-pro/docs/MANUAL_BROWSER_CHECKS.md)

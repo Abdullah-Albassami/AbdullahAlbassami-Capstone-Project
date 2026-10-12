@@ -1,6 +1,6 @@
 # Checkpoint progress
 
-Last updated: 13 October 2026 (Asia/Riyadh). A–D are reviewed/approved; the user authorized E only. E audit/corrections and automated browser checks are complete; stop before F/G pending explicit approval. Structure/two-day priorities and HD-10013 user-observed evidence remain. Human/device/accessibility and final readiness evidence is not implied by automation.
+Last updated: 13 October 2026 (Asia/Riyadh). A–E are reviewed/approved; the user authorized F documentation only. F finalizes design, setup, grading/evidence and demonstration material; stop before G pending explicit approval. Structure/two-day priorities and HD-10013 user-observed evidence remain. Human/device/accessibility and final readiness evidence is not implied by automation or completed documents.
 
 | Checkpoint | Estimate | Completion condition | Status |
 | --- | --- | --- | --- |
@@ -8,8 +8,8 @@ Last updated: 13 October 2026 (Asia/Riyadh). A–D are reviewed/approved; the us
 | B: data/accounts | 2h | Models/constraints/migrations, guarded admin, roles/seed and integrity/provisioning tests | Reviewed/approved |
 | C: support workflow | 4h | Complete persisted role journey, usable forms/pages and focused security/state tests | Reviewed/approved; user-observed HD-10013 journey recorded |
 | D: CRUD/reports | 2h | Category CRUD, list queries/pagination, known aggregate/annotation counts | Reviewed/approved |
-| E: reliability/UX | 3h | Audit/fix/test and actual browser checks where available; truthful remaining manual instructions | Complete; 149 tests + 39 Chrome checks; human limitations documented; awaiting approval before F/G |
-| F: final evidence | 2h | Final README/design/matrix/actual verification/demo documents | Not started |
+| E: reliability/UX | 3h | Audit/fix/test and actual browser checks where available; truthful remaining manual instructions | Reviewed/approved; 149 tests + 39 Chrome checks; human limitations documented |
+| F: final evidence | 2h | Final README/design/matrix/actual verification/demo documents | Complete documentation milestone; actual audit/checks in F report; awaiting review before G |
 | G: readiness | 3h | Separate fresh checkout, seed twice, all checks, real browser acceptance, rehearsal and submission revision | Not started |
 | Contingency | 2h | Mandatory blockers fixed; affected checks repeated | Reserved |
 
@@ -28,7 +28,7 @@ Last updated: 13 October 2026 (Asia/Riyadh). A–D are reviewed/approved; the us
 
 ## Remaining work and blockers
 
-- User review/approval of E before F/G. Verified E changes, evidence/report and remaining human instructions form a coherent milestone; Git history supplies its hash without a self-reference. Historical A–D results remain separate.
+- User review/approval of F before G. F's verified documentation/evidence package forms a coherent milestone; Git history/delivery supplies its hash without a self-reference. Historical A–E reports remain unchanged; G may produce a later submitted revision.
 - Human review of local HD-10013's final detail/controls, complete keyboard/zoom/device/screen-reader usability, admin observations, full fresh checkout and rehearsal remain. E Chrome checks use disposable records and do not upgrade unobserved human rows to PASS.
 - External facts unresolved: instructor scope agreement, presentation duration, instructor repository access and available focused development hours. No claim of confirmation is made.
 - No deployment is required. Credentials/secret key are runtime-only; the local ignored database now contains the five fictitious demo accounts. Verification used a generated undisclosed password; choose known local credentials with Django changepassword as documented.
@@ -72,3 +72,13 @@ Record changes, commands/checks and actual outcomes for each checkpoint in ACCEP
 - Final 39 real Chrome checks pass: 34 page/viewport/label/error/contrast cases, three basic keyboard cases, the role/action journey and guarded admin. Screenshots/result JSON are retained, and new fixtures/normal-hasher server/Chrome profile were removed. Working database never used by that server.
 - Django/system/database/migration/dependency checks passed; logical snapshot of all app/user/role data matched E's baseline exactly, with PRAGMA integrity/foreign-key checks clean. Models/migrations/ERD and pins are unchanged; HD-10013 remains intact.
 - UC01–UC07 remain attributed to the user. MANUAL_BROWSER_CHECKS supplies exact remaining actions; human/device/screen-reader/zoom/full-keyboard, fresh checkout and final rehearsal remain pending. E is not a final submission readiness claim.
+
+## Checkpoint F delivered
+
+- Re-read all six guide pages and audit all eight assessment criteria (100 marks). REQUIREMENTS_MATRIX now maps every normative requirement through a source-linked feature catalogue to actual URLs/views/models/forms/services/queries/templates, executed checks and remaining human evidence.
+- Complete README covers problem/users, comparison/internal adoption assumptions, stack/pins, four models/six relationships, safe installation/configuration/migrate/seed twice/test/run, ORM metric meaning, limitations/future improvement and assistance/resources. Full fresh-checkout execution is still G.
+- Final ERD/architecture/role/action/lifecycle documents reviewed against unchanged application source. Wireframes corrected to actual role navigation, names, columns, labels and scroll behavior; screenshots remain separate genuine browser artifacts.
+- EVIDENCE_INDEX consolidates A–E results without rewriting history: latest E 149 Django tests and 39 Chrome checks, UC01–UC07 user observations, M01 partial and M02–M14 NOT RUN. F is documentation-only and does not invent a new test/browser run.
+- DEMO_SCRIPT follows the exact six guide steps, gives source-linked request traces and likely instructor answers, distinguishes market assumptions and prepares live metric arithmetic. Student rehearsal is not executed by writing the script.
+- SUBMISSION_CHECKLIST lists delivered artifacts, outstanding manual/G checks, external instructor scope/access/duration/deadline confirmations and how to capture the exact final submitted commit after verified changes. No remote delivery/access or final readiness is claimed.
+- Actual F verification commands/results and inventory are recorded in CHECKPOINT_F_REPORT/ACCEPTANCE_TESTS. Working database/HD-10013, application source, migrations, pins and E artifacts remain unchanged. Stop before G.
