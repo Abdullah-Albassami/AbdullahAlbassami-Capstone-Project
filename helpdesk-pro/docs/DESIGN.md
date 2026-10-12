@@ -1,6 +1,6 @@
 # Approved architecture and implementation contracts
 
-Approved by the user's implementation request and amendments. As of 13 October 2026 (Asia/Riyadh), A–E are reviewed/approved; F finalizes documentation only. The guide remains primary. The four-model schema/workflow/query contracts are unchanged. HD-10013's user-observed lifecycle is preserved; automated Chrome coverage and remaining human/readiness evidence are separately recorded. Instructor agreement remains unverified; G requires separate approval.
+Approved by the user's implementation request and amendments. As of 13 October 2026 (Asia/Riyadh), A–F are reviewed/approved; G verifies the unchanged application in a genuine fresh clone. The guide remains primary. The four-model schema/workflow/query contracts are unchanged. HD-10013's user-observed lifecycle is preserved; automated Chrome coverage and remaining human/readiness evidence are separately recorded. Instructor agreement/access/duration and human acceptance/rehearsal remain unverified; stop after G without claiming full approval/submission.
 
 ## Structure and responsibilities
 
@@ -133,7 +133,7 @@ Explicit CategoryForm fields are name/description. Shared services recheck IT Ad
 
 TechnicianChoiceField labels options Full Name (username), falling back to username. Values remain IDs and queryset/service eligibility is unchanged. Queue requester display uses the existing select_related data, matching the specification without another query. Panels wrap valid long user text; ticket/management tables keep readable column widths and scroll only in labeled focusable regions, with a narrow-screen hint. Relative scroll-container positioning contains hidden accessible action labels. Control borders changed from #8999ad to #7b8da4 (2.91→3.39 against white); the existing focus outline remains.
 
-The audit examined auth/account/admin helpers, services/forms/views, all templates/CSS, queries/metrics, models/migration/ERD and seed/reproducibility contracts. 149 Django tests and 39 real Chrome checks pass. Optional scripts/browser_fixture.py refuses an existing DB and serves only a newly seeded temporary database; verify_browser.mjs controls installed Chrome via CDP with a separate profile and generated runtime credentials. It checks 34 page/viewport cases, three basic keyboard actions, a role/action journey and guarded administration. No browser dependency is added to the application. Screenshots/results are actual disposable-fixture evidence; human/device/screen-reader/zoom/full-keyboard/fresh-checkout/rehearsal verification remains separate and pending.
+The audit examined auth/account/admin helpers, services/forms/views, all templates/CSS, queries/metrics, models/migration/ERD and seed/reproducibility contracts. 149 Django tests and 39 real Chrome checks pass. Optional scripts/browser_fixture.py refuses an existing DB and serves only a newly seeded temporary database; verify_browser.mjs controls installed Chrome via CDP with a separate profile and generated runtime credentials. It checks 34 page/viewport cases, three basic keyboard actions, a role/action journey and guarded administration. No browser dependency is added to the application. Screenshots/results are actual disposable-fixture evidence. At E, full fresh checkout and human/rehearsal checks were pending; G below completes fresh setup while human/device/screen-reader/zoom/full-keyboard/rehearsal remain unverified.
 
 ## Deterministic demo data
 
@@ -156,3 +156,7 @@ Initial totals: 12 overall; 8 active; 2 resolved; 2 cancelled. Active categories
 ## Definition of done and external assumptions
 
 The complete guide-ordered browser journey, useful ORM evidence, required manual record, focused tests, fresh checkout, responsive/accessibility checks, documentation and meaningful Git history must all be verified. No promised score, fabricated PASS, customer evidence or production readiness claim. Deployment/integrations are excluded. Instructor scope approval, presentation duration, repository access and available development hours remain external facts to confirm; they do not block the user-authorized foundation checkpoint.
+
+## Final automated verification (G)
+
+[G report](CHECKPOINT_G_REPORT.md) verifies the unchanged design through a genuine new Git clone/venv/SQLite/configuration, pinned installation, fresh migrations, exact seed repeat and 149 passing tests. Chrome passed 39 fixture checks and ordinary Django runserver passed 14 real HTTP checks. Local runserver uses documented DEBUG=true for static assets; DEBUG=false requires separately serving static files and is outside the current local setup. No schema, account subsystem or workflow change is needed. Final human acceptance, personal rehearsal and instructor scope/access/duration remain open.

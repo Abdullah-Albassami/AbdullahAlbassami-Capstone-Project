@@ -1,6 +1,6 @@
 # HelpDesk Pro entity relationship diagram
 
-**Implemented and schema-verified in Checkpoint B; reviewed against unchanged source in F.** This diagram matches [models.py](../tickets/models.py) and [0001_initial.py](../tickets/migrations/0001_initial.py). The [schema test](../tickets/tests/test_models.py) (`test_schema_matches_erd_fields_relationships_and_constraints`) verifies exact fields, BigAutoField keys, nullability, FK targets/deletion choices, database columns and the four named state constraints; it passed in E's 149-test suite. Recheck against the final submitted revision in G. Built-in auth entities are shown with representative fields, not their entire Django schema.
+**Implemented and schema-verified in Checkpoint B; reviewed against unchanged source in F.** This diagram matches [models.py](../tickets/models.py) and [0001_initial.py](../tickets/migrations/0001_initial.py). The [schema test](../tickets/tests/test_models.py) (`test_schema_matches_erd_fields_relationships_and_constraints`) verifies exact fields, BigAutoField keys, nullability, FK targets/deletion choices, database columns and the four named state constraints; it passed in E's 149-test suite. G's fresh migrated database and 149-test suite passed the same schema test with no migration drift; models/migration are unchanged. Confirm the ultimately submitted revision matches this verified source. Built-in auth entities are shown with representative fields, not their entire Django schema.
 
 ```mermaid
 erDiagram

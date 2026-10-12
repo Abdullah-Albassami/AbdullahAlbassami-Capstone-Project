@@ -1,12 +1,12 @@
 # Demonstration and individual technical discussion
 
-Prepared in F; **not an executed rehearsal**. Follow the [official guide](../../CapstoneProjectGuide.pdf), p.5, in the six-step order below. Instructor duration/slot remain unconfirmed; adjust pacing after confirmation, preserving order. G setup/acceptance and the student's M14 rehearsal are still open. Use the exact submitted revision, fictional data and private credentials; do not expose passwords, keys or session tokens in the presentation.
+Prepared in F; **not an executed rehearsal**. Follow the [official guide](../../CapstoneProjectGuide.pdf), p.5, in the six-step order below. Instructor duration/slot remain unconfirmed; adjust pacing after confirmation, preserving order. G automated fresh setup/tests/server/browser checks passed; remaining human acceptance and the student's M14 rehearsal are still open. Use the exact submitted revision, fictional data and private credentials; do not expose passwords, keys or session tokens in the presentation.
 
 ## Preparation before the presentation
 
 Follow the [submission checklist](SUBMISSION_CHECKLIST.md). Start the server using [README](../README.md) commands only after private configuration is set. Have employee1, technician1 and itadmin credentials ready privately; use separate browser profiles or the application's POST Sign out between roles. Keep the ERD, queries.py, services.py and acceptance record available for discussion.
 
-Record the actual starting dashboard counts and ticket reference created during rehearsal. The pristine seed has **12/8/2/2** total/active/resolved/cancelled; the preserved working data, including already-resolved HD-10013, has **13/8/3/2** at F. Re-seeding preserves changes/passwords and does not reset counts. Never reset the working database to obtain the pristine figures. A separate fresh setup belongs to G, not F.
+Record the actual starting dashboard counts and ticket reference created during rehearsal. The pristine seed has **12/8/2/2** total/active/resolved/cancelled; the preserved working data, including already-resolved HD-10013, has **13/8/3/2** at F. Re-seeding preserves changes/passwords and does not reset counts. Never reset the working database to obtain the pristine figures. G verified a separate disposable fresh setup; it did not reset or replace the working database.
 
 HD-10013's user-reported UC01–UC07 cover create/comment/assignment/start/resolve and employee dashboard Resolved. Its final employee detail/thread/controls remain unreported. It is already terminal: read it without changes; create a different fictional request for a live transition demonstration.
 
@@ -53,7 +53,7 @@ Choose one key decision: the shared atomic workflow service re-fetches current s
 
 Describe a realistic internal adoption proposal: one IT team provisions roles/departments/categories, pilots requests and reviews whether ownership/backlog visibility helps before wider use. Compared with email/spreadsheets, the product integrates assignment, controlled outcomes, discussion and reports. Benefits remain hypotheses until user feedback or measurement; no commercial launch is required by the guide.
 
-State delivered limits: local SQLite capstone, no deployment/notifications/uploads/API/integrations, retained outcomes rather than a complete event audit log. Human acceptance/accessibility, full fresh checkout, instructor access and student rehearsal remain open until actually completed. A next practical improvement after feedback could be tested email notifications; it is outside the delivered scope.
+State delivered limits: local SQLite capstone, no deployment/notifications/uploads/API/integrations, retained outcomes rather than a complete event audit log. G passed automated full fresh setup and server/browser checks. Remaining human acceptance/accessibility, instructor access and student rehearsal remain open until actually confirmed. A next practical improvement after feedback could be tested email notifications; it is outside the delivered scope.
 
 ## Request trace to explain personally
 
@@ -72,7 +72,7 @@ State delivered limits: local SQLite capstone, no deployment/notifications/uploa
 | What prevents forged identity/terminal changes or invalid technicians? | Five business fields only; session requester/author; server status/timestamps. Active single-role non-superuser technicians only; target/state rechecked in services. Terminal UI/services/model validation and read-only admin prevent supported edits. Account guards require reassignment before ineligibility. |
 | What are Q objects and relationship queries used for? | Q title OR description search, AND status/priority/category. `category__name` traverses a FK; select_related retrieves requester/assignee/category/department and comment authors. Ordering is whitelisted with explicit High→Medium→Low ranking and stable tie-breakers. |
 | Aggregate versus annotate? How are counts correct? | Aggregate returns one scoped summary; annotate adds per-row counts. Active is three states; zero rows retained. Separate report queries/filtered distinct counts avoid join inflation. ReportingTests verify seed totals, zero/empty/multiple groups/comments and workflow changes. |
-| How was it tested and reproduced? | E: 149 Django methods, fresh migrated test DB; 39 real Chrome checks on isolated normal-hasher/CSRF fixtures. User UC01–UC07 separate; M01 partial/M02–M14 unrun. README pins/config/migrations/seed; full fresh-checkout environment belongs to G and cannot yet be claimed passed. |
+| How was it tested and reproduced? | G: 149 Django methods in a genuinely new clone/environment; seed twice identical; 39 Chrome checks on isolated normal-hasher/CSRF fixtures and 14 live HTTP/server checks. User UC01–UC07 separate; M01 partial, M02–M12/M14 human checks unrun, M13 automated setup PASS/human repeat unrun. README pins/config/migrations/seed match the executed fresh setup. |
 | What assistance was used and what can the student explain? | README acknowledges significant Codex assistance and official Django/CDP/W3C resources. The student must review/adapt/understand the actual source and demonstrate these traces/calculations personally; generated preparation does not prove understanding. |
 
 Use [MANUAL_BROWSER_CHECKS](MANUAL_BROWSER_CHECKS.md) for remaining acceptance actions and [SUBMISSION_CHECKLIST](SUBMISSION_CHECKLIST.md) for final revision/access. M14 remains **NOT RUN** until the student actually rehearses, records the reference/baseline/duration/outcome and can answer the questions above.

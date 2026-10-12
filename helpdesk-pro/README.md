@@ -2,7 +2,7 @@
 
 An internal Django IT support application for employees and a small IT team. It is designed to replace scattered email or spreadsheet requests with clear ownership, consistent status, retained discussion and visible backlog.
 
-**Current delivery: Checkpoint F — final documentation and demonstration preparation.** The complete ticket, category, query and reporting application was delivered through E. Its latest executed regression evidence is **149 passing Django tests and 39 real headless Chrome checks**. F changes documentation only. HD-10013's user-observed lifecycle remains separate from automation; outstanding human acceptance, a full fresh checkout and student rehearsal are pending. Checkpoint G requires explicit approval; final submission readiness is not yet established.
+**Current delivery: Checkpoint G — fresh installation and final automated verification.** A genuine clone of the committed repository, with a new Python environment and SQLite database, passed **149 Django tests, 39 real Chrome checks and 14 live HTTP/server checks**. Source/models/pins and working records are unchanged. HD-10013's user-observed lifecycle remains separate from automation. Remaining human acceptance, student rehearsal and instructor confirmations prevent a claim of full approval or submission.
 
 ## Final project structure
 
@@ -59,14 +59,14 @@ Start from a checkout of this repository, not a copy of the local database or vi
 cd helpdesk-pro
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install -r requirements.txt
+python -m pip --isolated install --no-cache-dir -r requirements.txt
 export DJANGO_SECRET_KEY="$(python -c 'import secrets; print(secrets.token_urlsafe(64))')"
 python manage.py check
 ```
 
 Generate your own key; the command captures it into the environment rather than displaying it. Never put the actual key in a commit, screenshot or shared command log. A new shell needs the environment variable again. `.env.example` documents the variable names only; the application does not load `.env` files automatically.
 
-If you are already inside `helpdesk-pro/`, omit the first `cd`. Recreate the environment at this path instead of moving an old `.venv`, because activation scripts and executable paths depend on its location. A complete fresh-checkout/environment execution remains the G readiness check; earlier temporary-database checks and E's test database are evidence for migrations/seed, not that full installation.
+If you are already inside `helpdesk-pro/`, omit the first `cd`. Recreate the environment at this path instead of moving an old `.venv`, because activation scripts and executable paths depend on its location. G executed a genuine fresh clone, independent environment, uncached isolated installation, migrations, seed twice, tests and server/browser checks. No original database/environment/configuration was copied. See the [G commands/results](docs/CHECKPOINT_G_REPORT.md); instructor remote access and human acceptance remain separate.
 
 | Variable | Behavior |
 | --- | --- |
@@ -88,7 +88,7 @@ python manage.py seed_demo
 unset DEMO_PASSWORD
 # Repeat without a password: recognized records and credentials are preserved.
 python manage.py seed_demo
-python -m pip check
+python -m pip --isolated --no-cache-dir check
 python manage.py check --database default
 python manage.py makemigrations --check --dry-run
 python manage.py migrate --check
@@ -102,16 +102,18 @@ Current development data was seeded using a generated password that was not disp
 
 Open `http://127.0.0.1:8000/accounts/login/` and sign in with a demo username and your private password. `/` shows the role dashboard; `/tickets/` searches/filters/orders/pages permitted tickets; `/tickets/new/` accepts Employee/IT Admin submissions. Ticket detail offers permitted actions and related discussion. `/categories/` gives IT Admin Category CRUD and active counts; each category has a detail page and related-ticket link. Referenced categories cannot be deleted, including references from terminal tickets. Logout is a POST form. IT Admin manages Departments at `/admin/`; a setup superuser provisions accounts and inspects tickets/comments read-only.
 
-Migrations/seed were verified on working and separate fresh temporary SQLite databases. The 149-test suite creates its database from committed migrations. Real Chrome used a disposable seeded WSGI server with normal hashing/CSRF: 34 page/viewport audits, three basic keyboard scenarios, a role/action journey and guarded administration (39 checks total). This covers contrast, labels/errors, terminal controls, Category/query behavior and long-text layouts; it is automation, not human acceptance or a full fresh checkout. Fast hashing is only under test overrides; normal settings retain default hashing. This setup is for loopback development.
+G migrated a newly cloned database from scratch and verified exact seed snapshots unchanged on the second run, including credentials/timestamps. All 149 tests passed in 3.130s on the fresh environment. Chrome ran from that clone on a separate disposable seeded WSGI fixture: 34 page audits, three basic keyboard cases, one combined lifecycle/Category/query scenario and guarded admin (39 checks). A real Django runserver passed 14 additional normal-hasher/CSRF HTTP checks. This is automated fresh-checkout/server/browser evidence, not human acceptance. Fast hashing is only under test overrides; normal settings retain default hashing.
 
 For human acceptance, follow [MANUAL_BROWSER_CHECKS](docs/MANUAL_BROWSER_CHECKS.md) with your existing private demo credentials. Optional browser automation requires installed Node and Chrome, separate from application dependencies: Node 21.7.2 was verified; earlier runs used Chrome 154.0.8037.99 and the final run reported Chrome 155.0.8059.40.
 
 ```sh
 # From the repository root. Uses a new temporary DB/profile; refuses an existing DB.
-HELPDESK_BROWSER_EVIDENCE=/private/tmp/helpdesk-e-evidence node helpdesk-pro/scripts/verify_browser.mjs
+HELPDESK_BROWSER_EVIDENCE=/private/tmp/helpdesk-browser-review-evidence node helpdesk-pro/scripts/verify_browser.mjs
 ```
 
-HELPDESK_CHROME may point to another installed compatible Chrome binary. Without an evidence path the script creates a separate temporary evidence directory and prints its path. It generates runtime-only credentials, deletes its DB/profile/server, and retains screenshots/result JSON without secrets. It does not use or reset your working database. Sandbox execution may require local-port/browser approval. No browser packages or frontend dependencies are installed. [Executed evidence](docs/evidence/checkpoint-e/results.json) and [E report](docs/CHECKPOINT_E_REPORT.md) distinguish measured checks from remaining accessibility/human review.
+HELPDESK_CHROME may point to another installed compatible Chrome binary. Without an evidence path the script creates a separate temporary evidence directory and prints its path. It generates runtime-only credentials, deletes its DB/profile/server, and retains screenshots/result JSON without secrets. It does not use or reset your working database. Sandbox execution may require local-port/browser approval. No browser packages or frontend dependencies are installed. [Latest browser evidence](docs/evidence/checkpoint-g/results.json) and [G report](docs/CHECKPOINT_G_REPORT.md) distinguish measured checks from remaining accessibility/human review.
+
+For this local `runserver` workflow, leave DJANGO_DEBUG at its default `true` (or explicitly set `true`) so Django serves the local stylesheet. DEBUG=false does not serve static files through the ordinary development server; deployment/static hosting is outside the capstone scope. G corrected a probe that used DEBUG=false and verified the documented local setting.
 
 ## Ticket workflow and access
 
@@ -168,12 +170,13 @@ The pristine seed has 12/8/2/2 total/active/resolved/cancelled. The local databa
 - [Consolidated evidence and its limits](docs/EVIDENCE_INDEX.md)
 - [Actionable submission checklist](docs/SUBMISSION_CHECKLIST.md)
 - [Checkpoint F documentation delivery report](docs/CHECKPOINT_F_REPORT.md)
+- [Checkpoint G fresh-installation and readiness report](docs/CHECKPOINT_G_REPORT.md)
 
 ## Known issues and verification limits
 
-No unresolved functional defect is known from the executed E checks. Remaining grading evidence includes human review of HD-10013's final detail/thread/controls, full keyboard-only usability, 200% zoom, screen-reader behavior, physical mobile/other browsers, guarded-admin human checks, full fresh checkout and student demonstration. Automated Chrome covered fixed desktop/mobile viewports, basic key actions and selected computed contrast rules; it is not WCAG certification. M01 remains partial user-observed and M02–M14 manual checks remain unexecuted.
+No unresolved functional defect is known from the executed G checks. Remaining grading evidence includes human review of HD-10013's final detail/thread/controls, full keyboard-only usability, 200% zoom, screen-reader behavior, physical mobile/other browsers, guarded-admin human checks and student demonstration. G completed the automated fresh checkout; an independent human setup repeat is not reported. Automated Chrome covered fixed desktop/mobile viewports, basic key actions and selected computed contrast rules; it is not WCAG certification. M01 remains partial user-observed; M02–M12/M14 human checks remain unexecuted. M13 records automated fresh setup PASS with human repetition NOT RUN.
 
-SQLite transactions preserve validated writes but do not provide enterprise concurrent-write guarantees. Privileged bulk ORM/raw SQL may bypass application validation and is outside supported UI writes. Instructor scope/access/duration remain unconfirmed. G requires explicit approval; F prepares the documents and demonstration without claiming final submission readiness or a guaranteed score.
+SQLite transactions preserve validated writes but do not provide enterprise concurrent-write guarantees. Privileged bulk ORM/raw SQL may bypass application validation and is outside supported UI writes. Instructor scope/access/duration remain unconfirmed. G is complete as an automated verification milestone; remaining human checks/access/understanding must be confirmed before full approval or submission. No grade is guaranteed.
 
 The [official guide](../CapstoneProjectGuide.pdf) is primary. The [root specification](../HELPDESK_PRO_CODEX_SPEC_FINAL.md), audit corrections and eight user amendments describe the agreed design; evidence documents distinguish planned checks from executed results. Instructor scope approval, presentation duration and instructor repository access have not been independently confirmed.
 

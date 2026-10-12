@@ -1,0 +1,70 @@
+{
+  "revision": "d89f8748a9de33050eeb20ee7720df1eb2c253a1",
+  "command": ".venv/bin/python -B manage.py runserver 127.0.0.1:53507 --noreload",
+  "configuration": "new runtime secret; documented local DEBUG=true; 127.0.0.1",
+  "data": "fresh-clone disposable database only; clone ticket IDs independent of working HD-10013",
+  "checks": [
+    {
+      "label": "Fresh-clone Django runserver login page and local CSS reachable",
+      "pass": true
+    },
+    {
+      "label": "Anonymous dashboard redirects to login",
+      "pass": true
+    },
+    {
+      "label": "Real normal-hasher CSRF-protected employee login",
+      "pass": true
+    },
+    {
+      "label": "Employee Category route denied",
+      "pass": true
+    },
+    {
+      "label": "Real HTTP ticket creation persists New/session requester",
+      "pass": true
+    },
+    {
+      "label": "Real HTTP edit persists only business fields",
+      "pass": true
+    },
+    {
+      "label": "Real HTTP comment persists authenticated author",
+      "pass": true
+    },
+    {
+      "label": "Cancel confirmation GET retains New",
+      "pass": true
+    },
+    {
+      "label": "Missing CSRF cancels rejected/no change",
+      "pass": true
+    },
+    {
+      "label": "Real HTTP cancellation retains thread and terminal read-only detail",
+      "pass": true
+    },
+    {
+      "label": "Terminal forged comment rejected",
+      "pass": true
+    },
+    {
+      "label": "Missing ticket safe 404 and POST-only action GET 405",
+      "pass": true
+    },
+    {
+      "label": "Logout GET 405; POST clears session",
+      "pass": true
+    },
+    {
+      "label": "Actual report totals update after live create/cancel",
+      "pass": true
+    }
+  ],
+  "final_counts": {
+    "total": 13,
+    "active": 8,
+    "resolved": 2,
+    "cancelled": 3
+  }
+}

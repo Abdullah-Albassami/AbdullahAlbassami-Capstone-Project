@@ -1,6 +1,6 @@
 # Checkpoint progress
 
-Last updated: 13 October 2026 (Asia/Riyadh). A–E are reviewed/approved; the user authorized F documentation only. F finalizes design, setup, grading/evidence and demonstration material; stop before G pending explicit approval. Structure/two-day priorities and HD-10013 user-observed evidence remain. Human/device/accessibility and final readiness evidence is not implied by automation or completed documents.
+Last updated: 13 October 2026 (Asia/Riyadh). A–F are reviewed/approved; G automated verification is complete: genuine fresh installation, 149 tests, 39 Chrome checks and 14 live HTTP/server checks. Stop after G. Human acceptance/rehearsal and instructor scope/access/duration remain open; no full approval/submission or grade guarantee. HD-10013/working data are unchanged.
 
 | Checkpoint | Estimate | Completion condition | Status |
 | --- | --- | --- | --- |
@@ -9,8 +9,8 @@ Last updated: 13 October 2026 (Asia/Riyadh). A–E are reviewed/approved; the us
 | C: support workflow | 4h | Complete persisted role journey, usable forms/pages and focused security/state tests | Reviewed/approved; user-observed HD-10013 journey recorded |
 | D: CRUD/reports | 2h | Category CRUD, list queries/pagination, known aggregate/annotation counts | Reviewed/approved |
 | E: reliability/UX | 3h | Audit/fix/test and actual browser checks where available; truthful remaining manual instructions | Reviewed/approved; 149 tests + 39 Chrome checks; human limitations documented |
-| F: final evidence | 2h | Final README/design/matrix/actual verification/demo documents | Complete documentation milestone; actual audit/checks in F report; awaiting review before G |
-| G: readiness | 3h | Separate fresh checkout, seed twice, all checks, real browser acceptance, rehearsal and submission revision | Not started |
+| F: final evidence | 2h | Final README/design/matrix/actual verification/demo documents | Reviewed/approved; complete source-linked documentation/evidence/demo/checklist |
+| G: readiness | 3h | Separate fresh checkout, seed twice, checks/tests/server/browser, truthful remaining human acceptance/rehearsal/access and candidate revision | Automated verification complete; 149 tests/39 Chrome/14 HTTP; human/external approval still open |
 | Contingency | 2h | Mandatory blockers fixed; affected checks repeated | Reserved |
 
 ## Completed work
@@ -28,8 +28,8 @@ Last updated: 13 October 2026 (Asia/Riyadh). A–E are reviewed/approved; the us
 
 ## Remaining work and blockers
 
-- User review/approval of F before G. F's verified documentation/evidence package forms a coherent milestone; Git history/delivery supplies its hash without a self-reference. Historical A–E reports remain unchanged; G may produce a later submitted revision.
-- Human review of local HD-10013's final detail/controls, complete keyboard/zoom/device/screen-reader usability, admin observations, full fresh checkout and rehearsal remain. E Chrome checks use disposable records and do not upgrade unobserved human rows to PASS.
+- Remaining user human acceptance/rehearsal and instructor scope/access/duration confirmation. G's delivery identifies the local candidate commit; the student records the ultimately submitted/demonstrated revision after any further verified acceptance updates. Historical A–F reports stay unchanged; no push/submission is performed.
+- Human review of local HD-10013's final detail/controls, complete keyboard/zoom/device/screen-reader usability, admin observations and rehearsal remain. G completed automated fresh checkout/server/browser verification; a human setup repeat is not reported. Disposable checks do not upgrade unobserved human rows to PASS.
 - External facts unresolved: instructor scope agreement, presentation duration, instructor repository access and available focused development hours. No claim of confirmation is made.
 - No deployment is required. Credentials/secret key are runtime-only; the local ignored database now contains the five fictitious demo accounts. Verification used a generated undisclosed password; choose known local credentials with Django changepassword as documented.
 
@@ -82,3 +82,13 @@ Record changes, commands/checks and actual outcomes for each checkpoint in ACCEP
 - DEMO_SCRIPT follows the exact six guide steps, gives source-linked request traces and likely instructor answers, distinguishes market assumptions and prepares live metric arithmetic. Student rehearsal is not executed by writing the script.
 - SUBMISSION_CHECKLIST lists delivered artifacts, outstanding manual/G checks, external instructor scope/access/duration/deadline confirmations and how to capture the exact final submitted commit after verified changes. No remote delivery/access or final readiness is claimed.
 - Actual F verification commands/results and inventory are recorded in CHECKPOINT_F_REPORT/ACCEPTANCE_TESTS. Working database/HD-10013, application source, migrations, pins and E artifacts remain unchanged. Stop before G.
+
+## Checkpoint G delivered and verified
+
+- Genuine `git clone --no-local` of F's committed repository into a new temporary directory; independent Python 3.14.7 venv and isolated uncached pin downloads. No working venv/database/local config copied. Initial sandbox PyPI DNS failure corrected by approved retry; no dependency change.
+- New private runtime key/password, 19 migrations from scratch, known 12/8/2/2 seed totals, seed repeated without password. All-table snapshots/password hashes/timestamps identical; schema integrity/foreign keys clean. Fresh environment activation/pins verified.
+- Full 149-test suite passed in 3.130s with all schema/security/lifecycle/category/query/report/seed tests. System/database/migration/dependency checks clean; no drift/pending migration.
+- Actual Chrome from the clone passed 39 checks with disposable fixtures/profile (34 pages, 3 basic keyboard, guarded admin and combined journey). Another actual Django runserver passed 14 real HTTP/server/CSRF/workflow/live report checks. Corrected the harness's DEBUG=false/static assumption and raw regex warnings; documented default DEBUG=true works. No application defect or code rewrite.
+- Genuine JSON/screenshots retained under evidence/checkpoint-g; full file/command/result details in CHECKPOINT_G_REPORT. Original database file bytes/logical rows and HD-10013 unchanged. Historical A–F reports and UC01–UC07 remain intact.
+- Final all-100-mark audit/source/docs cross-check distinguishes automated readiness from human acceptance/understanding/instructor facts. M13 automated setup PASS; M01 partial and M02–M12/M14 human checks open. Student rehearsal/duration/scope/access/submission are not claimed completed.
+- Stop after G. Deliver a local candidate commit/hash/clean-tree result; remaining human/external outcomes must be supplied by the student before full approval/submission. No remote push or messaging occurs.

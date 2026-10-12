@@ -1,6 +1,6 @@
 # Remaining human browser acceptance
 
-Prepared 13 October 2026 (Asia/Riyadh). This is a reproducible checklist, **not a PASS record**. Keep UC01–UC07 for the user-observed HD-10013 lifecycle unchanged. E's automated Chrome checks used a separate disposable database; they do not establish further observations of your local HD-10013.
+Updated in G, 13 October 2026 (Asia/Riyadh). These remaining human instructions are **not a human PASS record**. Keep UC01–UC07 for the user-observed HD-10013 lifecycle unchanged. G passed 149 Django tests, 39 Chrome checks and 14 HTTP/server checks using fresh/disposable data; they do not establish further observations of your local HD-10013.
 
 Start from helpdesk-pro with the existing virtual environment and private runtime DJANGO_SECRET_KEY already configured:
 
@@ -29,4 +29,4 @@ Record each result in ACCEPTANCE_TESTS with scenario, expected, actual, PASS/FAI
 
 For a forged POST/CSRF or admin bypass review, use the existing automated tests as reproducible server evidence. Ordinary browser observations above do not prove a crafted POST was attempted. The full suite includes those HTTP attacks; do not label them manual PASS without executing them.
 
-M13 full fresh-checkout verification is reserved for **Checkpoint G after authorization**: follow README from a separate checkout/environment with no original DB/config, migrate, supply runtime DEMO_PASSWORD, seed twice, check/test/run and complete a browser journey. F prepares [DEMO_SCRIPT](DEMO_SCRIPT.md) and the [submission checklist](SUBMISSION_CHECKLIST.md) for M14: confirm duration/access, personally rehearse URL→view→ORM→template, relationships/constraints and report arithmetic, and record the submitted revision. Writing these instructions does not execute either scenario; M13/M14 remain NOT RUN.
+M13 automated fresh-checkout verification is **PASS in G**: clone/new environment/uncached install/runtime key/migrations/seed twice/checks/149 tests/server and separate browser fixture all executed. A student/instructor setup repeat remains NOT RUN; use README in another independent checkout if requested. Do not copy/reset the working database. M14 remains **NOT RUN (student rehearsal)**: follow [DEMO_SCRIPT](DEMO_SCRIPT.md) in its exact six-step order, confirm duration/access, personally trace URL→view→service/ORM→template, explain relationships/constraints/validation, calculate active totals and record the final demo reference/revision. See [SUBMISSION_CHECKLIST](SUBMISSION_CHECKLIST.md); writing instructions does not prove human usability or understanding.

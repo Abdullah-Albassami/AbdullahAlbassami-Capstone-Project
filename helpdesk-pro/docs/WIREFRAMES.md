@@ -1,6 +1,6 @@
 # HelpDesk Pro wireframes and user journey
 
-Final schematic wireframes reviewed against the implemented templates in F. They explain layout rather than reproducing screenshots. [E's actual Chrome results](evidence/checkpoint-e/results.json) cover 1280px/375px layouts, basic keyboard and selected computed contrast. Human/device/accessibility checks remain pending. HD-10013's C lifecycle remains user-observed evidence.
+Final schematic wireframes reviewed against the implemented templates in F; the unchanged interface passed G's fresh-clone Chrome checks. They explain layout rather than reproducing screenshots. [E's actual Chrome results](evidence/checkpoint-e/results.json) cover 1280px/375px layouts, basic keyboard and selected computed contrast. Human/device/accessibility checks remain pending. HD-10013's C lifecycle remains user-observed evidence.
 
 ## Shared layout
 
@@ -123,3 +123,5 @@ Employee signs in → submits issue → sees saved New ticket → IT Admin assig
 Semantic header/nav/main/footer; skip link; keyboard focus; meaningful link/action labels; labels, help text and associated error descriptions; polite message announcements; table headers/captions; no external fonts or required decorative images. Content images, if introduced, need meaningful alt text. Verify desktop (1280px), mobile (375px), keyboard-only operation and readable form errors in a real browser during later checkpoints.
 
 E executed 34 page/viewport audits in real headless Chrome and basic skip-link/Enter, technician arrow selection and table ArrowRight scrolling. Valid maximum-length category/ticket confirmation text wraps; table cells retain readable widths inside local scroll regions with a visible mobile hint. Human complete keyboard operation, 200% zoom, physical devices/other browsers and screen-reader evaluation remain unexecuted; follow MANUAL_BROWSER_CHECKS. This is not accessibility certification.
+
+G repeated all 39 Chrome checks from a genuinely new clone/environment; [latest results](evidence/checkpoint-g/results.json), [desktop](evidence/checkpoint-g/dashboard-desktop.png) and [mobile](evidence/checkpoint-g/dashboard-mobile.png) show the same implemented layout. These are automated fixed-viewport captures, not a student/physical-device/zoom/screen-reader acceptance claim.

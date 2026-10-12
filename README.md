@@ -9,7 +9,7 @@ The Django application and its setup/design/evidence documents live in **`helpde
 - [Checkpoint progress](helpdesk-pro/docs/PROGRESS.md)
 - [Verification record](helpdesk-pro/docs/ACCEPTANCE_TESTS.md)
 
-Checkpoint F finalizes documentation for the delivered application. Checkpoint E verified **149 Django tests and 39 real headless Chrome checks**; F changes documentation only. HD-10013 remains user-observed evidence. Human acceptance, a full fresh checkout and student rehearsal remain pending; Checkpoint G requires explicit approval.
+Checkpoint G verifies a genuine fresh clone with a new environment/database: **149 Django tests, 39 Chrome checks and 14 real HTTP/server checks passed**. Models/source/dependencies and the working HD-10013 remain unchanged. Human acceptance, student rehearsal and instructor confirmations remain open; the project is not declared submitted or fully approved.
 
 Start setup from `helpdesk-pro/`, following its README. The repository-wide `.gitignore` excludes local environments, credentials, databases and generated assets. No credentials or real personal data belong in the submission.
 
@@ -18,4 +18,5 @@ Start setup from `helpdesk-pro/`, following its README. The repository-wide `.gi
 - [Guide-ordered demonstration and instructor questions](helpdesk-pro/docs/DEMO_SCRIPT.md)
 - [Submission checklist and outstanding confirmations](helpdesk-pro/docs/SUBMISSION_CHECKLIST.md)
 - [Checkpoint F delivery report](helpdesk-pro/docs/CHECKPOINT_F_REPORT.md)
+- [Checkpoint G fresh-installation/results/readiness report](helpdesk-pro/docs/CHECKPOINT_G_REPORT.md)
 - [Remaining human browser checks](helpdesk-pro/docs/MANUAL_BROWSER_CHECKS.md)

@@ -1,0 +1,399 @@
+{
+  "browser": "Chrome/155.0.8059.40",
+  "results": [
+    {
+      "label": "login desktop",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "keyboard skip link and visible focus",
+      "pass": true
+    },
+    {
+      "label": "login mobile",
+      "width": 375,
+      "scrollWidth": 375,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/ at 1280",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/tickets/ at 1280",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/tickets/new/ at 1280",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/tickets/10001/ at 1280",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/tickets/10001/edit/ at 1280",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/tickets/10001/cancel/ at 1280",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/tickets/10007/ at 1280",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/tickets/10009/ at 1280",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/tickets/10011/ at 1280",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/categories/ at 1280",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/categories/new/ at 1280",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/categories/1201/ at 1280",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/categories/1201/edit/ at 1280",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/categories/1201/delete/ at 1280",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/ at 375",
+      "width": 375,
+      "scrollWidth": 375,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/tickets/ at 375",
+      "width": 375,
+      "scrollWidth": 375,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/tickets/new/ at 375",
+      "width": 375,
+      "scrollWidth": 375,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/tickets/10001/ at 375",
+      "width": 375,
+      "scrollWidth": 375,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/tickets/10001/edit/ at 375",
+      "width": 375,
+      "scrollWidth": 375,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/tickets/10001/cancel/ at 375",
+      "width": 375,
+      "scrollWidth": 375,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/tickets/10007/ at 375",
+      "width": 375,
+      "scrollWidth": 375,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/tickets/10009/ at 375",
+      "width": 375,
+      "scrollWidth": 375,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/tickets/10011/ at 375",
+      "width": 375,
+      "scrollWidth": 375,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/categories/ at 375",
+      "width": 375,
+      "scrollWidth": 375,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/categories/new/ at 375",
+      "width": 375,
+      "scrollWidth": 375,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/categories/1201/ at 375",
+      "width": 375,
+      "scrollWidth": 375,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/categories/1201/edit/ at 375",
+      "width": 375,
+      "scrollWidth": 375,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "/categories/1201/delete/ at 375",
+      "width": 375,
+      "scrollWidth": 375,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "keyboard native technician selection",
+      "pass": true
+    },
+    {
+      "label": "bound ticket errors",
+      "width": 1280,
+      "scrollWidth": 1280,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "keyboard horizontal ticket table scrolling",
+      "pass": true
+    },
+    {
+      "label": "friendly unsupported-method page",
+      "width": 375,
+      "scrollWidth": 375,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "maximum category name confirmation mobile",
+      "width": 375,
+      "scrollWidth": 375,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "maximum ticket title confirmation mobile",
+      "width": 375,
+      "scrollWidth": 375,
+      "unique": true,
+      "labels": true,
+      "described": true,
+      "landmarks": true,
+      "css": true,
+      "contrastFailures": []
+    },
+    {
+      "label": "guarded admin read-only ticket/comment and active-technician safeguard",
+      "pass": true
+    },
+    {
+      "label": "browser role lifecycle, terminal controls, authorization, validation, cancellation, Category CRUD/PROTECT and list edge states",
+      "pass": true
+    }
+  ]
+}

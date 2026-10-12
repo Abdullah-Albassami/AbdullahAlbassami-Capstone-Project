@@ -1,6 +1,6 @@
 # Verification evidence index
 
-Consolidated in Checkpoint F, 13 October 2026 (Asia/Riyadh). This index describes executed evidence and its limits; [ACCEPTANCE_TESTS](ACCEPTANCE_TESTS.md) preserves scenario/expected/actual/status records. F modifies Markdown only, retaining executable source, migrations, pins and E artifacts. It does not rerun or relabel historical tests as new results.
+Updated through Checkpoint G, 13 October 2026 (Asia/Riyadh). This index distinguishes executed evidence and its limits; [ACCEPTANCE_TESTS](ACCEPTANCE_TESTS.md) preserves actual outcomes. F's documentation-only checks remain historical; G genuinely reruns fresh-installation/tests/browser/server verification. Executable source, migrations and pins remain unchanged.
 
 ## Checkpoint history and evidence types
 
@@ -13,10 +13,11 @@ Consolidated in Checkpoint F, 13 October 2026 (Asia/Riyadh). This index describe
 | D | **133 Django tests** (101 + 32); normal-hasher/CSRF Category/query/report HTTP integration; live read-only 13/8/3/2 counts | [D report](CHECKPOINT_D_REPORT.md); D01–D08; related filtering, aggregation/annotation and edge cases integrated in pages |
 | E | **149 Django tests** (133 + 16), passing in **3.127s**; **39 real headless Chrome checks**; system/database/migration/dependency/hygiene checks | [E report](CHECKPOINT_E_REPORT.md); E01–E08; fixed actual audit defects, preserved working database |
 | F | Guide/source/document audit, links/paths/setup contract/evidence validation, read-only preservation and hygiene | [F report](CHECKPOINT_F_REPORT.md); F01–F05; documentation only; G not started |
+| G | Genuine clone/new venv/uncached pinned install/migrations/seed twice; **149 tests**, **39 Chrome checks**, **14 live HTTP/server checks** | [G report](CHECKPOINT_G_REPORT.md); G01–G07; automated readiness passed, human/external confirmation outstanding |
 
-A–E reports are historical records of their stages, including defects found and recovery checks. Their older feature states and test counts are not overwritten with today's totals. The latest verified application commit is **d207e0e0c31450d03fbaf1a24eaec8311f26dced** (E); F's documentation commit is identified in delivery/Git history, not treated as a final submitted revision.
+A–E reports are historical records of their stages, including defects found and recovery checks. Their older feature states and test counts are not overwritten with today's totals. The most recent executable application change is **d207e0e0c31450d03fbaf1a24eaec8311f26dced** (E). G freshly cloned/tested **d89f8748a9de33050eeb20ee7720df1eb2c253a1** (F), whose app source is identical. G's candidate hash is delivered after commit; none is represented as an already-submitted revision.
 
-## Latest Django regression evidence
+## Historical E Django regression evidence (G rerun below)
 
 The final E suite executed all **149 test methods**, with no failures and a fresh migrated test database created/destroyed. The following source modules remain unchanged in F:
 
@@ -75,4 +76,20 @@ E and F read-only checks preserve 4 Departments, 5 Categories, **13 tickets**, *
 
 No account login, seeding, migrations application or reset is performed against the working database in F. The digest is a preservation check, not a submitted database or disclosure of rows/password hashes. Fresh seed expectations (12/8/2/2) differ from the preserved working values (13/8/3/2); later valid actions will change them.
 
-Manual status remains **M01 PARTIAL (user-observed), M02–M14 NOT RUN**. Use [human instructions](MANUAL_BROWSER_CHECKS.md) and record actual observations, browser/version/viewport/date and failures. M13 is G's full fresh checkout; M14 requires the student's own demonstration/technical explanation. Instructor scope/access/duration remain unconfirmed. Documentary completeness in F does not close those readiness gaps.
+At F, manual status was **M01 PARTIAL (user-observed), M02–M14 NOT RUN**. G subsequently executes automated setup M13; human observations remain unexecuted as below. Use [human instructions](MANUAL_BROWSER_CHECKS.md) and record actual observations, browser/version/viewport/date and failures. M13 now has automated fresh-setup PASS, human repeat NOT RUN; M14 requires the student's own demonstration/technical explanation. Instructor scope/access/duration remain unconfirmed; automation/documentation cannot close human or external gaps.
+
+## Latest G evidence: genuine fresh checkout
+
+G01 cloned committed source with `git clone --no-local` into a new temporary directory and created a new Python 3.14.7 venv. `pip --isolated install --no-cache-dir -r requirements.txt` downloaded pins; no original packages/DB/local configuration were copied. New runtime secret/passwords stayed private. The first sandbox DNS failure was corrected by approved network execution; installation succeeded.
+
+[Fresh-checkout JSON](evidence/checkpoint-g/fresh-checkout.json) records eight successful commands, 19 applied migrations, exact seed-repeat snapshots including password hashes/timestamps, zero check/drift/pending/dependency errors and **149 tests PASS in 3.130s**. An activation assertion confirms the independent prefix. The additional no-cache pip check also passes. G02 reruns every test module counted above unchanged, rather than claiming the older E run as new evidence.
+
+[Chrome G JSON](evidence/checkpoint-g/results.json) records **39 PASS** on Chrome/155.0.8059.40 using the fresh clone's .venv and separate disposable fixture/profile. [G desktop](evidence/checkpoint-g/dashboard-desktop.png), [G mobile](evidence/checkpoint-g/dashboard-mobile.png), [login](evidence/checkpoint-g/login-mobile.png), [long category](evidence/checkpoint-g/long-category-confirmation.png), [long ticket](evidence/checkpoint-g/long-ticket-confirmation.png) are actual captures. Coverage breakdown remains 34 page audits + 3 basic keyboard + guarded admin + combined journey. E artifacts remain historical and unchanged.
+
+[Server G JSON](evidence/checkpoint-g/server-access.json) records **14 PASS** using an actual Django runserver, new secret, normal password hashing/CSRF and only the clone's disposable database. It covers reachable login/CSS, authentication/logout, role denial, creation/edit/comment/cancel/retention, 403/404/405/409, and report totals changing **12/8/2/2 → 13/8/2/3** after creation/cancellation. G's browser journey separately verifies **12/8/2/2 → 13/7/3/3** before stress fixtures. Report tests cover assignment/reassignment/resolution and per-row annotation changes, zeros and multiple related rows.
+
+The first ad hoc server probe used DEBUG=false, so ordinary runserver returned 404 for CSS; the README's local DEBUG=true setting passed the corrected probe. Non-raw regex warnings in that discarded harness were corrected to raw strings, and the pip cache advisory was avoided in the no-cache check. No application defect or code change was needed. Disposable HTTP credentials were privately rotated after the seed-idempotency assertion; the working accounts were never touched. The server/browser fixture/profile stopped/removed on completion; the separately created clone/evidence workspace is disposed after retained evidence/parity checks.
+
+G06 verifies the original database bytes and eight-table logical digest unchanged, with HD-10013 still resolved and **13/8/3/2** original counts. Numeric ticket 10013 created in a clone is independent of the preserved original HD-10013. G05 checks final documents, unchanged app source/pins/historical reports, ignored runtime files and tracked history for credential indicators. The local candidate commit is identified by Git at delivery; instructor remote access/submission is not inferred.
+
+Current manual status: **M01 PARTIAL**, **M02–M12/M14 NOT RUN (human)**, **M13 PASS (automated setup), human repeat NOT RUN**. Human full keyboard/zoom/device/screen reader and original HD-10013 detail remain open. Instructor scope/access/duration and the student's M14 understanding/rehearsal still require confirmation.
