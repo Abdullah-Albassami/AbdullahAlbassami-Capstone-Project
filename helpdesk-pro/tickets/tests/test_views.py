@@ -366,9 +366,9 @@ class WorkflowViewTests(FoundationCase):
         self.assertContains(self.client.get("/nonexistent/"), "This page is unavailable", status_code=404)
         self.client.force_login(self.employee)
         self.assertContains(self.client.get(self.url("ticket_create")), "Submit a ticket")
-        # No custom CRUD/query/report endpoints are introduced in C.
+        # Category routes now exist at D, but remain inaccessible to Employee.
         for path in ("/categories/", "/categories/new/"):
-            self.assertEqual(self.client.get(path).status_code, 404)
+            self.assertEqual(self.client.get(path).status_code, 403)
 
     def test_server_error_template_does_not_resolve_database_backed_user(self):
         from django.utils.functional import SimpleLazyObject

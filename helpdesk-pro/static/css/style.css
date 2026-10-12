@@ -100,6 +100,16 @@ th { color: var(--muted); font-size: 0.9rem; }
 .comment time { color: var(--muted); font-size: 0.85rem; }
 .login-layout { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem; max-width: 900px; margin: 2rem auto; }
 .login-intro h1 { font-size: clamp(2rem, 5vw, 3.25rem); }
+.filter-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); gap: 1rem; }
+.filter-fields .form-alert { grid-column: 1 / -1; }
+.filter-fields .field { margin-bottom: 0; }
+.pagination { justify-content: center; margin-top: 1.5rem; margin-left: 0; }
+.status-summary { display: flex; flex-wrap: wrap; gap: 1rem; list-style: none; padding: 0; margin-bottom: 0; }
+.status-summary li { flex: 1; min-width: 130px; }
+.status-summary a { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+.status-summary strong { font-size: 1.25rem; }
+.report-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 @media (max-width: 800px) {
   .detail-layout, .login-layout { grid-template-columns: minmax(0, 1fr); }
   .login-layout { gap: 1.5rem; margin-block: 0; }

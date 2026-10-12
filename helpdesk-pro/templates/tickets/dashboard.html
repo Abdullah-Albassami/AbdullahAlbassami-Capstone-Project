@@ -12,6 +12,25 @@
   <div class="panel metric"><span>Resolved</span><strong>{{ counts.resolved }}</strong></div>
   <div class="panel metric"><span>Cancelled</span><strong>{{ counts.cancelled }}</strong></div>
 </div>
+<section class="panel section-space" aria-labelledby="status-heading">
+  <h2 id="status-heading">Status breakdown</h2>
+  <p class="helptext">{% if app_role == 'IT Admin' %}All tickets{% else %}Your visible tickets{% endif %}. Active means New, Assigned or In progress.</p>
+  <ul class="status-summary">{% for row in status_breakdown %}<li><a href="{% url 'tickets:ticket_list' %}?status={{ row.status }}"><span class="badge status-{{ row.status }}">{{ row.label }}</span><strong>{{ row.count }}</strong></a></li>{% endfor %}</ul>
+</section>
+{% if app_role == 'IT Admin' %}
+<div class="grid section-space report-grid">
+  <section class="panel" aria-labelledby="category-report-heading">
+    <div class="section-heading"><h2 id="category-report-heading">Category backlog</h2><a href="{% url 'tickets:category_list' %}">Manage categories</a></div>
+    <p class="helptext">Active tickets in each category, including unassigned requests. Use this to identify issue areas needing attention.</p>
+    {% include 'tickets/includes/category_report_table.html' %}
+  </section>
+  <section class="panel" aria-labelledby="workload-heading">
+    <h2 id="workload-heading">Technician workload</h2>
+    <p class="helptext">Active assigned tickets per eligible technician. This measures assigned workload, not actual availability. Resolved and cancelled tickets are excluded.</p>
+    {% if technicians %}<div class="table-wrapper" role="region" aria-label="Technician workload table" tabindex="0"><table><caption>Active assigned tickets</caption><thead><tr><th scope="col">Technician</th><th scope="col">Active assignments</th></tr></thead><tbody>{% for technician in technicians %}<tr><td>{{ technician.get_full_name|default:technician.username }}<div class="muted">{{ technician.username }}</div></td><td>{{ technician.active_assigned_count }}</td></tr>{% endfor %}</tbody></table></div>{% else %}<p class="muted">No eligible technicians. Provision an active Technician account before assigning tickets.</p>{% endif %}
+  </section>
+</div>
+{% endif %}
 <section class="panel section-space" aria-labelledby="recent-heading">
   <div class="section-heading"><h2 id="recent-heading">Recent tickets</h2><a href="{% url 'tickets:ticket_list' %}">View all tickets</a></div>
   {% include 'tickets/includes/ticket_table.html' with table_caption='Your five most recent visible tickets' %}

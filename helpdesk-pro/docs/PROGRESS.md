@@ -1,13 +1,13 @@
 # Checkpoint progress
 
-Last updated: 12 October 2026 (Asia/Riyadh). The user reviewed/approved A/B and authorized C only, preserving all amendments and the `helpdesk-pro/` structure. C is complete; stop for explicit review/approval before D. Approximately 20 focused hours are estimated across two days; actual completion speed is not guaranteed.
+Last updated: 12 October 2026 (Asia/Riyadh). A–C are reviewed/approved; the user authorized D only and reported HD-10013's browser lifecycle. D is complete; stop before E pending explicit approval. The helpdesk-pro structure and two-day priorities remain. Approximately 20 focused hours were estimated; actual completion speed is not guaranteed.
 
 | Checkpoint | Estimate | Completion condition | Status |
 | --- | --- | --- | --- |
 | A: design/foundation | 1h | Approved amendments, ERD/contracts/wireframes, safe scaffold inside helpdesk-pro, compatibility before install, actual checks and coherent commit | Reviewed/approved |
 | B: data/accounts | 2h | Models/constraints/migrations, guarded admin, roles/seed and integrity/provisioning tests | Reviewed/approved |
-| C: support workflow | 4h | Complete persisted role journey, usable forms/pages and focused security/state tests | Complete; awaiting review/approval before D |
-| D: CRUD/reports | 2h | Category CRUD, list queries/pagination, known aggregate/annotation counts | Not started |
+| C: support workflow | 4h | Complete persisted role journey, usable forms/pages and focused security/state tests | Reviewed/approved; user-observed HD-10013 journey recorded |
+| D: CRUD/reports | 2h | Category CRUD, list queries/pagination, known aggregate/annotation counts | Complete; awaiting review/approval before E |
 | E: reliability/UX | 3h | Complete important tests and mobile/accessibility/error-state verification | Not started |
 | F: final evidence | 2h | Final README/design/matrix/actual verification/demo documents | Not started |
 | G: readiness | 3h | Separate fresh checkout, seed twice, all checks, real browser acceptance, rehearsal and submission revision | Not started |
@@ -28,8 +28,8 @@ Last updated: 12 October 2026 (Asia/Riyadh). The user reviewed/approved A/B and 
 
 ## Remaining work and blockers
 
-- User review/approval of C before D. C changes are verified and reported for a coherent milestone commit; Git history identifies the commit without a self-referential hash. Historical A/B results remain separate.
-- D–G features and acceptance evidence remain to be implemented/verified. Full status/backlog/workload reports, category CRUD, filtering and pagination have not begun.
+- User review/approval of D before E. Verified D changes/report form a coherent milestone commit; Git history supplies its hash without a self-referential report hash. Historical A–C checks remain separate.
+- E–G reliability/manual usability, evidence completion, full fresh checkout and student rehearsal remain. New D browser checks and final read-only-control visibility are unobserved; do not mark them passed.
 - External facts unresolved: instructor scope agreement, presentation duration, instructor repository access and available focused development hours. No claim of confirmation is made.
 - No deployment is required. Credentials/secret key are runtime-only; the local ignored database now contains the five fictitious demo accounts. Verification used a generated undisclosed password; choose known local credentials with Django changepassword as documented.
 
@@ -54,3 +54,12 @@ Record changes, commands/checks and actual outcomes for each checkpoint in ACCEP
 - 41 new service/HTTP tests plus the 60 foundation tests: final 101 tests passed. Includes full persisted role journey, forged fields, scoped GET/POST, CSRF-enforced requests, safe login redirects, invalid/stale account/state handling and reassignment revoking access.
 - Separate fresh temporary SQLite file migrated/seeded twice with normal password hashing. CSRF-enforced seeded resolution plus create/edit/comment/cancel passed; connection reopened and final 13/7/3/3 totals confirmed. Working demo data untouched.
 - Checks/dependency consistency passed; no model changes or pending migrations. The initial targeted run found/fixed nullable-assignee template rendering. Redirect-message consumption assumptions in two tests were corrected. Final tests pass; real browser/mobile/keyboard acceptance, full checkout and student rehearsal remain NOT RUN.
+
+## Checkpoint D delivered and verified
+
+- IT Admin Category create/list/detail/edit/delete through explicit forms, shared role-checked services and confirmation; PROTECT retains categories referenced by active or terminal tickets with helpful feedback.
+- Scoped Q title/description search, combined status/priority/category filters through category__name, whitelist ordering with business priority rank and stable tie-breakers, validated URL preservation and ten-ticket pagination. Malformed filters are ignored independently; zero/negative/nonnumeric pages select first, positive out-of-range last.
+- One aggregate query supplies four cards and all five status counts. Separate filtered distinct Count annotations show all categories and eligible technicians, including zero rows. Organization reports require IT Admin at the query and view boundaries.
+- 32 new category/query/report tests plus the previous 101: 133 tests pass. Cases include known seed arithmetic, no-result/empty states, malformed/repeated parameters, related filtering, ordering/page boundaries, permissions/CSRF, multiple comments/groups, eligibility and live workflow report updates. Existing lifecycle tests remain passing; one former C assertion for absent category routes now checks Employee denial on the implemented routes.
+- Fresh temporary migrated/seeded database, normal hashing and CSRF-enforced Category CRUD/PROTECT/report/filter/page/role checks passed. Parsed HTML labels/IDs/landmarks/forms passed. Local database rendered read-only at actual 13/8/3/2 totals, preserving HD-10013 and all working data.
+- User-observed browser entries UC01–UC07 are recorded exactly as reported; final terminal controls, new D browser checks, mobile/keyboard and full fresh checkout remain unverified. Models/migrations/ERD, dependency pins, seed and ticket mutation rules are unchanged.

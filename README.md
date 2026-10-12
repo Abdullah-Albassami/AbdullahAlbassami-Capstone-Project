@@ -9,10 +9,10 @@ The Django application and its setup/design/evidence documents live in **`helpde
 - [Checkpoint progress](helpdesk-pro/docs/PROGRESS.md)
 - [Verification record](helpdesk-pro/docs/ACCEPTANCE_TESTS.md)
 
-Checkpoint C delivers application sign-in/POST sign-out, role-scoped dashboards and queues, and the complete validated ticket workflow through responsive Django templates. The existing four-model schema and seed are retained; 101 automated tests pass. Category CRUD, advanced list queries/pagination and full status/category/workload reports remain Checkpoint D. Work stops before D pending explicit approval.
+Checkpoint D adds IT Admin Category CRUD, combined scoped ticket search/filters, deterministic ordering, ten-ticket pagination, five-status breakdown and annotated category/technician reports. The existing ticket workflow, four-model schema and seed are retained; 133 automated tests pass. The user-observed browser journey for HD-10013 is recorded separately from automated checks. Work stops before E pending explicit approval.
 
 Start setup from `helpdesk-pro/`, following its README. The repository-wide `.gitignore` excludes local environments, credentials, databases and generated assets. No credentials or real personal data belong in the submission.
 
 See the [Checkpoint B report](helpdesk-pro/docs/CHECKPOINT_B_REPORT.md) for file inventory, commands, actual results and remaining limitations.
 
-See the [Checkpoint C report](helpdesk-pro/docs/CHECKPOINT_C_REPORT.md) for the current workflow, changed files and executed verification. Real browser/mobile acceptance and final fresh-checkout rehearsal are still pending.
+See the [Checkpoint C report](helpdesk-pro/docs/CHECKPOINT_C_REPORT.md) for the ticket workflow milestone and the [Checkpoint D report](helpdesk-pro/docs/CHECKPOINT_D_REPORT.md) for current changes and verification. New-feature browser acceptance, mobile/keyboard checks and final fresh-checkout rehearsal are still pending.

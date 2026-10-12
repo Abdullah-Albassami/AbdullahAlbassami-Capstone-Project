@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block title %}{% if category %}Edit category{% else %}Create category{% endif %} · HelpDesk Pro{% endblock %}
+{% block content %}
+<a class="back-link" href="{% url 'tickets:category_list' %}">← Back to categories</a>
+<div class="page-heading"><div><p class="eyebrow">IT Admin workspace</p><h1>{% if category %}Edit {{ category.name }}{% else %}Create category{% endif %}</h1><p class="muted">A clear name helps employees choose the right issue area.</p></div></div>
+<div class="panel form-panel"><form method="post">{% csrf_token %}{% include 'tickets/includes/form_fields.html' %}<div class="actions"><button type="submit">{% if category %}Save changes{% else %}Create category{% endif %}</button><a href="{% url 'tickets:category_list' %}">Return without saving</a></div></form></div>
+{% endblock %}

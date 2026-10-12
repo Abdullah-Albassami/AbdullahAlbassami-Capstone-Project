@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block title %}Categories · HelpDesk Pro{% endblock %}
+{% block content %}
+<div class="page-heading"><div><p class="eyebrow">IT Admin workspace</p><h1>Categories</h1><p class="muted">Classify support requests and identify backlog concentrations.</p></div><a class="button" href="{% url 'tickets:category_create' %}">Create category</a></div>
+<section class="panel"><p class="helptext">Active counts include New, Assigned and In progress tickets. Categories with no active tickets show zero. Open a category to view its full description and related tickets.</p>{% include 'tickets/includes/category_report_table.html' with show_management=True %}</section>
+{% endblock %}

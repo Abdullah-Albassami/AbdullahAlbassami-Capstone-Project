@@ -2,7 +2,8 @@
 
 from django import forms
 
-from .models import Ticket
+from .constants import Priority, Status
+from .models import Category, Ticket
 from .permissions import eligible_technicians
 
 
@@ -38,6 +39,38 @@ class ResolutionForm(forms.Form):
 class CommentForm(forms.Form):
     body = forms.CharField(label="Comment", strip=True, widget=forms.Textarea(attrs={"rows": 4}),
                            help_text="Comments are visible to the requester and IT team and cannot be edited or deleted.")
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ("name", "description")
+        widgets = {"description": forms.Textarea(attrs={"rows": 4})}
+        help_texts = {"name": "A unique category name, up to 100 characters.",
+                      "description": "Optional guidance for choosing this category."}
+
+
+class TicketFilterForm(forms.Form):
+    ORDER_CHOICES = (("newest", "Newest first"), ("oldest", "Oldest first"),
+                     ("priority", "Priority: high to low"), ("updated", "Recently updated"))
+    q = forms.CharField(label="Search", required=False, max_length=200, strip=True,
+                        widget=forms.TextInput(attrs={"placeholder": "Title or description"}))
+    status = forms.ChoiceField(required=False, choices=(("", "All statuses"), *Status.choices))
+    priority = forms.ChoiceField(required=False, choices=(("", "All priorities"), *Priority.choices))
+    category = forms.ModelChoiceField(required=False, queryset=Category.objects.all(), empty_label="All categories")
+    order = forms.ChoiceField(label="Order", required=False, choices=ORDER_CHOICES)
+
+    def __init__(self, parameters):
+        # Only accepted scalar fields enter validation. Repeated values are ambiguous.
+        data = {name: parameters.get(name, "") for name in self.base_fields}
+        repeated = [name for name in self.base_fields if len(parameters.getlist(name)) > 1]
+        for name in repeated:
+            data[name] = ""
+        data["order"] = data["order"] or "newest"
+        super().__init__(data)
+        self.full_clean()
+        for name in repeated:
+            self.add_error(name, "Supply one value. This parameter was ignored.")
 
 
 def add_validation_errors(form, error):

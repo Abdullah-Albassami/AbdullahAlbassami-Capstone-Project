@@ -14,4 +14,9 @@ urlpatterns = [
     path("tickets/<int:pk>/start/", views.ticket_start, name="ticket_start"),
     path("tickets/<int:pk>/resolve/", views.ticket_resolve, name="ticket_resolve"),
     path("tickets/<int:pk>/comment/", views.ticket_comment, name="ticket_comment"),
+    path("categories/", views.category_list, name="category_list"),
+    path("categories/new/", views.category_create, name="category_create"),
+    path("categories/<int:pk>/", views.category_detail, name="category_detail"),
+    path("categories/<int:pk>/edit/", views.category_update, name="category_update"),
+    path("categories/<int:pk>/delete/", views.category_delete, name="category_delete"),
 ]

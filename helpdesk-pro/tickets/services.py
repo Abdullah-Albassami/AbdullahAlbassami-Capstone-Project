@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404
 from django.utils import timezone
 
 from .constants import Role, Status
-from .models import Ticket, TicketComment
+from .models import Category, Ticket, TicketComment
 from .permissions import get_role, is_eligible_technician, require_role, ticket_permissions, visible_tickets
 
 BUSINESS_FIELDS = frozenset(("title", "description", "category", "department", "priority"))
@@ -118,3 +118,35 @@ def add_comment(actor, pk, body):
     comment.full_clean()
     comment.save()
     return comment
+
+
+def get_admin_category(actor, pk):
+    require_role(actor, Role.IT_ADMIN)
+    return get_object_or_404(Category, pk=pk)
+
+
+def apply_category_fields(category, values):
+    if set(values) != {"name", "description"}:
+        raise ValidationError("Provide exactly the category name and description.")
+    category.name = values["name"]
+    category.description = values["description"]
+    category.full_clean()
+    category.save()
+    return category
+
+
+@transaction.atomic
+def create_category(actor, values):
+    require_role(actor, Role.IT_ADMIN)
+    return apply_category_fields(Category(), values)
+
+
+@transaction.atomic
+def update_category(actor, pk, values):
+    return apply_category_fields(get_admin_category(actor, pk), values)
+
+
+@transaction.atomic
+def delete_category(actor, pk):
+    category = get_admin_category(actor, pk)
+    category.delete()  # PROTECT includes active and terminal references.

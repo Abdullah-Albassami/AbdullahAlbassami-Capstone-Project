@@ -7,13 +7,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import AnonymousUser
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.http import Http404
-from django.db.models import Count, Q
-from django.shortcuts import redirect, render
+from django.db.models.deletion import ProtectedError
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_http_methods
 
-from . import services
-from .constants import ACTIVE_STATUSES, Role, Status
-from .forms import AssignmentForm, CommentForm, ResolutionForm, TicketForm, add_validation_errors
+from . import queries, services
+from .constants import Role
+from .forms import AssignmentForm, CategoryForm, CommentForm, ResolutionForm, TicketForm, add_validation_errors
 from .permissions import can_create_ticket, get_role, require_role, ticket_permissions, visible_tickets
 
 
@@ -43,7 +43,9 @@ def application_view(methods=("GET",)):
             except PermissionDenied as error:
                 return error_page(request, 403, str(error))
             except Http404:
-                return error_page(request, 404, "This ticket is unavailable. Check the reference or return to your ticket list.")
+                detail = ("This category is unavailable. Return to the category list." if request.path.startswith("/categories/")
+                          else "This ticket is unavailable. Check the reference or return to your ticket list.")
+                return error_page(request, 404, detail)
             except services.WorkflowConflict as error:
                 return error_page(request, 409, str(error))
             except ValidationError as error:
@@ -55,18 +57,16 @@ def application_view(methods=("GET",)):
 @application_view()
 def dashboard(request):
     tickets = visible_tickets(request.user)
-    # Final query for the basic role summary. Status/category/workload reports belong to D.
-    counts = tickets.aggregate(total=Count("id"), active=Count("id", filter=Q(status__in=ACTIVE_STATUSES)),
-                               resolved=Count("id", filter=Q(status=Status.RESOLVED)),
-                               cancelled=Count("id", filter=Q(status=Status.CANCELLED)))
     recent = tickets.select_related("category", "department", "requester", "assigned_to")[:5]
-    return render(request, "tickets/dashboard.html", {**user_context(request), "counts": counts, "tickets": recent})
+    context = {**user_context(request), **queries.ticket_summary(request.user), "tickets": recent}
+    if context["app_role"] == Role.IT_ADMIN:
+        context.update(categories=queries.category_backlog(request.user), technicians=queries.technician_workload(request.user))
+    return render(request, "tickets/dashboard.html", context)
 
 
 @application_view()
 def ticket_list(request):
-    tickets = visible_tickets(request.user).select_related("category", "department", "requester", "assigned_to")
-    return render(request, "tickets/ticket_list.html", {**user_context(request), "tickets": tickets})
+    return render(request, "tickets/ticket_list.html", {**user_context(request), **queries.ticket_list_page(request.user, request.GET)})
 
 
 def detail_response(request, ticket, **bound_forms):
@@ -178,6 +178,64 @@ def ticket_comment(request, pk):
             messages.success(request, "Comment added.")
             return redirect("tickets:ticket_detail", pk=pk)
     return detail_response(request, ticket, comment_form=form)
+
+
+@application_view()
+def category_list(request):
+    categories = queries.category_backlog(request.user)
+    return render(request, "tickets/category_list.html", {**user_context(request), "categories": categories})
+
+
+@application_view()
+def category_detail(request, pk):
+    category = get_object_or_404(queries.category_backlog(request.user), pk=pk)
+    return render(request, "tickets/category_detail.html", {**user_context(request), "category": category})
+
+
+@application_view(("GET", "POST"))
+def category_create(request):
+    require_role(request.user, Role.IT_ADMIN)
+    form = CategoryForm(request.POST if request.method == "POST" else None)
+    if request.method == "POST" and form.is_valid():
+        try:
+            category = services.create_category(request.user, form.cleaned_data)
+        except ValidationError as error:
+            add_validation_errors(form, error)
+        else:
+            messages.success(request, f"Category {category.name} created.")
+            return redirect("tickets:category_detail", pk=category.pk)
+    return render(request, "tickets/category_form.html", {**user_context(request), "form": form})
+
+
+@application_view(("GET", "POST"))
+def category_update(request, pk):
+    category = services.get_admin_category(request.user, pk)
+    form = CategoryForm(request.POST if request.method == "POST" else None, instance=category)
+    if request.method == "POST" and form.is_valid():
+        try:
+            saved = services.update_category(request.user, pk, form.cleaned_data)
+        except ValidationError as error:
+            add_validation_errors(form, error)
+        else:
+            messages.success(request, f"Category {saved.name} updated.")
+            return redirect("tickets:category_detail", pk=pk)
+    return render(request, "tickets/category_form.html", {**user_context(request), "form": form, "category": category})
+
+
+@application_view(("GET", "POST"))
+def category_delete(request, pk):
+    category = services.get_admin_category(request.user, pk)
+    deletion_error = ""
+    if request.method == "POST":
+        try:
+            services.delete_category(request.user, pk)
+        except ProtectedError:
+            deletion_error = "This category is used by existing tickets and cannot be deleted. Keep it or edit its name/description."
+        else:
+            messages.success(request, f"Category {category.name} deleted.")
+            return redirect("tickets:category_list")
+    return render(request, "tickets/category_confirm_delete.html", {**user_context(request), "category": category,
+        "ticket_count": category.tickets.count(), "deletion_error": deletion_error})
 
 
 def permission_denied(request, exception):

@@ -1,6 +1,24 @@
 {% extends 'base.html' %}
 {% block title %}Tickets · HelpDesk Pro{% endblock %}
 {% block content %}
-<div class="page-heading"><div><p class="eyebrow">{{ app_role }} workspace</p><h1>{% if app_role == 'IT Admin' %}All tickets{% elif app_role == 'Technician' %}Assigned tickets{% else %}My tickets{% endif %}</h1><p class="muted">Support requests, newest first.</p></div>{% if can_create %}<a class="button" href="{% url 'tickets:ticket_create' %}">Submit ticket</a>{% endif %}</div>
-<section class="panel" aria-label="Ticket list">{% include 'tickets/includes/ticket_table.html' %}</section>
+<div class="page-heading"><div><p class="eyebrow">{{ app_role }} workspace</p><h1>{% if app_role == 'IT Admin' %}All tickets{% elif app_role == 'Technician' %}Assigned tickets{% else %}My tickets{% endif %}</h1><p class="muted">Find requests by issue, status, priority or category.</p></div>{% if can_create %}<a class="button" href="{% url 'tickets:ticket_create' %}">Submit ticket</a>{% endif %}</div>
+<section class="panel" aria-labelledby="filter-heading">
+  <h2 id="filter-heading">Find tickets</h2>
+  {% if filter_form.errors %}<p class="form-alert" role="alert">Invalid filters were ignored. Your other valid selections still apply.</p>{% endif %}
+  <form method="get" action="{% url 'tickets:ticket_list' %}">
+    <div class="filter-fields">{% include 'tickets/includes/form_fields.html' with form=filter_form %}</div>
+    <div class="actions"><button type="submit">Apply filters</button><a href="{% url 'tickets:ticket_list' %}">Clear filters</a></div>
+  </form>
+</section>
+<section class="panel section-space" aria-label="Ticket list">
+  <p class="muted">{{ page_obj.paginator.count }} ticket{{ page_obj.paginator.count|pluralize }}{% if has_filters %} matching your filters{% endif %}.</p>
+  {% if not tickets and has_filters %}<div class="empty-state"><h2>No matching tickets</h2><p class="muted">Try a different search or clear your filters.</p><a class="button button-secondary" href="{% url 'tickets:ticket_list' %}">Clear filters</a></div>{% else %}{% include 'tickets/includes/ticket_table.html' %}{% endif %}
+  {% if page_obj.paginator.num_pages > 1 %}
+    <nav class="pagination" aria-label="Ticket pagination">
+      {% if page_obj.has_previous %}<a class="button button-secondary" href="?{{ filter_query }}&amp;page={{ page_obj.previous_page_number }}">Previous</a>{% endif %}
+      <span aria-current="page">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+      {% if page_obj.has_next %}<a class="button button-secondary" href="?{{ filter_query }}&amp;page={{ page_obj.next_page_number }}">Next</a>{% endif %}
+    </nav>
+  {% endif %}
+</section>
 {% endblock %}

@@ -1,6 +1,6 @@
 # Demonstration and individual technical rehearsal
 
-**C ticket journey is executable; full final demonstration still awaits D–G.** Login/POST logout, role queues/dashboard summary and the entire ticket workflow are implemented. Automated HTTP tests and a CSRF-enforced seeded journey passed; real browser/student rehearsal has not been executed. Full reports/category CRUD remain D. Confirm instructor duration/scope agreement, use fictional data, keep passwords out of slides/repository and demonstrate the submitted revision.
+**A–D functionality is executable; final readiness/rehearsal still awaits E–G.** The ticket workflow, Category CRUD, advanced queries/pagination and aggregate/annotated reports are implemented. The user observed HD-10013's C browser lifecycle; automated/CSRF integration checks cover D, but its real browser acceptance and student rehearsal remain pending. Confirm instructor duration/scope agreement, use fictional data, keep passwords out of slides/repository and demonstrate the submitted revision.
 
 ## Guide-prescribed order
 
@@ -17,9 +17,19 @@ Final README must supply exact setup/configuration/migrations/seed/run/test inst
 
 Record the actual final demo ticket reference and submitted commit before rehearsal. Show category CRUD/cancellation separately when time permits; those are mandatory acceptance checks even if not all are narrated in the concise primary presentation.
 
+The user-created **HD-10013 is already resolved**. Read-only verification of the current local data shows total 13, active 8, resolved 3, cancelled 2; statuses New 3 / Assigned 3 / In progress 2 / Resolved 3 / Cancelled 2. Category backlog remains 3/2/2/1/0 and active technician workload 3/2. These are observed local values at D, not constants: future valid actions change them. Never reseed/reset to force old counts. Use a pristine separate setup for the initial 12-ticket demonstration if needed.
+
 ## Checkpoint C walkthrough available for review
 
 Start the server using README instructions. Sign in at `/accounts/login/` as employee1 using your private runtime credential. Submit at `/tickets/new/`, optionally edit and comment while New, then use navigation's POST Sign out. Sign in as itadmin, open the saved ticket from All tickets and assign technician1. Sign out/in as technician1, open Assigned tickets, start progress, comment and supply a resolution note. Sign out/in as employee1 and read the retained resolution/discussion. A separate own New ticket can be cancelled from its confirmation page. This walkthrough is available to execute; it is not marked as a completed manual acceptance check.
+
+The reported HD-10013 journey covers employee login/create/comment, admin assignment, technician login/visibility/start/resolve and employee dashboard Resolved. Those user-observed steps are recorded as UC01–UC07. Final read-only controls and employee outcome/thread detail were not explicitly observed; do not treat them as completed manual checks.
+
+## Checkpoint D walkthrough available for review
+
+As IT Admin, create a category from Categories, open its detail, edit it and delete it through confirmation while unused. Attempt to delete Hardware to see the protected-reference explanation. Dashboard shows four aggregate cards, all five statuses, category backlog and eligible technician workload; explain zero rows and the difference between assignments and availability.
+
+On Tickets, search a known phrase in title/description, combine category/status/priority, and select Priority: high to low. Try a no-match query and a malformed status in the URL. Verify valid parameters remain across Next/Previous pages (at least 11 matching records are needed). Sign in as employee/technician to confirm own/assigned totals and category URL denial. This is a review script, not a recorded browser PASS. Tests cover these cases with controlled fixtures even when the working dataset has too few matching records for a particular pagination demo.
 
 ## Personal technical discussion
 

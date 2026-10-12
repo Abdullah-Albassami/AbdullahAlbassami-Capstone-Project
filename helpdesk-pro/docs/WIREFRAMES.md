@@ -1,6 +1,6 @@
 # HelpDesk Pro wireframes and user journey
 
-Approved target for the final interface. C implements login, shared role navigation, dashboard summaries/recent tickets, basic lists and all ticket forms/detail/confirmations. Category screens, list filter/pagination controls and full reports remain D. These diagrams are design evidence, not browser screenshots; desktop/mobile acceptance remains pending.
+Approved design for the implemented A–D interface: login, role navigation, ticket workflow, Category CRUD/detail, query controls/pagination and full dashboard reports. These diagrams are design evidence, not browser screenshots. The user observed HD-10013's C lifecycle; D browser and desktop/mobile/keyboard acceptance remain pending.
 
 ## Shared layout
 
@@ -91,6 +91,8 @@ This removes the category. Referenced categories cannot be deleted.
 ```
 
 Category list shows name, description and annotated active ticket count, with create/edit/delete controls. Login uses Django authentication with labeled username/password and generic invalid-credential feedback. Errors/missing records offer safe navigation, never tracebacks for expected requests.
+
+Category detail shows full description, active count and a link to tickets filtered by its category. Delete confirmation explains permanent removal and the existing-ticket reference count; a protected POST returns an error on that page without deletion. Empty report rows show zero; completely empty reports explain the next setup action. Invalid filters retain other valid selections and show field feedback. Page values that are nonnumeric/nonpositive/repeated select first; positive out-of-range selects last.
 
 ## Realistic end-to-end journey
 

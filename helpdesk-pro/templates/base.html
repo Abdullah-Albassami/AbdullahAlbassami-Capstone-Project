@@ -18,6 +18,7 @@
               {% if app_role %}
                 <a href="{% url 'tickets:dashboard' %}">Dashboard</a>
                 <a href="{% url 'tickets:ticket_list' %}">Tickets</a>
+                {% if app_role == 'IT Admin' %}<a href="{% url 'tickets:category_list' %}">Categories</a>{% endif %}
                 {% if can_create %}<a href="{% url 'tickets:ticket_create' %}">Submit ticket</a>{% endif %}
                 {% if can_setup %}<a href="{% url 'admin:index' %}">Organization setup</a>{% endif %}
               {% endif %}

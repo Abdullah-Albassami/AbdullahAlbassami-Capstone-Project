@@ -2,7 +2,7 @@
 
 An internal Django IT support application for employees and a small IT team. It is designed to replace scattered email or spreadsheet requests with clear ownership, consistent status, retained discussion and visible backlog.
 
-**Current delivery: Checkpoint C — complete ticket web workflow.** Login/POST logout, role dashboards/queues, ticket CRUD through cancellation, assignment/reassignment, progress/resolution and immutable comments are implemented using shared validated services. The four-model schema and deterministic seed are retained; 101 automated tests pass. Category CRUD, advanced filtering/ordering/pagination and full status/category/technician reporting remain D. Real browser acceptance and final readiness checks remain pending.
+**Current delivery: Checkpoint D — Category CRUD, advanced queries and reports.** The complete ticket workflow is retained. IT Admin manages categories; all roles can search/filter/order their authorized tickets with ten-record pagination. Dashboard aggregate totals/five-status counts and IT Admin category/workload annotations use live persisted data. The four-model schema and deterministic seed are unchanged; 133 automated tests pass. HD-10013's browser journey is user-observed; new-feature/manual usability and final readiness checks remain pending.
 
 ## Final project structure
 
@@ -27,7 +27,7 @@ repository-root/
     .venv/           # local only; ignored and recreated at this location
 ```
 
-The `tickets` package contains models, shared choices/roles, account guards, permissions, workflow services/forms/views/URLs, guarded Django admin, migrations, seed and tests. The list has stable newest-first ordering; advanced list controls, category CRUD and full reports finish in D. No alternative model, workflow, account-management, audit-trail or integration subsystem is introduced.
+The `tickets` package contains models, shared roles/account guards/permissions, validated ticket/category services and forms, HTTP views/URLs, scoped queries/reports in queries.py, guarded Django admin, migrations, seed and tests. No alternative model, workflow, account-management, audit-trail or integration subsystem is introduced.
 
 ## Product and agreed scope
 
@@ -94,9 +94,9 @@ Use a password accepted by Django's validators. All five demo accounts initially
 
 Current development data was seeded using a generated password that was not displayed or stored in source. To choose known credentials privately for an existing account, run `python manage.py changepassword employee1` (or technician1/itadmin/etc.); repeating seed with a new environment password does not reset it. To provision a separate setup administrator, use `python manage.py createsuperuser` and choose a non-demo username/private password.
 
-Open `http://127.0.0.1:8000/accounts/login/` and sign in with a demo username and your private password. `/` shows the role dashboard; `/tickets/` lists permitted tickets; `/tickets/new/` accepts Employee/IT Admin submissions. Ticket detail offers only permitted actions and related discussion. Logout is a POST form in the navigation. IT Admin manages Departments at `/admin/`; a setup superuser provisions accounts and inspects tickets/comments read-only. Category frontend routes are reserved for D.
+Open `http://127.0.0.1:8000/accounts/login/` and sign in with a demo username and your private password. `/` shows the role dashboard; `/tickets/` searches/filters/orders/pages permitted tickets; `/tickets/new/` accepts Employee/IT Admin submissions. Ticket detail offers permitted actions and related discussion. `/categories/` gives IT Admin Category CRUD and active counts; each category has a detail page and related-ticket link. Referenced categories cannot be deleted, including references from terminal tickets. Logout is a POST form. IT Admin manages Departments at `/admin/`; a setup superuser provisions accounts and inspects tickets/comments read-only.
 
-Migrations and seed were verified on the working database and separate fresh temporary SQLite files. The 101-test suite creates its database from committed migrations. A CSRF-enforced HTTP-client journey also used fresh seeded data with normal password hashing, exercised resolution and cancellation, and confirmed persisted state after reopening the connection. Complete fresh-checkout/environment and real browser/mobile acceptance remain later checks. Tests use a fast hasher only under overrides; normal settings retain Django's default hashing. This setup is for loopback development.
+Migrations and seed were verified on working and separate fresh temporary SQLite databases. The 133-test suite creates its database from committed migrations. CSRF-enforced HTTP integration used fresh seeded data with normal hashing, tested ticket/category workflows, rendered known report values, pagination and role isolation. The user reported the browser lifecycle of HD-10013; new D features have HTTP/template verification, not manual browser acceptance. Full fresh-checkout/environment and viewport/keyboard checks remain pending. Fast hashing is used only under test overrides; normal settings retain Django's default hashing. This setup is for loopback development.
 
 ## Ticket workflow and access
 
@@ -108,7 +108,15 @@ Migrations and seed were verified on the working database and separate fresh tem
 
 New → Assigned → In progress → Resolved. Admin reassignment preserves Assigned/In progress status and removes the previous technician's access immediately. Employee cancels own New; IT Admin cancels any active ticket. Resolved/Cancelled are read-only, including comments. Cancellation retains the record, assignee and discussion. Requester, author, status and timestamps come from the server, never editable posted fields.
 
-Missing/out-of-scope tickets return a safe 404; forbidden role/action 403; stale/terminal lifecycle requests 409; unsupported methods 405. Invalid values return bound field/non-field errors without saving. Successful mutations redirect with feedback. The dashboard's four summary cards use scoped ORM aggregate counts; complete status/backlog/workload reporting remains D.
+Missing/out-of-scope tickets return safe 404; forbidden role/action 403; stale/terminal lifecycle requests 409; unsupported methods 405. Invalid values return bound field/non-field errors without saving. Successful mutations redirect with feedback.
+
+## Search, pagination and reports
+
+Ticket filters are optional: q (case-insensitive title/description search, maximum 200 characters), status, priority and category. Valid filters combine with AND; category filtering traverses category__name using the selected category. Order choices are newest, oldest, priority (High → Medium → Low) and recently updated, with ID/time tie-breakers. Invalid fields are ignored independently with visible errors; ambiguous repeated filters are ignored; unexpected keys never enter the queries or pagination links. Valid selections are retained across ten-ticket pages. Missing/nonnumeric/negative/zero/repeated page values select the first page; positive out-of-range numbers select the last.
+
+Dashboard cards and five-status breakdown share one scoped aggregate query and show zeros for absent states. Only IT Admin sees every-category active-ticket annotations and eligible-technician active-assignment annotations, including zero rows. Active always means New + Assigned + In progress. Category backlog helps identify issue areas needing attention; workload supports assignment decisions and measures assigned work, not actual availability. Independent queries and distinct counts prevent relationship-based inflation. Employees see own metrics; technicians see assigned metrics.
+
+The pristine seed has 12/8/2/2 total/active/resolved/cancelled. The local database now includes user-created resolved HD-10013; read-only verification found **13/8/3/2**, with status counts 3/3/2/3/2. Reports calculate current persisted values, never seed constants. Repeated seed preserves edits and does not reset the database.
 
 ## Design and evidence
 
@@ -122,6 +130,7 @@ Missing/out-of-scope tickets return a safe 404; forbidden role/action 403; stale
 - [Amended Checkpoint A file/command/result report](docs/CHECKPOINT_A_REPORT.md)
 - [Checkpoint B file/command/result report](docs/CHECKPOINT_B_REPORT.md)
 - [Checkpoint C file/command/result report](docs/CHECKPOINT_C_REPORT.md)
+- [Checkpoint D file/command/result report](docs/CHECKPOINT_D_REPORT.md)
 
 The [official guide](../CapstoneProjectGuide.pdf) is primary. The [root specification](../HELPDESK_PRO_CODEX_SPEC_FINAL.md), audit corrections and eight user amendments describe the agreed design; evidence documents distinguish planned checks from executed results. Instructor scope approval, presentation duration and instructor repository access have not been independently confirmed.
 

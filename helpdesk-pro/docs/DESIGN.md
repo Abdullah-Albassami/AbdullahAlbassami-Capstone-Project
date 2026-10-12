@@ -1,6 +1,6 @@
 # Approved architecture and implementation contracts
 
-Approved by the user's implementation request and subsequent eight amendments on 12 October 2026. A/B are reviewed/approved; C is implemented and verified, stopped before D pending explicit approval. The official guide is primary. Models/auth and the full ticket web workflow are implemented; category CRUD, advanced list queries and complete reports remain D. Instructor agreement remains unverified.
+Approved by the user's implementation request and amendments on 12 October 2026. A–C are reviewed/approved; D is implemented and verified, stopped before E pending explicit approval. The official guide is primary. Category CRUD, advanced queries/pagination and full reports extend the unchanged four-model schema and ticket workflow. HD-10013's browser lifecycle is user-observed; remaining manual/readiness evidence is pending. Instructor agreement remains unverified.
 
 ## Structure and responsibilities
 
@@ -87,9 +87,9 @@ Active statuses are one shared constant: new, assigned, in_progress. Terminal st
 | Comment | Authorized active viewer; session author; immutable; terminal thread remains readable |
 | Category delete | Admin; GET confirmation then POST; catch PROTECT and explain dependency |
 
-All mutations require POST/CSRF. Success redirects and shows a message. Anonymous requests redirect to login; out-of-scope/missing objects return 404; forbidden role/action returns 403; unsupported method returns 405. Invalid form values return 200 with bound form errors; state conflicts return a friendly 409 page without mutation. Resolve/comment/assignment errors render the ticket detail with the appropriate bound form. Filter parameters are independently validated: retain valid fields and ignore invalid ones with useful feedback. Invalid order defaults to newest; nonnumeric page selects first, out-of-range page selects last.
+All mutations require POST/CSRF. Success redirects and shows a message. Anonymous requests redirect to login; out-of-scope/missing objects return 404; forbidden role/action returns 403; unsupported method returns 405. Invalid form values return 200 with bound form errors; state conflicts return a friendly 409 page without mutation. Resolve/comment/assignment errors render detail with the bound form. Filter parameters are independently validated; valid fields remain, invalid/repeated filters are ignored with feedback and unexpected keys are excluded. Invalid order defaults to newest; missing/nonnumeric/nonpositive/repeated page selects first; positive out-of-range page selects last. Category PROTECT returns a 200 confirmation page with an actionable error and no deletion.
 
-### Final route map (C implements all rows except category routes reserved for D)
+### Implemented route map (A–D)
 
 | Name | Path | Methods |
 | --- | --- | --- |
@@ -106,6 +106,7 @@ All mutations require POST/CSRF. Success redirects and shows a message. Anonymou
 | tickets:ticket_comment | /tickets/<int:pk>/comment/ | POST |
 | tickets:category_list | /categories/ | GET |
 | tickets:category_create | /categories/new/ | GET+POST |
+| tickets:category_detail | /categories/<int:pk>/ | GET |
 | tickets:category_update | /categories/<int:pk>/edit/ | GET+POST |
 | tickets:category_delete | /categories/<int:pk>/delete/ | GET+POST |
 | admin:index | /admin/ | Django admin setup |
@@ -116,13 +117,17 @@ All mutations require POST/CSRF. Success redirects and shows a message. Anonymou
 
 `views.py` binds forms, maps excluded-field validation to non-field errors, renders related objects/discussion, redirects with messages and applies the login/role/method gate. Object retrieval precedes action validation, so missing/out-of-scope IDs are 404. Role-forbidden capabilities and Employee edits/cancellation after assignment are 403. Valid actors requesting a wrong transition or any terminal mutation receive 409. These errors render friendly templates even with local DEBUG enabled; a missing general route uses the configured 404 handler with DEBUG=false. Login/POST logout use Django's built-in authentication views. A custom CSRF rejection page asks the user to refresh; it exposes no failure internals. The 500 handler avoids resolving a database-backed user/messages.
 
-Dashboard summary cards use the final scoped aggregate Count query and five recent tickets. This implements basic role summaries without the full reporting interface: five-status breakdown and annotated category/technician tables remain D. Lists use model newest-first ordering and select_related; no search/order controls or pagination are implemented at C. Detail uses author-related comments and permission-controlled forms. Local CSS supplies responsive grids, navigation, readable status labels, focus, confirmations and empty/error states. Rendered structure/forms are checked; actual desktop/mobile/keyboard browser acceptance remains pending.
+At C, dashboard summary cards and recent tickets plus the basic newest-first list were delivered; D extends these with the queries/reports described below. Detail continues to use author-related comments and permission-controlled forms. Local CSS supplies responsive grids, navigation, readable status labels, focus, confirmations and empty/error states. Rendered structure/forms are checked; actual desktop/mobile/keyboard acceptance remains pending.
 
 ## Queries and metrics
 
-Ticket list is scoped before searching/filtering/pagination. `q` uses OR over title/description; other filters combine with AND. Status/priority choices and category ModelChoice are validated. Category filtering traverses `category__name` using the selected object's unique name. Ordering whitelist: newest (-created_at, -id), oldest (created_at, id), priority (Case high=0/medium=1/low=2 then -created_at/-id), updated (-updated_at, -id). Ten records per page; preserve sanitized non-page parameters.
+`queries.ticket_list_page` scopes tickets before search/filter/order/pagination. TicketFilterForm validates optional q (trimmed, maximum 200 characters), status/priority choices, category ModelChoice and order. q uses Q OR over title/description; filters combine with AND; category filtering traverses category__name using the selected object's unique name. Whitelist: newest (-created_at, -id), oldest (created_at, id), priority (Case high=0/medium=1/low=2 then -created_at/-id), updated (-updated_at, -id). Ten records/page; URL encoding preserves only cleaned filters and effective order. Ambiguous repeated values are ignored with field feedback. Page handling follows the HTTP contract above, including huge numeric input without a crash. No unauthorized ticket can enter the search or page count.
 
-Select requester/assignee/category/department in list/detail; retrieve comments with their authors. Dashboard totals use aggregate Count with filtered active/resolved/cancelled counts. Required status breakdown uses grouped counts, with zero for absent statuses. Category rows annotate filtered active tickets; eligible technician rows annotate active assigned tickets, retaining zero rows. Avoid multi-collection joins that multiply counts; use distinct when necessary and verify multi-row fixtures. Employee/technician dashboards use only their visibility queryset. Category backlog helps prioritize issue areas; technician counts support assignment, not real-time availability.
+List/detail select requester/assignee/category/department; comments retrieve authors. `queries.ticket_summary` uses one scoped aggregate with total, filtered active and each of the five statuses. Resolved/cancelled counts are reused by cards and breakdown; all absent counts are zero. This replaces the planned separate grouped status query with equivalent conditional counts and avoids duplicate reporting queries. `category_backlog` and `technician_workload` require IT Admin before constructing organization-wide querysets; each separately annotates filtered distinct Count over its reverse Ticket relation. They retain zero rows and never join comments. The technician queryset reuses B eligibility, excluding inactive/conflicting/superuser accounts. Employee/technician summaries and recent tickets use only visible_tickets. Category backlog supports prioritization; technician counts measure assigned workload, not actual availability.
+
+### Category management (D)
+
+Explicit CategoryForm fields are name/description. Shared services recheck IT Admin, fetch current categories, whitelist fields, full_clean and save atomically. Existing Category.clean trims required meaningful names and optional description; uniqueness is case-sensitive. Views supply create/list/detail/update/delete and bound errors, redirect feedback and GET-confirm/POST-delete. PROTECT catches all existing Ticket references, including terminal ones; the confirmation reports reference count without removing or resetting any ticket. The D request explicitly requires a view page, so category_detail is added with description, annotated active count and related filtered-ticket link. List and dashboard reuse the category report table; list also supplies description/edit/delete controls. No schema change, new role or separate subsystem is introduced.
 
 ## Deterministic demo data
 
