@@ -1,0 +1,23 @@
+# Local Python environment and generated files
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Runtime configuration, credentials and local databases
+.env
+.env.*
+!.env.example
+*.sqlite3
+*.sqlite3-*
+*.db
+*.log
+
+# Collected assets and editor/OS state
+staticfiles/
+.DS_Store
+.idea/
+.vscode/

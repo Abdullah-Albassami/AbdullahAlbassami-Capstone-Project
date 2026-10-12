@@ -1,17 +1,19 @@
 # HelpDesk Pro — Codex Implementation Specification
 
-**Status:** FINAL DESIGN BASELINE (user-selected scope; instructor approval not independently verified) — ready for Codex implementation when the user authorizes it; implementation has NOT begun.  
+**Status:** User-approved architecture audit and implementation plan; Checkpoint A is complete. Instructor approval is not independently verified. Later checkpoints require review before proceeding.
 **Timebox:** Two calendar days.  
-**Source of requirements:** `Capstone Project Guide(1).pdf`, pages 1–6.  
+**Source of requirements:** `CapstoneProjectGuide.pdf`, pages 1–6.
 **Purpose:** Build a presentable, individually explainable Django web app that satisfies the capstone's 100-mark rubric.  
 **Principle:** Deliver the complete defined capstone scope and all rubric evidence; design dependencies up front and implement final intended versions, correcting verified defects whenever necessary.
+
+**Approved audit corrections:** `docs/DESIGN.md` records the exact architecture, security, state constraints, URL/error contracts and fixture decisions approved by the user. The official guide is primary; these approved corrections replace conflicting original proposals. `docs/PROGRESS.md` records the revised A–G sequence and actual checkpoint status. No planned feature or check is evidence of implemented or passing behavior.
 
 ## 1. Product definition
 
 **Product:** HelpDesk Pro, an internal IT support ticket management web application.  
 **Audience:** Small/medium organizations with employees and a small IT support team.  
 **Problem:** Support requests in email or messaging apps are hard to assign, prioritize, track, and report on.  
-**Proposed value:** Centralized, auditable support workflow and workload visibility without enterprise ITSM complexity.  
+**Proposed value:** Centralized support workflow, retained discussion and final outcomes, and workload visibility without enterprise ITSM complexity. This is not a full event audit log.
 **Market claim status:** Plausible use case and proposed positioning, NOT validated demand. Avoid fabricated figures or customer claims.  
 **Adoption model:** An organization can host internally; an optional future subscription or managed-hosting model can be discussed, not implemented.
 
@@ -36,10 +38,10 @@
 - Search/filter/order tickets; pagination; useful empty states.
 - Dashboard aggregations AND per-row annotations in rendered pages.
 - Model/form validation, success/error feedback, responsive templates, tests for core rules.
-- Sample data management command, ERD, basic wireframes, README, verification record, reproducible setup and demo credentials with fictitious data.
+- Sample data management command, ERD, basic wireframes, README, verification record, reproducible setup and demo usernames with fictitious data; passwords are supplied at runtime and never committed.
 
 ### Optional refinements (only after mandatory requirements verified)
-- User-friendly staff work queue / status chips, stronger responsive polish, additional edge-case tests, extra category reporting.
+- Decorative status chips, additional edge-case tests, extra category reporting. Basic usable work queues, responsive navigation and accessible forms are mandatory.
 
 ### Explicit exclusions
 - No AI, mail notifications, REST API, SPA, live polling, file uploads, external services, SLA scheduling, multi-tenancy, reporting exports, charts library, Docker, payments, complex role administration, or deployment requirement.
@@ -53,7 +55,7 @@
 - Exactly one application role per regular user: Employee, Technician, or IT Admin, provisioned through Django Groups. Superuser is the only explicit cross-role exception and is treated as IT Admin for app authorization. Users with no applicable group fail closed and receive 403 after authentication. Accounts assigned multiple application roles are rejected by seeding / provisioning and tested or handled as invalid, rather than assigning arbitrary precedence.
 - IT Admin is an *application group*; Django `is_staff` alone grants no app admin privileges. Django Admin access remains governed separately by Django's built-in staff/superuser checks.
 - `resolved` and `cancelled` are terminal: read-only detail, no edits, reassignment, comments, or state changes. Comment thread remains visible to authorized viewers. No reopen or hard-delete tickets.
-- The admin assignment action requires `assigned_to` to belong to Technician group. A new ticket becomes `assigned` upon assignment. Reassigning an already `assigned` or `in_progress` ticket preserves its status. Do not allow clearing an active assignee through the interface or service.
+- The admin assignment action requires `assigned_to` to be active and have exactly the Technician application role. A new ticket becomes `assigned` upon assignment. Reassigning an already `assigned` or `in_progress` ticket preserves its status. Do not allow clearing an active assignee through the interface or service.
 - Ticket creator is the session user, not POST input. Employees may set initial low/medium/high priority as a self-reported urgency; admin may correct it before resolution. The title/description/category/department/priority edit form **never** exposes status, requester, assignee, timestamps or resolution note.
 - All rules apply to the UI, view authorization, forms and shared service functions; do not trust hidden buttons or user-supplied fields. Normal invalid actions yield a clear form error or 403/404, not uncaught exceptions.
 - Comments are immutable and only added to active, authorized tickets; resolution notes live on Ticket, not on TicketComment, and are required for resolution.
@@ -62,7 +64,7 @@
 
 ## 3. Technologies and structure
 
-Use a stable installed Django version compatible with the local Python interpreter (pin exact verified version in `requirements.txt` and README). No assumptions about a specific version until environment is checked. Default SQLite for straightforward reproducibility. Django templates with semantic HTML, small custom CSS, minimal vanilla JavaScript only if needed. Avoid unnecessary libraries.
+Use Django 5.2.18 LTS with the verified local Python 3.14.7 interpreter; pin resolved dependencies in `requirements.txt` and record versions actually tested in README. Use SQLite, Django templates with semantic HTML, small custom CSS, and minimal vanilla JavaScript only if needed. Avoid unnecessary libraries. The project lives directly in the existing repository root; do not add a nested `helpdesk-pro` checkout directory.
 
 Suggested layout:
 
@@ -81,7 +83,7 @@ helpdesk-pro/
     urls.py
     admin.py
     permissions.py            # shared object-level authorization helpers
-    services.py               # workflow rules if views become crowded
+    services.py               # mandatory shared workflow mutation boundary
     migrations/
     tests/                    # or a clearly organized tests.py
     management/commands/seed_demo.py
@@ -191,6 +193,8 @@ One Django app is enough. Use namespaced URLs, template inheritance, `ModelForm`
   - `in_progress` → `cancelled` (admin)
   - `resolved`/`cancelled` → no changes
 - Assignment editing is separate from generic form update. An admin cannot resolve without having assigned a technician first.
+- Ticket and TicketComment are read-only in Django admin, with add/delete and bulk deletion disabled. Regular IT Admin has staff access and only Department setup permissions; only superusers provision accounts. Protect reserved role groups from rename/deletion and block deactivation/removal of Technician role while active assignments remain.
+- Enforce database checks for allowed status/priority, new-without-assignee, required assignment for assigned/in-progress/resolved, and resolution note/timestamp pairing. Non-resolved tickets have an empty note and null resolution timestamp. Cancelled tickets may retain an assignee. Cross-field model errors must be compatible with forms that exclude workflow fields.
 
 ## 6. Pages and URLs
 
@@ -235,7 +239,7 @@ One Django app is enough. Use namespaced URLs, template inheritance, `ModelForm`
 ### Aggregation (whole-queryset)
 - Admin dashboard: `Ticket.objects.aggregate(total=Count('id'), active=Count('id', filter=Q(status__in=ACTIVE_STATUSES)), resolved=Count('id', filter=Q(status='resolved')), cancelled=Count('id', filter=Q(status='cancelled')))` or equivalent reliable aggregation.
 - Display exact counts and explain active definition.
-- Optionally status breakdown using `.values('status').annotate(count=Count('id'))`.
+- Required five-status breakdown using `.values('status').annotate(count=Count('id'))`, filling absent statuses with zero for display.
 
 ### Annotation (per-row)
 - Category table: `Category.objects.annotate(open_ticket_count=Count('tickets', filter=Q(tickets__status__in=ACTIVE_STATUSES)))`; render `open_ticket_count` next to each category.
@@ -315,13 +319,13 @@ Include complete end-to-end demo, invalid values, no-results search, update and 
 
 ## 10. Demo seed data
 
-Implement an idempotent `python manage.py seed_demo` management command. Use fake people and organizational data only. Do not hardcode production credentials into code or commit any real secrets. If demo passwords are supplied for local-only use, document that they are test-only and never used on a public deployment.
+Implement an idempotent `python manage.py seed_demo` management command. Use fake people and organizational data only. Supply a demo password at runtime, validate it, and hash it using Django. Never hardcode or commit any password (including local demo passwords), secret key, token or populated database. Document usernames and password configuration instructions only. Repeated seeding must preserve existing passwords and user changes; reserved-ID collisions must fail safely.
 
 Suggested sample distribution:
 - Departments: Finance, Human Resources, Operations, Sales.
 - Categories: Hardware, Software, Network, Accounts, plus an optional UNUSED category solely to demo protected vs allowed deletion.
 - 2 Employees, 2 Technicians, 1 IT Admin (plus a superuser only if needed, separate from application role).
-- 12–16 tickets across `new`, `assigned`, `in_progress`, `resolved`, `cancelled`, multiple categories and departments.
+- Exactly 12 initial tickets: 3 new, 3 assigned, 2 in progress, 2 resolved and 2 cancelled; total 12, active 8. Active category counts Hardware 3, Software 2, Network 2, Accounts 1, unused category 0; active technician counts 3 and 2. Zero-workload technician and empty-dataset cases are also required test fixtures.
 - Ticket samples: printer not responding, unable to connect to Wi-Fi, ERP login request, laptop overheating, VPN connection issue, slow workstation, password reset.
 - Comments on multiple tickets, including a resolved ticket.
 - Create deterministic or known counts so dashboard expectations can be asserted and demonstrated; test idempotency of seeding and ensure repeating seeding does not duplicate data.
@@ -369,16 +373,16 @@ Store simple ASCII/Markdown wireframes in `docs/WIREFRAMES.md`; do not spend hou
 ## 14. Execution plan and stop rules
 
 ### Day 1 — product
-1. **Checkpoint A (design and scaffold, ~1–2h):** inspect tools and repository, commit this approved specification and exact ERD, URL map, role/access matrix, wireframes, and scaffold only. No provisional models; every model field and business invariant is already frozen in this specification.
-2. **Checkpoint B (database, ~2h):** models/migrations/auth/seeds/admin; test migrations; commit.
-3. **Checkpoint C (core flow, ~3–4h):** create/list/detail/update/cancel, assign/start/resolve, comments, permissions/forms; end-to-end manual journey; commit.
-4. **Checkpoint D (reports, ~1–2h):** search/filter/pagination, aggregation and annotation displayed in template, correct sample counts; commit.
+1. **Checkpoint A (~1h):** approved corrections, exact ERD, URL/access contracts, wireframes, progress record and safe Django scaffold. Validate foundation; commit and stop for review. No custom models or migrations yet.
+2. **Checkpoint B (~2h):** models/constraints/migrations, role helpers, guarded admin and idempotent seed; validate database/provisioning/deletion rules; commit and stop for review.
+3. **Checkpoint C (~4h):** complete role workflow with usable templates and focused authorization/state tests; demonstrate persisted end-to-end flow; commit and stop for review.
+4. **Checkpoint D (~2h):** category CRUD, filters/order/pagination and all reports; verify known metrics and protected deletion; commit and stop for review.
 
 ### Day 2 — grading evidence and reliability
-5. **Checkpoint E (~2–3h):** automated security/validation/relationship/report tests; resolve defects; commit.
-6. **Checkpoint F (~2h):** responsive UX, empty states, confirmation/failure feedback; commit.
-7. **Checkpoint G (~2h):** README/ERD/wireframes/requirements map/acceptance log/demo script, AI credit; commit.
-8. **Checkpoint H (~1–2h):** fresh venv/install/migrate/seed/check/test and entire role-switch demo; fix blockers, final Git cleanup. Reserve contingency time.
+5. **Checkpoint E (~3h):** complete security/state/report tests; resolve integration defects; finish responsive/accessibility/error states; commit and stop for review.
+6. **Checkpoint F (~2h):** finalize all documentation and real verification outcomes; commit and stop for review.
+7. **Checkpoint G (~3h):** separate fresh checkout setup, migrations, seed twice, checks/tests, browser acceptance, student rehearsal and final submission/access check; commit and stop for review.
+8. **Contingency (~2h):** repair mandatory blockers and repeat impacted checks. Approximately 20 focused hours total; optional polish only after readiness evidence passes.
 
 **Cut scope rather than quality:** If behind schedule, remove only explicitly optional refinements, such as charts or decorative UI, after seeking approval. Do NOT remove any mandatory implemented feature, required category CRUD, core persisted journey, at least one annotated report and one aggregate report, relationship queries, validation, access control, documentation, or verification.
 
@@ -399,9 +403,9 @@ Store simple ASCII/Markdown wireframes in `docs/WIREFRAMES.md`; do not spend hou
 12. Never optimize for fewer lines or faster completion at the expense of rubric coverage. Preserve time for tests, documentation, the real demonstration, and student explanation.
 13. Do not claim a guaranteed score. Report observable evidence and any unresolved risks honestly.
 
-### Suggested first Codex prompt (AFTER user approves implementation)
+### Suggested next Codex prompt (AFTER Checkpoint A review)
 
-> Read `HELPDESK_PRO_CODEX_SPEC_FINAL.md` fully and inspect the repository. We have a strict two-day deadline. Do not implement the entire project in one pass. Start with Checkpoint A only: verify environment and repository, finalize ERD/role matrix/URL contracts/wireframes and scaffold the Django project. Use the final architecture and avoid provisional code. Show validation results and stop for approval before Checkpoint B. Do not add features outside the specification.
+> Read `HELPDESK_PRO_CODEX_SPEC_FINAL.md` and `docs/DESIGN.md` fully and inspect the repository. Checkpoint A is approved. Implement Checkpoint B only: final models, constraints, migrations, roles, guarded admin and idempotent seed; verify schema/provisioning/deletion/seed behavior. Show actual validation results and stop for review before Checkpoint C. Do not add features outside the approved scope.
 
 ## 15A. Final-first development and grade-maximization rules
 

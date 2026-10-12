@@ -1,0 +1,30 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}HelpDesk Pro{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header class="site-header">
+      <div class="container header-content">
+        <a class="brand" href="/">HelpDesk <span>Pro</span></a>
+        {% block navigation %}{% endblock %}
+      </div>
+    </header>
+    <main id="main-content" class="container page-content" tabindex="-1">
+      {% if messages %}
+        <div class="messages" aria-live="polite" aria-atomic="true">
+          {% for message in messages %}
+            <div class="message {{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% block content %}{% endblock %}
+    </main>
+    <footer class="site-footer container">HelpDesk Pro · IT support, clearly organized.</footer>
+  </body>
+</html>
