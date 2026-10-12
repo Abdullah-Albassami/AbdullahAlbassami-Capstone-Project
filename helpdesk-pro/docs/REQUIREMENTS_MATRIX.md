@@ -1,6 +1,6 @@
 # Official guide and evidence matrix
 
-Primary authority: [root CapstoneProjectGuide.pdf](../../CapstoneProjectGuide.pdf), pp.1–6. Total assessment: 100 marks. **A–D implements ticket/category CRUD, scoped queries/pagination and full reports inside helpdesk-pro. All five ORM capabilities are integrated in rendered features.** Application paths are relative to helpdesk-pro. PASS requires executed or explicitly user-observed evidence in ACCEPTANCE_TESTS. UC01–UC07 are user-observed; other manual/readiness cases remain pending. No score is guaranteed.
+Primary authority: [root CapstoneProjectGuide.pdf](../../CapstoneProjectGuide.pdf), pp.1–6. Total assessment: 100 marks. **A–E implements and audits the four-model ticket/category/query/report application. All five ORM capabilities remain integrated. E passes 149 Django tests and 39 real Chrome checks.** PASS sources are distinguished in ACCEPTANCE_TESTS: UC01–UC07 user-observed, E04/E05 browser automated, other E checks command/HTTP/inspection. Human/device/fresh-checkout/rehearsal gaps remain; no score is guaranteed.
 
 ## Assessment coverage
 
@@ -10,15 +10,15 @@ Primary authority: [root CapstoneProjectGuide.pdf](../../CapstoneProjectGuide.pd
 | Core functionality | 20 | Employee → admin → technician → employee; ticket/category CRUD; comments; safe errors | C workflow + D Category CRUD/PROTECT tested; UC01–UC07 user-observed lifecycle |
 | Database and ORM | 20 | Matching ERD/schema, constraints/deletion, all five ORM capabilities | Unchanged tested schema; rendered CRUD/filter/order/relationship/aggregate/annotation PASS D01–D06 |
 | Django and Python | 15 | Routing, readable reusable logic, ModelForms, inherited templates | Named routes, explicit forms/shared services and queries, inherited pages verified |
-| Interface and usability | 10 | Responsive accessible role pages, confirmations and feedback | D rendered pages/forms/empty/error/report explanations checked; viewport/keyboard/manual acceptance pending |
-| Verification and reproducibility | 10 | Manual record, focused tests, known fixtures, fresh checkout | 133 tests + CSRF fresh seeded integration PASS; user-observed C record; D browser/full-checkout pending |
-| Git and documentation | 5 | Meaningful validated history and usable README | Original/A–C milestones committed; D evidence/report/README updated |
+| Interface and usability | 10 | Responsive accessible role pages, confirmations and feedback | E real Chrome 1280px/375px, labels/errors/contrast/basic keys/max-text checks and screenshots PASS; human/device/full-keyboard/zoom/screen-reader pending |
+| Verification and reproducibility | 10 | Manual record, focused tests, known fixtures, fresh checkout | 149 tests + 39 real Chrome checks PASS; UC user-observed record; full fresh checkout/human checklist pending |
+| Git and documentation | 5 | Meaningful validated history and usable README | Original/A–D milestones committed; E report/evidence/remaining instructions and README updated |
 | Demonstration and understanding | 10 | Guide-ordered demo, personal request/constraint/query explanation | Rehearsal script written; browser demo/student rehearsal pending |
 | Total | 100 | Working evidence and individual explanation | Not graded |
 
 ## Every guide requirement
 
-| Guide | Requirement | Location / evidence | Current state at D |
+| Guide | Requirement | Location / evidence | Current state at E |
 | --- | --- | --- | --- |
 | p.1 | Defined users, real recognizable problem | README product rationale | Documented; demand unvalidated |
 | p.1 | Clear reason to choose product and adoption model | README email/spreadsheet comparison/internal adoption | Documented hypothesis |
@@ -32,11 +32,11 @@ Primary authority: [root CapstoneProjectGuide.pdf](../../CapstoneProjectGuide.pd
 | p.2 | Relevant CRUD; cancellation/restricted deletion acceptable | Ticket/category named routes and services | C ticket CRUD + D01 Category CRUD and PROTECT PASS |
 | p.2 | Useful search/filter, intentional ordering, pagination | /tickets/; queries.ticket_list_page; filter form | D02/D05 PASS: combined search/filter, four orders, ten/page, safe parameters |
 | p.2 | Server field/value/business validation and feedback | models/admin_forms/forms/services; messages | B validation and C form/action/forged-field tests PASS C03/C04 |
-| p.2 | Missing records, invalid requests, empty lists | views HTTP gate; error template; list/dashboard empty states | 403/404/405/409, bound errors and empty queues PASS C03/C04/C07 |
-| p.2 | Semantic HTML, associated labels, appropriate alt text | base/form/table templates; CSS | Rendered landmarks/labels/unique IDs PASS C07; no content images; browser pending |
-| p.2 | Responsive consistent interface/navigation/actions | CSS/WIREFRAMES; desktop/mobile browser checks | Responsive templates delivered; actual viewport/keyboard checks NOT RUN |
+| p.2 | Missing records, invalid requests, empty lists | views HTTP gate; error template; list/dashboard empty states | Existing HTTP checks + E03/E04/E05 helpful 405, actual browser errors/no-match/validation PASS |
+| p.2 | Semantic HTML, associated labels, appropriate alt text | base/form/table templates; CSS | E04 Chrome landmark/label/error-description/unique-ID checks PASS; no content images; screen reader pending |
+| p.2 | Responsive consistent interface/navigation/actions | CSS/WIREFRAMES; desktop/mobile browser checks | E04 fixed-width desktop/emulated mobile layouts and E05 basic keys PASS; human/device/full keyboard/zoom NOT RUN |
 | p.2 | Empty/error/success states; destructive confirmation | Ticket/category confirmations, filters/forms/messages | C/D01/D02/D05 PASS: empty/no-match, field/non-field errors, safe delete feedback |
-| p.2 | Django auth, server-enforced roles, safe demo information | Login/LogoutView; permissions/services/admin; tests | B guards + C login/logout/CSRF/ownership/state checks PASS C03/C04 |
+| p.2 | Django auth, server-enforced roles, safe demo information | Built-in-view subclasses; permissions/services/admin; tests | E02/E03 message isolation incl. admin logout, no-store/private headers, forged scope/role/terminal/CSRF tests PASS; browser role/admin checks E05 |
 | p.2 | Integrations/deployment optional, core independent | DESIGN exclusions | Explicitly excluded |
 | p.3 | ERD entities/keys/cardinality/optionality matching models | ERD; models.py and schema test | B schema/columns/FKs/constraints verified; final G recheck pending |
 | p.3 | Suitable types/lengths/defaults/requiredness | models.py; test_models.py | Implemented/verified B04 |
@@ -54,16 +54,16 @@ Primary authority: [root CapstoneProjectGuide.pdf](../../CapstoneProjectGuide.pd
 | p.4 | Prioritized tasks, completion conditions, remaining/blockers | PROGRESS | Established |
 | p.4 | Required manual expected/actual/status record; honest limitations | ACCEPTANCE_TESTS | UC01–UC07 user-observed PASS; M01 partial; remaining manual cases NOT RUN |
 | p.4 | Workflow/input/filter/dependency/report/access/mobile/fresh checks | Acceptance rows and tests | B foundation/dependency/access/math checks PASS; full UI/manual checks pending |
-| p.4 | Important automated tests encouraged, no coverage quota | tickets/tests/ | 133 B–D tests PASS; remaining E verification not claimed |
+| p.4 | Important automated tests encouraged, no coverage quota | tickets/tests/; optional browser scripts | 149 Django + 39 Chrome checks PASS; no arbitrary coverage target; human gaps explicit |
 | p.4 | Resource/AI acknowledgement and student understanding | README; DEMO_SCRIPT technical rehearsal | Attribution written; rehearsal pending |
 | p.4 | Fictional/anonymized data, no secrets, safe config examples | .gitignore/.env.example/settings/demo_data/seed | Implemented; runtime-only passwords, ignored local DB; hygiene verified in B08 |
-| p.5 | Source/dependencies/design/verification/demo package | Repository/requirements/docs | A–D code/design/evidence delivered; final E–G evidence/rehearsal pending |
+| p.5 | Source/dependencies/design/verification/demo package | Repository/requirements/docs | A–E code/design/evidence delivered, authentic browser artifacts and manual instructions; final F/G pending |
 | p.5 | Instructor repository access | PROGRESS/G final checklist | Unverified |
 | p.5 | Setup: environment/install/config/migrate/sample/server; versions | README, B–D reports; G fresh checkout | D05 fresh SQLite/normal hashing/seed/HTTP PASS; full checkout/environment pending |
 | p.5 | Concise six-step demo and confirmed duration | DEMO_SCRIPT | Script target; duration unconfirmed |
 | p.5 | URL→view→ORM→template, constraint/calculation explanation | DEMO_SCRIPT personal rehearsal | Pending |
 | p.5 | Submitted revision matches demo; cleanup/access/setup/core recheck | G final checklist | Pending |
-| p.6 | Complete focused dependable product and final checklist | C–G completion/acceptance gates | D features delivered; E–G and remaining manual/readiness checklist pending |
+| p.6 | Complete focused dependable product and final checklist | C–G completion/acceptance gates | E audit/fixes verified; F/G and remaining human/readiness checklist pending |
 
 ## Implemented B evidence links
 
@@ -113,4 +113,17 @@ The routes are defined in [urls.py](../tickets/urls.py); query helpers in [queri
 | Aggregation | views.dashboard; / | ticket_summary: visible_tickets.aggregate(total=Count, active=Count(filter=Q(status__in=ACTIVE_STATUSES)), conditional Count for each Status); one query reused by cards/breakdown | [dashboard](../templates/tickets/dashboard.html) | [ReportingTests](../tickets/tests/test_reports.py); D03/D05/D06 known/live/zero/state-change/role counts; single-aggregate check |
 | Annotation | views.dashboard and category_list/detail; / and /categories/ | category_backlog requires IT Admin then Category.annotate(open_ticket_count=Count('tickets', filter=active, distinct=True)); technician_workload requires IT Admin then eligible_technicians.annotate(active_assigned_count=Count('assigned_tickets', filter=active, distinct=True)) | dashboard and [category report table](../templates/tickets/includes/category_report_table.html); category_detail | ReportingTests known values, zero/empty, multiple comments/groups, eligibility/role guards and workflow updates; D03/D05 |
 
-Dashboard copy explains category backlog decisions, active statuses, and assigned workload versus availability. UC01–UC07 establish the reported C browser steps; final read-only controls, new D manual cases, mobile/keyboard, full fresh checkout and student rehearsal remain unverified. Do not interpret feature/HTTP evidence as completed final grading or all manual acceptance.
+Dashboard copy explains backlog decisions, active statuses and assigned workload versus availability. UC01–UC07 establish reported C browser steps. E automation below covers disposable records; local HD-10013 final human detail/controls, other human/device/full-keyboard checks, fresh checkout and rehearsal remain pending. Do not interpret automation as completed final grading or all manual acceptance.
+
+## E reliability and interface evidence
+
+| Requirement | Implemented correction / source | Executed evidence | Remaining limit |
+| --- | --- | --- | --- |
+| Safe auth/account privacy and access | ApplicationLoginView/ApplicationLogoutView in [views](../tickets/views.py); common admin logout route in [project URLs](../config/urls.py); application_view never_cache | [ReliabilityTests](../tickets/tests/test_reliability.py): cookie/session messages, login/admin logout, changed roles, forged reports, redirects, CSRF rotation, no-store/private; E02/E03 | No production/concurrency certification; privileged maintenance outside UI |
+| Complete lifecycle/terminal safeguards | Unchanged services/permissions/models; readable controls only when permitted | All prior lifecycle tests + all-visible-role terminal/forged-change and stale eligibility regressions; actual Chrome role/terminal/admin journey E05 | User-specific HD-10013 final detail/control human observations still pending |
+| Readable names/ticket information | TechnicianChoiceField in [forms](../tickets/forms.py); requester/assignee in shared [ticket table](../templates/tickets/includes/ticket_table.html) | Name/username/fallback/ID/escaping/eligibility and requester HTTP tests; Chrome native selection E02/E05 | No schema/query-role change |
+| Helpful invalid methods | method_not_allowed; errors/error.html; 405/Allow retained | Targeted regression + Chrome 405 page E03/E04 | Other expected errors retain existing tested contracts |
+| Mobile layout, labels/keys/contrast | [CSS](../static/css/style.css), shared tables, wrap/hint/relative scroll containment and stronger borders | E04/E05: 34 page/viewport cases, 3 key checks; [actual results](evidence/checkpoint-e/results.json), [desktop](evidence/checkpoint-e/dashboard-desktop.png), [mobile](evidence/checkpoint-e/dashboard-mobile.png), [long confirmation](evidence/checkpoint-e/long-category-confirmation.png) | Physical mobile, other browsers, full human keyboard/zoom/screen reader NOT RUN; no WCAG certification |
+| Reproducible verification/accurate manual record | [browser fixture](../scripts/browser_fixture.py), [CDP runner](../scripts/verify_browser.mjs), [manual instructions](MANUAL_BROWSER_CHECKS.md) | 149 tests, 39 genuine Chrome checks, system/migration/dependency/read-only snapshot/integrity checks; E02–E06 | F/G final documentation/checkout/rehearsal gated; UC remains user-attributed |
+
+Models/migrations/ERD and all working app/account/role data are unchanged. Screenshots depict disposable fictional fixtures (initial 12 tickets), not the local 13-ticket dataset. The browser-only setup superuser was created in that temporary database and removed with it. Browser automation evidence does not upgrade unexecuted manual rows to PASS.

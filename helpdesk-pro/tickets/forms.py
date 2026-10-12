@@ -20,8 +20,14 @@ class TicketForm(forms.ModelForm):
         }
 
 
+class TechnicianChoiceField(forms.ModelChoiceField):
+    def label_from_instance(self, user):
+        name = user.get_full_name().strip()
+        return f"{name} ({user.get_username()})" if name else user.get_username()
+
+
 class AssignmentForm(forms.Form):
-    assigned_to = forms.ModelChoiceField(queryset=None, label="Technician", empty_label="Choose a technician")
+    assigned_to = TechnicianChoiceField(queryset=None, label="Technician", empty_label="Choose a technician")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

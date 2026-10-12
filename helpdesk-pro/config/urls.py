@@ -1,12 +1,14 @@
 """Authentication, application workflow and guarded organization setup."""
 
 from django.contrib import admin
-from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import include, path
+from tickets.views import ApplicationLoginView, ApplicationLogoutView
 
 urlpatterns = [
-    path("accounts/login/", LoginView.as_view(template_name="registration/login.html"), name="login"),
-    path("accounts/logout/", LogoutView.as_view(), name="logout"),
+    path("accounts/login/", ApplicationLoginView.as_view(template_name="registration/login.html"), name="login"),
+    path("accounts/logout/", ApplicationLogoutView.as_view(), name="logout"),
+    # The admin's existing logout URL shares the same feedback/privacy boundary.
+    path("admin/logout/", ApplicationLogoutView.as_view()),
     path("admin/", admin.site.urls),
     path("", include("tickets.urls")),
 ]

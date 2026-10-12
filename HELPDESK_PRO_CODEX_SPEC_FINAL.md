@@ -1,6 +1,6 @@
 # HelpDesk Pro — Codex Implementation Specification
 
-**Status:** Checkpoints A–C reviewed/approved. Checkpoint D Category CRUD, advanced scoped list queries/pagination and full reports are implemented and verified inside `helpdesk-pro/` with 133 passing tests. The user-observed browser lifecycle for HD-10013 is recorded; other browser/readiness checks remain pending. Stop before E pending explicit approval. Instructor approval is not independently verified.
+**Status:** Checkpoints A–D reviewed/approved. E reliability/security/interface audit and corrections are complete: 149 Django tests and 39 real headless Chrome checks pass, with preserved schema and local demo records. HD-10013's user-observed lifecycle is retained; physical-device/human accessibility, fresh-checkout and rehearsal evidence remains pending. Stop before F/G pending explicit approval. Instructor approval is not independently verified.
 **Timebox:** Two calendar days.  
 **Source of requirements:** `CapstoneProjectGuide.pdf`, pages 1–6.
 **Purpose:** Build a presentable, individually explainable Django web app that satisfies the capstone's 100-mark rubric.  
@@ -15,7 +15,7 @@
 3. **Bounded complexity:** Retain four custom models, three application roles and the approved lifecycle. Use built-in Django auth/admin and small shared validation/permission/service functions; do not introduce account-management, event audit-trail or integration subsystems.
 4. **Mandatory grading evidence:** Map every official requirement to its implemented UI/code, executed verification and documentation. Record incomplete/unverified evidence honestly until later checkpoints deliver it.
 5. **Final-first implementation:** Inspect complete responsibilities and integration contracts before edits. Implement intended final behavior at each stage; extend it through planned checkpoints without temporary alternative implementations. Correct discovered defects.
-6. **Checkpoint gates:** Each checkpoint delivers integrated, verified work appropriate to its stage. The latest authorization covers Checkpoint D only. Stop and wait for explicit review/approval before E.
+6. **Checkpoint gates:** Each checkpoint delivers integrated, verified work appropriate to its stage. The latest authorization covers Checkpoint E only. Stop and wait for explicit review/approval before F or G.
 7. **Two-day priority:** Preserve rubric compliance, working behavior, reproducibility and demonstration readiness. Keep the approximately 20-hour A–G plan including contingency; optional polish follows mandatory evidence.
 8. **Truthful documentation:** Report commands and actual outcomes; distinguish historic checks from revalidation at the corrected path. Never label unexecuted tests, browser checks, migrations or final features as passed.
 
@@ -422,9 +422,9 @@ Store simple ASCII/Markdown wireframes in `docs/WIREFRAMES.md`; do not spend hou
 12. Never optimize for fewer lines or faster completion at the expense of rubric coverage. Preserve time for tests, documentation, the real demonstration, and student explanation.
 13. Do not claim a guaranteed score. Report observable evidence and any unresolved risks honestly.
 
-### Suggested next Codex prompt (AFTER Checkpoint D review)
+### Suggested next Codex prompt (AFTER Checkpoint E review)
 
-> Read the specification and architecture, inspect the implemented application and actual acceptance record. Checkpoint D is approved. Work inside helpdesk-pro and complete Checkpoint E only: remaining important reliability/security checks, genuine integration corrections and desktop/mobile/keyboard/accessibility/error-state verification. Preserve the schema, shared services, role scopes, validated query contracts and tested report semantics. Record only executed outcomes, keep user-observed evidence attributed, commit verified work and stop before F. Do not add optional integrations or features.
+> Read the specification, architecture and actual acceptance record. Checkpoint E is approved. Work inside helpdesk-pro and complete Checkpoint F only: finalize source-linked requirements/design/setup/evidence/demo documentation against delivered behavior, preserving actual/user-observed/automated/unverified distinctions. Do not mark remaining human/device/accessibility or full fresh-checkout checks as passed without execution. Keep G reserved for separate approval, commit verified documentation and stop. Do not expand the product or add integrations.
 
 ## 15A. Final-first development and grade-maximization rules
 

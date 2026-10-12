@@ -1,6 +1,6 @@
 # HelpDesk Pro wireframes and user journey
 
-Approved design for the implemented A–D interface: login, role navigation, ticket workflow, Category CRUD/detail, query controls/pagination and full dashboard reports. These diagrams are design evidence, not browser screenshots. The user observed HD-10013's C lifecycle; D browser and desktop/mobile/keyboard acceptance remain pending.
+Approved design for the implemented A–E interface. These diagrams remain design evidence; E's separate actual Chrome screenshots/results cover 1280px/375px layouts, basic keyboard and computed contrast. Human/device/accessibility checks remain pending. HD-10013's C lifecycle remains user-observed evidence.
 
 ## Shared layout
 
@@ -43,7 +43,7 @@ My Tickets / Assigned to Me / All Tickets       [Create*]
 Search [________________]  Status [All v]  Priority [All v]
 Category [All v]  Order [Newest v]              [Filter][Clear]
 
-Reference | Issue | Status | Priority | Category | Assignee
+Reference | Issue | Status | Priority | Category | Requester | Assignee
 HD-10001  | ...   | New    | High     | Hardware | Unassigned
 ...
 Previous                     Page 1 of 2                 Next
@@ -101,3 +101,5 @@ Employee signs in → submits issue → sees saved New ticket → IT Admin assig
 ## Accessibility and manual checks
 
 Semantic header/nav/main/footer; skip link; keyboard focus; meaningful link/action labels; labels, help text and associated error descriptions; polite message announcements; table headers/captions; no external fonts or required decorative images. Content images, if introduced, need meaningful alt text. Verify desktop (1280px), mobile (375px), keyboard-only operation and readable form errors in a real browser during later checkpoints.
+
+E executed 34 page/viewport audits in real headless Chrome and basic skip-link/Enter, technician arrow selection and table ArrowRight scrolling. Valid maximum-length category/ticket confirmation text wraps; table cells retain readable widths inside local scroll regions with a visible mobile hint. Human complete keyboard operation, 200% zoom, physical devices/other browsers and screen-reader evaluation remain unexecuted; follow MANUAL_BROWSER_CHECKS. This is not accessibility certification.

@@ -9,10 +9,12 @@ The Django application and its setup/design/evidence documents live in **`helpde
 - [Checkpoint progress](helpdesk-pro/docs/PROGRESS.md)
 - [Verification record](helpdesk-pro/docs/ACCEPTANCE_TESTS.md)
 
-Checkpoint D adds IT Admin Category CRUD, combined scoped ticket search/filters, deterministic ordering, ten-ticket pagination, five-status breakdown and annotated category/technician reports. The existing ticket workflow, four-model schema and seed are retained; 133 automated tests pass. The user-observed browser journey for HD-10013 is recorded separately from automated checks. Work stops before E pending explicit approval.
+Checkpoint E audits and hardens the implemented application: feedback is cleared across account changes, 405 pages are helpful, technician choices show readable names/usernames, queues include requester information, and mobile confirmations/tables handle long text. **149 Django tests and 39 real headless Chrome checks pass.** Models/migrations and local demo data are unchanged. HD-10013 remains user-observed evidence; human/device/fresh-checkout/rehearsal checks are distinguished from automation. Work stops before F/G pending approval.
 
 Start setup from `helpdesk-pro/`, following its README. The repository-wide `.gitignore` excludes local environments, credentials, databases and generated assets. No credentials or real personal data belong in the submission.
 
 See the [Checkpoint B report](helpdesk-pro/docs/CHECKPOINT_B_REPORT.md) for file inventory, commands, actual results and remaining limitations.
 
-See the [Checkpoint C report](helpdesk-pro/docs/CHECKPOINT_C_REPORT.md) for the ticket workflow milestone and the [Checkpoint D report](helpdesk-pro/docs/CHECKPOINT_D_REPORT.md) for current changes and verification. New-feature browser acceptance, mobile/keyboard checks and final fresh-checkout rehearsal are still pending.
+See the [Checkpoint C report](helpdesk-pro/docs/CHECKPOINT_C_REPORT.md) for the ticket workflow milestone and the [Checkpoint D report](helpdesk-pro/docs/CHECKPOINT_D_REPORT.md) for the query/report milestone. These are historical records; E adds the browser verification below.
+
+See the [Checkpoint E report](helpdesk-pro/docs/CHECKPOINT_E_REPORT.md) for current audit findings, exact verification and file inventory, and [remaining human browser checks](helpdesk-pro/docs/MANUAL_BROWSER_CHECKS.md) for reproducible instructions. Automated Chrome coverage includes emulated widths/basic keyboard/contrast; human usability, physical devices and final readiness remain pending.

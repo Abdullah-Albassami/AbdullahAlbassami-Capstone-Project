@@ -5,11 +5,12 @@ from functools import wraps
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.views import LoginView, LogoutView
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.http import Http404
 from django.db.models.deletion import ProtectedError
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.decorators.http import require_http_methods
+from django.views.decorators.cache import never_cache
 
 from . import queries, services
 from .constants import Role
@@ -30,13 +31,37 @@ def error_page(request, status, detail):
     return render(request, "errors/error.html", {**user_context(request), "error_status": status, "error_detail": detail}, status=status)
 
 
+def method_not_allowed(request, methods):
+    response = error_page(request, 405, "Use the page controls to perform this action, or return to your dashboard.")
+    response["Allow"] = ", ".join(methods)
+    return response
+
+
+class ApplicationLoginView(LoginView):
+    def form_valid(self, form):
+        list(messages.get_messages(self.request))
+        return super().form_valid(form)
+
+
+class ApplicationLogoutView(LogoutView):
+    def post(self, request, *args, **kwargs):
+        # Clear both cookie- and session-backed feedback before changing users.
+        list(messages.get_messages(request))
+        return super().post(request, *args, **kwargs)
+
+    def http_method_not_allowed(self, request, *args, **kwargs):
+        return method_not_allowed(request, self._allowed_methods())
+
+
 def application_view(methods=("GET",)):
     """Authenticated role gate with usable errors even in local DEBUG mode."""
     def decorate(view):
         @login_required
-        @require_http_methods(methods)
+        @never_cache
         @wraps(view)
         def wrapped(request, *args, **kwargs):
+            if request.method not in methods:
+                return method_not_allowed(request, methods)
             try:
                 get_role(request.user)
                 return view(request, *args, **kwargs)

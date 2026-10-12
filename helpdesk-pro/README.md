@@ -2,7 +2,7 @@
 
 An internal Django IT support application for employees and a small IT team. It is designed to replace scattered email or spreadsheet requests with clear ownership, consistent status, retained discussion and visible backlog.
 
-**Current delivery: Checkpoint D — Category CRUD, advanced queries and reports.** The complete ticket workflow is retained. IT Admin manages categories; all roles can search/filter/order their authorized tickets with ten-record pagination. Dashboard aggregate totals/five-status counts and IT Admin category/workload annotations use live persisted data. The four-model schema and deterministic seed are unchanged; 133 automated tests pass. HD-10013's browser journey is user-observed; new-feature/manual usability and final readiness checks remain pending.
+**Current delivery: Checkpoint E — reliability, security and interface verification.** The full ticket/Category/query/report application is retained. Audit corrections isolate feedback across accounts, provide helpful 405 pages, improve technician names and requester display, and make long-text confirmations/tables usable at narrow widths. **149 Django tests and 39 real headless Chrome checks pass.** Schema/seed/dependencies and working demo records are unchanged. HD-10013's user-observed lifecycle remains separate from automation; human/device/accessibility and final readiness checks remain pending.
 
 ## Final project structure
 
@@ -96,7 +96,16 @@ Current development data was seeded using a generated password that was not disp
 
 Open `http://127.0.0.1:8000/accounts/login/` and sign in with a demo username and your private password. `/` shows the role dashboard; `/tickets/` searches/filters/orders/pages permitted tickets; `/tickets/new/` accepts Employee/IT Admin submissions. Ticket detail offers permitted actions and related discussion. `/categories/` gives IT Admin Category CRUD and active counts; each category has a detail page and related-ticket link. Referenced categories cannot be deleted, including references from terminal tickets. Logout is a POST form. IT Admin manages Departments at `/admin/`; a setup superuser provisions accounts and inspects tickets/comments read-only.
 
-Migrations and seed were verified on working and separate fresh temporary SQLite databases. The 133-test suite creates its database from committed migrations. CSRF-enforced HTTP integration used fresh seeded data with normal hashing, tested ticket/category workflows, rendered known report values, pagination and role isolation. The user reported the browser lifecycle of HD-10013; new D features have HTTP/template verification, not manual browser acceptance. Full fresh-checkout/environment and viewport/keyboard checks remain pending. Fast hashing is used only under test overrides; normal settings retain Django's default hashing. This setup is for loopback development.
+Migrations/seed were verified on working and separate fresh temporary SQLite databases. The 149-test suite creates its database from committed migrations. Real Chrome used a disposable seeded WSGI server with normal hashing/CSRF: 34 page/viewport audits, three basic keyboard scenarios, a role/action journey and guarded administration (39 checks total). This covers contrast, labels/errors, terminal controls, Category/query behavior and long-text layouts; it is automation, not human acceptance or a full fresh checkout. Fast hashing is only under test overrides; normal settings retain default hashing. This setup is for loopback development.
+
+For human acceptance, follow [MANUAL_BROWSER_CHECKS](docs/MANUAL_BROWSER_CHECKS.md) with your existing private demo credentials. Optional browser automation requires installed Node and Chrome, separate from application dependencies: Node 21.7.2 was verified; earlier runs used Chrome 154.0.8037.99 and the final run reported Chrome 155.0.8059.40.
+
+```sh
+# From the repository root. Uses a new temporary DB/profile; refuses an existing DB.
+HELPDESK_BROWSER_EVIDENCE=/private/tmp/helpdesk-e-evidence node helpdesk-pro/scripts/verify_browser.mjs
+```
+
+HELPDESK_CHROME may point to another installed compatible Chrome binary. Without an evidence path the script creates a separate temporary evidence directory and prints its path. It generates runtime-only credentials, deletes its DB/profile/server, and retains screenshots/result JSON without secrets. It does not use or reset your working database. Sandbox execution may require local-port/browser approval. No browser packages or frontend dependencies are installed. [Executed evidence](docs/evidence/checkpoint-e/results.json) and [E report](docs/CHECKPOINT_E_REPORT.md) distinguish measured checks from remaining accessibility/human review.
 
 ## Ticket workflow and access
 
@@ -109,6 +118,8 @@ Migrations and seed were verified on working and separate fresh temporary SQLite
 New → Assigned → In progress → Resolved. Admin reassignment preserves Assigned/In progress status and removes the previous technician's access immediately. Employee cancels own New; IT Admin cancels any active ticket. Resolved/Cancelled are read-only, including comments. Cancellation retains the record, assignee and discussion. Requester, author, status and timestamps come from the server, never editable posted fields.
 
 Missing/out-of-scope tickets return safe 404; forbidden role/action 403; stale/terminal lifecycle requests 409; unsupported methods 405. Invalid values return bound field/non-field errors without saving. Successful mutations redirect with feedback.
+
+Login/logout use small Django-view subclasses to clear previous-account feedback, including the existing admin logout URL; authentication, CSRF, sessions and safe redirects remain Django's responsibility. Authenticated application pages use no-store/private cache headers. Method failures retain 405/Allow with navigation guidance. Assignment choices show Full Name (username), falling back to username; IDs/eligibility are unchanged. Queues display requester/assignee consistently. Mobile tables scroll locally with a hint/focus; valid long names/titles wrap in confirmations.
 
 ## Search, pagination and reports
 
@@ -131,6 +142,14 @@ The pristine seed has 12/8/2/2 total/active/resolved/cancelled. The local databa
 - [Checkpoint B file/command/result report](docs/CHECKPOINT_B_REPORT.md)
 - [Checkpoint C file/command/result report](docs/CHECKPOINT_C_REPORT.md)
 - [Checkpoint D file/command/result report](docs/CHECKPOINT_D_REPORT.md)
+- [Checkpoint E audit/file/command/result report](docs/CHECKPOINT_E_REPORT.md)
+- [Remaining human acceptance instructions](docs/MANUAL_BROWSER_CHECKS.md)
+
+## Known issues and verification limits
+
+No unresolved functional defect is known from the executed E checks. Remaining grading evidence includes human review of HD-10013's final detail/thread/controls, full keyboard-only usability, 200% zoom, screen-reader behavior, physical mobile/other browsers, guarded-admin human checks, full fresh checkout and student demonstration. Automated Chrome covered fixed desktop/mobile viewports, basic key actions and selected computed contrast rules; it is not WCAG certification. M01 remains partial user-observed and M02–M14 manual checks remain unexecuted.
+
+SQLite transactions preserve validated writes but do not provide enterprise concurrent-write guarantees. Privileged bulk ORM/raw SQL may bypass application validation and is outside supported UI writes. Instructor scope/access/duration remain unconfirmed. F/G require explicit approval; E does not claim final submission readiness or a guaranteed score.
 
 The [official guide](../CapstoneProjectGuide.pdf) is primary. The [root specification](../HELPDESK_PRO_CODEX_SPEC_FINAL.md), audit corrections and eight user amendments describe the agreed design; evidence documents distinguish planned checks from executed results. Instructor scope approval, presentation duration and instructor repository access have not been independently confirmed.
 
@@ -151,5 +170,7 @@ This individual capstone uses the official course guide and significant OpenAI C
 - [Django 5.2 documentation](https://docs.djangoproject.com/en/5.2/)
 - [Django 5.2 Python compatibility](https://docs.djangoproject.com/en/5.2/releases/5.2/)
 - [Django supported releases](https://www.djangoproject.com/download/)
+- [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) for the optional browser-verification harness.
+- [W3C contrast guidance](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html), [control/focus contrast](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html) for measured interface checks. Human accessibility review remains required.
 
 Future improvement after this agreed scope could include verified email notifications or a true event history, selected according to user feedback. Neither is a missing capstone requirement.

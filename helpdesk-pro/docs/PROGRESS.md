@@ -1,14 +1,14 @@
 # Checkpoint progress
 
-Last updated: 12 October 2026 (Asia/Riyadh). A–C are reviewed/approved; the user authorized D only and reported HD-10013's browser lifecycle. D is complete; stop before E pending explicit approval. The helpdesk-pro structure and two-day priorities remain. Approximately 20 focused hours were estimated; actual completion speed is not guaranteed.
+Last updated: 13 October 2026 (Asia/Riyadh). A–D are reviewed/approved; the user authorized E only. E audit/corrections and automated browser checks are complete; stop before F/G pending explicit approval. Structure/two-day priorities and HD-10013 user-observed evidence remain. Human/device/accessibility and final readiness evidence is not implied by automation.
 
 | Checkpoint | Estimate | Completion condition | Status |
 | --- | --- | --- | --- |
 | A: design/foundation | 1h | Approved amendments, ERD/contracts/wireframes, safe scaffold inside helpdesk-pro, compatibility before install, actual checks and coherent commit | Reviewed/approved |
 | B: data/accounts | 2h | Models/constraints/migrations, guarded admin, roles/seed and integrity/provisioning tests | Reviewed/approved |
 | C: support workflow | 4h | Complete persisted role journey, usable forms/pages and focused security/state tests | Reviewed/approved; user-observed HD-10013 journey recorded |
-| D: CRUD/reports | 2h | Category CRUD, list queries/pagination, known aggregate/annotation counts | Complete; awaiting review/approval before E |
-| E: reliability/UX | 3h | Complete important tests and mobile/accessibility/error-state verification | Not started |
+| D: CRUD/reports | 2h | Category CRUD, list queries/pagination, known aggregate/annotation counts | Reviewed/approved |
+| E: reliability/UX | 3h | Audit/fix/test and actual browser checks where available; truthful remaining manual instructions | Complete; 149 tests + 39 Chrome checks; human limitations documented; awaiting approval before F/G |
 | F: final evidence | 2h | Final README/design/matrix/actual verification/demo documents | Not started |
 | G: readiness | 3h | Separate fresh checkout, seed twice, all checks, real browser acceptance, rehearsal and submission revision | Not started |
 | Contingency | 2h | Mandatory blockers fixed; affected checks repeated | Reserved |
@@ -28,8 +28,8 @@ Last updated: 12 October 2026 (Asia/Riyadh). A–C are reviewed/approved; the us
 
 ## Remaining work and blockers
 
-- User review/approval of D before E. Verified D changes/report form a coherent milestone commit; Git history supplies its hash without a self-referential report hash. Historical A–C checks remain separate.
-- E–G reliability/manual usability, evidence completion, full fresh checkout and student rehearsal remain. New D browser checks and final read-only-control visibility are unobserved; do not mark them passed.
+- User review/approval of E before F/G. Verified E changes, evidence/report and remaining human instructions form a coherent milestone; Git history supplies its hash without a self-reference. Historical A–D results remain separate.
+- Human review of local HD-10013's final detail/controls, complete keyboard/zoom/device/screen-reader usability, admin observations, full fresh checkout and rehearsal remain. E Chrome checks use disposable records and do not upgrade unobserved human rows to PASS.
 - External facts unresolved: instructor scope agreement, presentation duration, instructor repository access and available focused development hours. No claim of confirmation is made.
 - No deployment is required. Credentials/secret key are runtime-only; the local ignored database now contains the five fictitious demo accounts. Verification used a generated undisclosed password; choose known local credentials with Django changepassword as documented.
 
@@ -63,3 +63,12 @@ Record changes, commands/checks and actual outcomes for each checkpoint in ACCEP
 - 32 new category/query/report tests plus the previous 101: 133 tests pass. Cases include known seed arithmetic, no-result/empty states, malformed/repeated parameters, related filtering, ordering/page boundaries, permissions/CSRF, multiple comments/groups, eligibility and live workflow report updates. Existing lifecycle tests remain passing; one former C assertion for absent category routes now checks Employee denial on the implemented routes.
 - Fresh temporary migrated/seeded database, normal hashing and CSRF-enforced Category CRUD/PROTECT/report/filter/page/role checks passed. Parsed HTML labels/IDs/landmarks/forms passed. Local database rendered read-only at actual 13/8/3/2 totals, preserving HD-10013 and all working data.
 - User-observed browser entries UC01–UC07 are recorded exactly as reported; final terminal controls, new D browser checks, mobile/keyboard and full fresh checkout remain unverified. Models/migrations/ERD, dependency pins, seed and ticket mutation rules are unchanged.
+
+## Checkpoint E delivered and verified
+
+- Full application/security/schema/query/interface audit with narrow corrections: cleared feedback on logout and successful account login, helpful 405/Allow pages, named technician choices retaining IDs/eligibility, requester queue information, long-text wrapping, readable locally scrollable tables and stronger control borders.
+- Added 16 meaningful audit tests; all 149 tests pass. Regressions reproduced feedback leakage on app/admin logout and login switch, blank 405 output, requested dropdown-label omission and absent private/no-store headers. Corrections pass alongside stale eligibility, changed roles, forged report parameters, terminal mutations, malformed queries and CSRF rotation.
+- Found real installed Chrome despite no browser connector/Playwright/Puppeteer. Sandboxed Chrome/local-port launches failed; approved isolated runs succeeded with existing Node/Chrome. No packages installed. Browser stress reproduced maximum-length category overflow; mobile table containment correction and fully specified key events were verified.
+- Final 39 real Chrome checks pass: 34 page/viewport/label/error/contrast cases, three basic keyboard cases, the role/action journey and guarded admin. Screenshots/result JSON are retained, and new fixtures/normal-hasher server/Chrome profile were removed. Working database never used by that server.
+- Django/system/database/migration/dependency checks passed; logical snapshot of all app/user/role data matched E's baseline exactly, with PRAGMA integrity/foreign-key checks clean. Models/migrations/ERD and pins are unchanged; HD-10013 remains intact.
+- UC01–UC07 remain attributed to the user. MANUAL_BROWSER_CHECKS supplies exact remaining actions; human/device/screen-reader/zoom/full-keyboard, fresh checkout and final rehearsal remain pending. E is not a final submission readiness claim.

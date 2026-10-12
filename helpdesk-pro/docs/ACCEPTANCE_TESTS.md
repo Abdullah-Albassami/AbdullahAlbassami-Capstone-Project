@@ -140,6 +140,43 @@ Executed 12 October 2026 with existing Python 3.14.7 / Django 5.2.18. No new dep
 
 No failing D suite result has been observed. Exact commands and integration details are in CHECKPOINT_D_REPORT. The complete suite includes all earlier model/account/permission/seed/admin/ticket lifecycle regressions. Django's expected debug 404 log lines in targeted missing-ticket checks do not indicate failures.
 
+## Checkpoint E executed audit and verification
+
+Executed 13 October 2026 (Asia/Riyadh). A–D approved; E only authorized. User-observed UC01–UC07 above are preserved without adding observations of local HD-10013. No application dependencies/schema/seed/live records changed.
+
+| ID | Scenario | Expected | Actual | Status | Notes |
+| --- | --- | --- | --- | --- | --- |
+| E01 | Full auth/workflow/category/query/model/interface audit | Reuse correct behavior; fix genuine defects | Models/migration/ERD, role/account/admin helpers, services/forms/views/URLs, queries, seed and all custom templates/CSS reviewed; corrections and traceability in E report | PASS | No stylistic backend rewrite or scope expansion |
+| E02 | Audit regressions and complete suite | Existing 133 + meaningful new security/interface checks | **149 tests passed in 3.127s**, fresh migrated test DB created/destroyed; 16 new ReliabilityTests | PASS | Role/ownership/forged fields/terminal/eligibility/queries/reports/CSRF regressions retained |
+| E03 | Feedback isolation and HTTP/labels | No prior-identity messages; helpful 405/Allow; readable options with unchanged IDs | Login/logout/admin logout message regressions pass; cookie/session storage covered; 405 navigation and full-name/username/fallback/escaping/eligibility checks pass | PASS | Initial failures reproduced and fixed, not hidden |
+| E04 | Real Chrome page/interface checks | Fixed-width desktop/mobile layouts, labels/errors/contrast, readable tables and max text | **34 page/viewport audits passed** at 1280px/375px, including login, all custom page types, bound errors, 405 and long confirmations; measured contrast failures zero for checked elements | PASS (browser automated) | Emulated widths, computed checks and screenshots; not certification/human/device review |
+| E05 | Real Chrome keyboard/workflows/admin | Actual key input and persisted flows/permissions | **5 additional checks passed**: skip link/focus/Enter; native technician selection; table ArrowRight scroll; role/action lifecycle/category/query/denial journey; guarded admin read-only ticket/comment and active-technician deactivation rejection | PASS (browser automated) | Total 39 Chrome checks; fixture-only superuser; normal hashing/CSRF; live DB untouched |
+| E06 | Schema/environment/data consistency | No drift/pending migrations/dependency issues; live data preserved | System/database check clean; makemigrations no changes; migrate --check exit 0; pip check clean; logical snapshot of eight app/user/role tables exactly equals pre-E; PRAGMA integrity ok and foreign_key_check empty | PASS | 13 tickets/5 comments/5 accounts unchanged; HD-10013 retained |
+| E07 | Source/evidence/Git hygiene | Exact inventory, valid links/syntax/whitespace, no runtime credentials/DB tracked | 82 source/doc/artifact files, 80 local links, 16 modified/11 created, Python/Node syntax, 16 new test methods, actual 39-check JSON/PNG signatures, protected files/runtime exclusion/diff checks passed | PASS | Staged whitespace/inventory also checked before commit |
+| E08 | Remaining acceptance preparation | Reproducible actions and honest coverage limits | MANUAL_BROWSER_CHECKS maps remaining M01–M14 actions/expected outcomes; F/G remain gated | PASS (preparation) | Instructions are not observed outcomes |
+
+The first three targeted checks failed on username-only options, pending logout feedback and blank 405 output. Corrections passed. Additional single-test runs reproduced feedback on successful account-switch login and admin logout, then missing no-store/private response headers; all corrections passed. Interim totals 136/147/148 preceded the final 149-test suite.
+
+Installed Chrome and Node 21.7.2 were available, without Playwright/Puppeteer/Selenium or a browser connector. Earlier runs reported Chrome 154.0.8037.99; the final run reported Chrome 155.0.8059.40. CDP made genuine automation possible. Initial sandbox/local-port failures needed approved isolated execution. Stress reproduced valid 100-character category overflow; wrap/scroll containment corrections passed. Keyboard scrolling needed explicit virtual key codes in the harness. The final 39-check run passed; [results](evidence/checkpoint-e/results.json) and screenshots are actual disposable-fixture evidence.
+
+Exact final principal commands from helpdesk-pro with a generated private runtime key:
+
+```sh
+.venv/bin/python -B manage.py check --database default
+.venv/bin/python -B manage.py makemigrations --check --dry-run
+.venv/bin/python -B manage.py migrate --check
+.venv/bin/python -B manage.py test tickets.tests --verbosity 1
+.venv/bin/python -m pip --no-cache-dir check
+```
+
+Those management commands ran via stdin subprocess wrappers setting a random DJANGO_SECRET_KEY without printing it. Targeted test_reliability/test_views runs were used after corrections. From the repository root the executed browser command was:
+
+```sh
+HELPDESK_BROWSER_EVIDENCE=/private/tmp/helpdesk-e-evidence node helpdesk-pro/scripts/verify_browser.mjs
+```
+
+It creates a new temporary database/Chrome profile and a browser-only setup superuser, serves loopback, exercises the real app, retains images/result JSON and removes server/database/profile. A separate read-only SQL snapshot comparison included Department/Category/Ticket/Comment/User/membership/Group/GroupPermission values, revealing no change to the working records. This is not Checkpoint G fresh-checkout evidence. Model/migration/ERD and pins remain unchanged.
+
 ## Required final manual scenarios
 
 | ID | Scenario | Expected | Actual | Status | Notes |
@@ -163,8 +200,8 @@ No failing D suite result has been observed. Exact commands and integration deta
 
 Authentication/no-role/conflicting-role/inactive/staff-only/superuser behavior; session-derived identity and field whitelists; object GET/POST restrictions; all transitions and terminal operations; reassignment/current-state checks; trimmed/choice/FK/name validations; inactive/invalid assignees; database state checks; PROTECT and retained dependencies; guarded admin/provisioning; search/order/pagination/malformed input; known aggregate/annotation and zero/multi-row results; seed idempotency/collisions/change/password preservation; fresh migrations and system checks. Use Django's test tools; no arbitrary coverage quota.
 
-B delivered 60 database/auth/admin/seed tests; C added 41 service/HTTP tests. D adds 32 Category/query/report tests (133 total), covering advanced filters/order/pagination, integrated aggregate/annotation values, zero/empty/multi-related data, report isolation and workflow count updates. Automated HTTP outcomes do not substitute for unobserved manual cases. UC01–UC07 are separately attributed to the user.
+B delivered 60 tests; C added 41 and D added 32. E adds 16 ReliabilityTests (149 total). Existing lifecycle/schema/role/seed/report tests remain, with new account-message isolation, stale eligibility, changed roles, forged report params, all-role terminal controls, extreme query values, safe redirects, CSRF rotation and readable requester/technician output. E also passed 39 real Chrome checks with actual rendered screenshots. These automate part of M01–M12; manual rows remain unobserved as stated, and UC01–UC07 remain user-attributed.
 
 ## Current limitations
 
-Checkpoint D completes Category CRUD, scoped queries/pagination and full aggregate/annotated reporting while preserving the ticket workflow. UC01–UC07 record reported C browser observations; M01 is partial for final detail/thread, and M02–M14 remain NOT RUN. D browser/terminal-control checks, desktop/mobile/keyboard, student rehearsal and full fresh checkout remain pending E–G. Instructor scope/access/duration remain unconfirmed. Privileged bulk ORM/raw SQL can bypass validation; supported admin/services enforce approved rules. No enterprise concurrency assurance or grade guarantee is made.
+E fixes verified defects and adds real Chrome workflow/terminal/admin/page/viewport/basic-key/contrast evidence. UC01–UC07 remain user-observed; M01 remains partial for local final detail/thread, M02–M14 human checks remain NOT RUN. Follow MANUAL_BROWSER_CHECKS for full human keyboard/zoom/screen-reader/device/other-browser/admin review. Fresh checkout, final documents/rehearsal and instructor facts remain F/G work after approval. No unresolved defect is known from the executed checks. Privileged bulk/raw SQL and SQLite concurrent-write limits remain documented; no certification or grade guarantee is claimed.

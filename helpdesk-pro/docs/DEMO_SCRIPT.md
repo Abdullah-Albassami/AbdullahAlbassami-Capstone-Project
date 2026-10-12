@@ -1,6 +1,6 @@
 # Demonstration and individual technical rehearsal
 
-**A–D functionality is executable; final readiness/rehearsal still awaits E–G.** The ticket workflow, Category CRUD, advanced queries/pagination and aggregate/annotated reports are implemented. The user observed HD-10013's C browser lifecycle; automated/CSRF integration checks cover D, but its real browser acceptance and student rehearsal remain pending. Confirm instructor duration/scope agreement, use fictional data, keep passwords out of slides/repository and demonstrate the submitted revision.
+**A–E functionality/audit is verified; final documentation/readiness/rehearsal still awaits F/G.** The user-observed HD-10013 lifecycle is preserved. E additionally executed 39 real Chrome checks on isolated fixtures (page/viewport/contrast/basic keyboard, workflows and guarded admin); this is distinct from human acceptance and rehearsal. Confirm instructor duration/scope, use fictional data, keep credentials out of slides/repository and demonstrate the submitted revision.
 
 ## Guide-prescribed order
 
@@ -41,6 +41,8 @@ On Tickets, search a known phrase in title/description, combine category/status/
 - Show aggregate versus annotate, active status definition and one fixture arithmetic example. Explain join inflation/zero rows.
 - Explain a Django migration and prove setup without the original machine's database/configuration.
 - Explain honest limitations and significant Codex/resource assistance. The student must understand the actual implementation, not memorize claims about planned code.
+
+For remaining human review follow [MANUAL_BROWSER_CHECKS](MANUAL_BROWSER_CHECKS.md), particularly HD-10013's retained outcome/controls, full keyboard/zoom/device accessibility and guarded admin. Technician options now show Lina Demo (technician1); describe why only the label changes while IDs/eligibility remain server-enforced. E also isolates notifications across login/logout; request-method failures keep 405/Allow and provide navigation. Do not claim human checks or fresh-checkout rehearsal from the automated Chrome evidence.
 
 ## Final readiness checklist
 
