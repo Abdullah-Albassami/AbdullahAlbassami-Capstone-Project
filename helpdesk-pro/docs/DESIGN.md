@@ -1,12 +1,16 @@
 # Approved architecture and implementation contracts
 
-Approved by the user's implementation request on 12 October 2026. The official guide is primary. This document incorporates the audit corrections; it is the final target for upcoming checkpoints, not a claim that those features already exist. Instructor agreement remains unverified.
+Approved by the user's implementation request and subsequent eight amendments on 12 October 2026. The official guide is primary. This document incorporates the audit corrections and amended structure; it is the final target for upcoming checkpoints, not a claim that those features already exist. Instructor agreement remains unverified. Work is authorized for Checkpoint A only until its review.
 
 ## Structure and responsibilities
 
-Project at repository root; one `tickets` app; built-in User/Groups; four custom models; SQLite; Django Templates and local CSS. Python 3.14.7 / Django 5.2.18.
+Project inside `helpdesk-pro/`; source guide/specification remain at repository root with the entry-point README and repository-wide `.gitignore`. Application documentation and safe environment example belong under `helpdesk-pro/`. One `tickets` app; built-in User/Groups; four custom models; SQLite; Django Templates and local CSS. Python 3.14.7 / Django 5.2.18. All application paths in this document are relative to `helpdesk-pro/`.
+
+Before new dependency installation verify official Django/Python compatibility and actual package metadata, then pin installed/verified dependencies. Recreate the local `.venv` inside `helpdesk-pro/`; do not relocate virtual environments. Settings derive database/template/static paths from the application directory rather than the shell working directory.
 
 Views handle HTTP, bind explicit forms, use scoped retrieval and render/redirect. `permissions.py` resolves roles, visibility and action permissions. Mandatory `services.py` owns ticket mutations and rechecks current state/actor/target; `queries.py` may hold reporting/list queries when reuse improves readability. No repository layer, generic workflow engine, signals for ordinary ticket actions, or custom user model.
+
+Preserve final-first development: inspect each file's intended responsibilities and integration dependencies before writing it; implement the final behavior appropriate to its checkpoint, with genuine defect corrections as needed. Do not substitute temporary models, alternate workflows or extra account-management/audit/integration subsystems. Keep required grading evidence and actual verification mandatory; retain the two-day priority and checkpoint review stops.
 
 Creation and editing forms whitelist title, description, category, department and priority. Assignment, resolution and comments use separate forms. State/requester/author/timestamps never come from editable client fields. Services validate complete instances after session-derived fields are set and save within transactions. Cross-field model errors use non-field validation where forms exclude workflow fields.
 

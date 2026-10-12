@@ -2,7 +2,7 @@
 
 Only executed checks may be marked PASS. NOT RUN means planned or unavailable in the current checkpoint. Command-level HTTP/template checks are not a real browser walkthrough. No custom migrations or database workflow checks have been performed at Checkpoint A.
 
-## Checkpoint A executed checks
+## Historical Checkpoint A checks before the structure amendment
 
 | ID | Scenario | Expected | Actual | Status | Notes |
 | --- | --- | --- | --- | --- | --- |
@@ -15,6 +15,25 @@ Only executed checks may be marked PASS. NOT RUN means planned or unavailable in
 | A07 | Repository hygiene | No key/password/environment/database tracked; clean whitespace | Reviewed 23 source/design files; ignored runtime files verified; dependency pins match; diff whitespace clean | PASS | No database created; tracked example contains no real credential |
 
 Executed on 12 October 2026 using the local virtual environment. Ad hoc command assertions checked source syntax, configuration rejection, entry-point/template/static integration and unauthenticated admin HTTP behavior. `pip check` returned “No broken requirements found.” The first `git diff --check` detected trailing whitespace on three edited Markdown lines; those lines were corrected before final verification. No test-suite PASS, migrations, browser walkthrough or final fresh-checkout result is claimed.
+
+These results apply to the earlier repository-root foundation. The latest user amendment requires the application inside `helpdesk-pro/`. The new environment/path checks below are separate; historic PASS results are not presented as revalidation.
+
+## Amended Checkpoint A revalidation
+
+| ID | Scenario | Expected | Actual | Status | Notes |
+| --- | --- | --- | --- | --- | --- |
+| R01 | Compatibility before new install | Supported Django and Python 3.14.7; compatible pinned metadata | Official Django 5.2 support starts for Python 3.14 at 5.2.8; 5.2.18 supported through April 2028; package metadata requires >=3.10 | PASS | Official docs and existing package metadata read before new install |
+| R02 | Fresh environment in helpdesk-pro | Exact pins installed; interpreter/activation point to new path | Python 3.14.7; Django/asgiref/sqlparse match pins; activation/prefix use helpdesk-pro/.venv; pip check found no broken requirements | PASS | Old virtual environment not relocated |
+| R03 | Django check in corrected directory | Zero system-check issues | Both application-cwd and root-cwd subprocesses reported no issues | PASS | Runtime-only random key |
+| R04 | Config rejection and local defaults | Missing/example keys, invalid debug/hosts rejected; valid local/debug-false settings accepted | Missing/example/blank key, invalid debug, wildcard/empty hosts rejected; debug-false/default-host check passed | PASS | All subprocess outcomes asserted |
+| R05 | App path independence | BASE_DIR/database/template/static paths under helpdesk-pro, even invoked from root | All paths point under helpdesk-pro; built-in User and one custom app confirmed | PASS | No database created |
+| R06 | Entry points, template and static integration | ASGI/WSGI load; layout/escaping/CSS resolve | Entry points callable, inherited blocks/landmarks/message escaping correct, CSS resolves at new path | PASS | Template checks, not browser |
+| R07 | Foundation HTTP behavior | Admin login 200, anonymous admin redirect, no database queries; app routes still absent | Login 200, redirect 302, CSRF rejection 403; future routes unresolved; debug-false 404s; zero queries/no DB files | PASS | Debug-true root displays Django's own welcome page, not a dashboard |
+| R08 | Repository/doc hygiene and file inventory | Root guide intact; no tracked runtime secrets/DB; local links resolve; clean whitespace | Exact 25-file source inventory; guide and 15 relocated files byte-preserved; all local links resolve; ignore rules and diff check passed | PASS | Root contains source documents/entry point/ignore only; no duplicate application or DB |
+
+See CHECKPOINT_A_REPORT.md for the amended file inventory, commands and results. The relocation preflight initially stopped safely because the target directory already existed; inspection showed it was empty, so it was reused without overwriting data.
+
+The first relocated verification harness passed R02–R06, then failed an assertion expecting `/` to return 404 with DEBUG=true. Inspection confirmed Django's normal development welcome response when only admin is configured. The corrected R07 check asserts absence of business URL patterns, the debug welcome page, and 404s with DEBUG=false; that rerun passed. This was a corrected check assumption, not an implemented dashboard. No business suite, migration or browser acceptance PASS is claimed.
 
 ## Required final manual scenarios
 

@@ -1,12 +1,23 @@
 # HelpDesk Pro — Codex Implementation Specification
 
-**Status:** User-approved architecture audit and implementation plan; Checkpoint A is complete. Instructor approval is not independently verified. Later checkpoints require review before proceeding.
+**Status:** User-approved architecture audit and implementation plan, with the eight user amendments below. Amended Checkpoint A is complete and reverified inside `helpdesk-pro/`. Instructor approval is not independently verified. Checkpoint B has not begun and requires a separate review and approval.
 **Timebox:** Two calendar days.  
 **Source of requirements:** `CapstoneProjectGuide.pdf`, pages 1–6.
 **Purpose:** Build a presentable, individually explainable Django web app that satisfies the capstone's 100-mark rubric.  
 **Principle:** Deliver the complete defined capstone scope and all rubric evidence; design dependencies up front and implement final intended versions, correcting verified defects whenever necessary.
 
-**Approved audit corrections:** `docs/DESIGN.md` records the exact architecture, security, state constraints, URL/error contracts and fixture decisions approved by the user. The official guide is primary; these approved corrections replace conflicting original proposals. `docs/PROGRESS.md` records the revised A–G sequence and actual checkpoint status. No planned feature or check is evidence of implemented or passing behavior.
+**Approved audit corrections:** `helpdesk-pro/docs/DESIGN.md` records the exact architecture, security, state constraints, URL/error contracts and fixture decisions approved by the user. The official guide is primary; the approved audit and latest user amendments replace conflicting original proposals. `helpdesk-pro/docs/PROGRESS.md` records the revised A–G sequence and actual checkpoint status. No planned feature or check is evidence of implemented or passing behavior.
+
+## Approved user amendments and execution boundary
+
+1. **Repository structure:** Keep `CapstoneProjectGuide.pdf` and this specification at the repository root. Put the Django application, dependencies, configuration example, templates, assets and application documentation inside `helpdesk-pro/`. Keep a root README entry point and repository-wide `.gitignore`.
+2. **Compatibility before installation:** Verify the actual Python 3.14.7 interpreter against official Django support documentation and package metadata before any new dependency installation. Use the compatible supported Django 5.2.18 LTS release and pin the dependencies actually installed and verified. Recreate virtual environments at their intended location; do not relocate a virtual environment with embedded absolute paths.
+3. **Bounded complexity:** Retain four custom models, three application roles and the approved lifecycle. Use built-in Django auth/admin and small shared validation/permission/service functions; do not introduce account-management, event audit-trail or integration subsystems.
+4. **Mandatory grading evidence:** Map every official requirement to its implemented UI/code, executed verification and documentation. Record incomplete/unverified evidence honestly until later checkpoints deliver it.
+5. **Final-first implementation:** Inspect complete responsibilities and integration contracts before edits. Implement intended final behavior at each stage; extend it through planned checkpoints without temporary alternative implementations. Correct discovered defects.
+6. **Checkpoint gates:** Each checkpoint delivers integrated, verified work appropriate to its stage. This authorization covers Checkpoint A only. Stop and wait for explicit review/approval before B.
+7. **Two-day priority:** Preserve rubric compliance, working behavior, reproducibility and demonstration readiness. Keep the approximately 20-hour A–G plan including contingency; optional polish follows mandatory evidence.
+8. **Truthful documentation:** Report commands and actual outcomes; distinguish historic checks from revalidation at the corrected path. Never label unexecuted tests, browser checks, migrations or final features as passed.
 
 ## 1. Product definition
 
@@ -64,35 +75,42 @@
 
 ## 3. Technologies and structure
 
-Use Django 5.2.18 LTS with the verified local Python 3.14.7 interpreter; pin resolved dependencies in `requirements.txt` and record versions actually tested in README. Use SQLite, Django templates with semantic HTML, small custom CSS, and minimal vanilla JavaScript only if needed. Avoid unnecessary libraries. The project lives directly in the existing repository root; do not add a nested `helpdesk-pro` checkout directory.
+Use Django 5.2.18 LTS with the verified local Python 3.14.7 interpreter; verify official compatibility before dependency installation, pin resolved dependencies in `helpdesk-pro/requirements.txt` and record versions actually tested in the application README. Use SQLite, Django templates with semantic HTML, small custom CSS, and minimal vanilla JavaScript only if needed. Avoid unnecessary libraries. The Django project lives inside `helpdesk-pro/`, as required by the user; source guide/specification remain at the repository root.
 
-Suggested layout:
+Final repository layout (feature modules/migrations are created in their approved checkpoints):
 
 ```text
-helpdesk-pro/
-  manage.py
-  requirements.txt
+repository-root/
+  CapstoneProjectGuide.pdf
+  HELPDESK_PRO_CODEX_SPEC_FINAL.md
   .gitignore
-  .env.example                 # only if environment vars are actually used
-  README.md
-  config/{settings.py,urls.py,asgi.py,wsgi.py}
-  tickets/
-    models.py
-    forms.py
-    views.py
-    urls.py
-    admin.py
-    permissions.py            # shared object-level authorization helpers
-    services.py               # mandatory shared workflow mutation boundary
-    migrations/
-    tests/                    # or a clearly organized tests.py
-    management/commands/seed_demo.py
-  templates/
-    base.html
-    registration/login.html
-    tickets/{dashboard.html,ticket_list.html,ticket_detail.html,ticket_form.html,ticket_cancel_confirm.html,category_list.html,category_form.html,category_confirm_delete.html}
-  static/css/style.css
-  docs/{ERD.md,WIREFRAMES.md,ACCEPTANCE_TESTS.md,DEMO_SCRIPT.md,REQUIREMENTS_MATRIX.md}
+  README.md                   # links to application setup and evidence
+  helpdesk-pro/
+    .venv/                    # local only, ignored; never relocated
+    manage.py
+    requirements.txt
+    .env.example              # documentation only; no real credentials
+    README.md                 # actual application setup and current status
+    config/{__init__.py,settings.py,urls.py,asgi.py,wsgi.py}
+    tickets/
+      __init__.py
+      apps.py
+      models.py
+      forms.py
+      views.py
+      urls.py
+      admin.py
+      permissions.py          # shared object-level authorization helpers
+      services.py             # mandatory shared workflow mutation boundary
+      migrations/
+      tests/                  # or a clearly organized tests.py
+      management/commands/seed_demo.py
+    templates/
+      base.html
+      registration/login.html
+      tickets/{dashboard.html,ticket_list.html,ticket_detail.html,ticket_form.html,ticket_cancel_confirm.html,category_list.html,category_form.html,category_confirm_delete.html}
+    static/css/style.css
+    docs/{DESIGN.md,ERD.md,WIREFRAMES.md,ACCEPTANCE_TESTS.md,DEMO_SCRIPT.md,REQUIREMENTS_MATRIX.md,PROGRESS.md}
 ```
 
 One Django app is enough. Use namespaced URLs, template inheritance, `ModelForm`, Django messages, login-required guards, `get_object_or_404`, POST for mutations, CSRF tokens, and redirect-after-POST.
@@ -405,7 +423,7 @@ Store simple ASCII/Markdown wireframes in `docs/WIREFRAMES.md`; do not spend hou
 
 ### Suggested next Codex prompt (AFTER Checkpoint A review)
 
-> Read `HELPDESK_PRO_CODEX_SPEC_FINAL.md` and `docs/DESIGN.md` fully and inspect the repository. Checkpoint A is approved. Implement Checkpoint B only: final models, constraints, migrations, roles, guarded admin and idempotent seed; verify schema/provisioning/deletion/seed behavior. Show actual validation results and stop for review before Checkpoint C. Do not add features outside the approved scope.
+> Read the root `HELPDESK_PRO_CODEX_SPEC_FINAL.md` and `helpdesk-pro/docs/DESIGN.md` fully and inspect the repository. Checkpoint A is approved. Work inside `helpdesk-pro/` and implement Checkpoint B only: final models, constraints, migrations, roles, guarded admin and idempotent seed; verify schema/provisioning/deletion/seed behavior. Show actual validation results and stop for review before Checkpoint C. Do not add features outside the approved scope.
 
 ## 15A. Final-first development and grade-maximization rules
 

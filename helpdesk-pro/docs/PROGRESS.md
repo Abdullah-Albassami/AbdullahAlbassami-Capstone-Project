@@ -1,10 +1,10 @@
 # Checkpoint progress
 
-Last updated: 12 October 2026 (Asia/Riyadh). The user approved the architecture audit and implementation plan. Each checkpoint delivers integrated work and then stops for review. Approximately 20 focused hours are estimated; actual completion speed is not guaranteed.
+Last updated: 12 October 2026 (Asia/Riyadh). The user approved the architecture audit with eight amendments, including the original `helpdesk-pro/` application structure and Checkpoint A-only authorization. Each checkpoint delivers integrated work and then stops for review. Approximately 20 focused hours are estimated; actual completion speed is not guaranteed.
 
 | Checkpoint | Estimate | Completion condition | Status |
 | --- | --- | --- | --- |
-| A: design/foundation | 1h | Approved corrections, ERD/contracts/wireframes, safe scaffold, checks and coherent commit | Complete; awaiting review before B |
+| A: design/foundation | 1h | Approved amendments, ERD/contracts/wireframes, safe scaffold inside helpdesk-pro, compatibility before install, actual checks and coherent commit | Complete; awaiting explicit review/approval before B |
 | B: data/accounts | 2h | Models/constraints/migrations, guarded admin, roles/seed and integrity/provisioning tests | Awaiting A review |
 | C: support workflow | 4h | Complete persisted role journey, usable forms/pages and focused security/state tests | Not started |
 | D: CRUD/reports | 2h | Category CRUD, list queries/pagination, known aggregate/annotation counts | Not started |
@@ -17,15 +17,18 @@ Last updated: 12 October 2026 (Asia/Riyadh). The user approved the architecture 
 
 - Full six-page guide and specification audit; user-approved corrections.
 - Environment inspected: Python 3.14.7, SQLite 3.53.4; initially no Django for that interpreter.
-- Local virtual environment created; Django 5.2.18, asgiref 3.12.1 and sqlparse 0.6.0 installed and pinned. Initial sandbox PyPI access failed; installation succeeded after network approval.
+- Original root environment created in the previous checkpoint attempt; pinned Django 5.2.18, asgiref 3.12.1 and sqlparse 0.6.0. Initial sandbox PyPI access failed; installation succeeded after network approval. That ignored environment is retained locally and is no longer the application's environment.
 - Foundation source and runtime configuration prepared; no custom models/migrations or database created intentionally.
 - Final target architecture, ERD, route/role contracts, wireframes and sample-count contracts documented.
 - Requirement/evidence, acceptance and demo records established with planned versus executed status.
 - Django system check and dependency check passed. Configuration rejection, source syntax, ASGI/WSGI, shared-template escaping/landmarks, static lookup and anonymous admin HTTP checks passed. No database queries, database creation or migrations were required.
+- Latest user amendments incorporated before relocation. The existing empty `helpdesk-pro/` directory was inspected and reused; tracked application files/docs moved there without replacing unrelated data. Root guide/specification retained.
+- Official supported-release/Python compatibility and existing package metadata checked before installing the same pinned dependencies into a freshly created `helpdesk-pro/.venv`. Relocated integration checks are recorded independently of the historical checks.
+- Amended R01–R08 checks passed: environment/pins, both invocation directories, configuration rejection, resource paths, entry points, template/static integration, unauthenticated HTTP/CSRF behavior and repository/link hygiene. No migrations or business/browser tests run. An initial debug-root HTTP assertion was corrected and rerun as documented.
 
 ## Remaining work and blockers
 
-- Checkpoint A review before B. All foundation and hygiene checks passed; the validated milestone is committed with this record. Use Git history to identify its commit without inserting a self-referential commit hash.
+- User review/approval of amended A before B. The validated structure milestone is committed with this record; Git history identifies its commit without a self-referential hash. Historical root checks remain separate from current verification.
 - B–G product features and their acceptance evidence remain to be implemented/verified.
 - External facts unresolved: instructor scope agreement, presentation duration, instructor repository access and available focused development hours. No claim of confirmation is made.
 - No deployment is required. Credentials/secret key are runtime-only; no seeded accounts exist yet.

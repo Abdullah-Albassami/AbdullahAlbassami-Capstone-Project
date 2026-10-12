@@ -1,6 +1,6 @@
 # Official guide and evidence matrix
 
-Primary authority: `CapstoneProjectGuide.pdf`, pp.1–6. Total assessment: 100 marks. **Checkpoint A is design/foundation only.** Proposed URLs and future source locations below are not implemented evidence. PASS requires an executed check recorded in ACCEPTANCE_TESTS.md. No score is guaranteed.
+Primary authority: [root CapstoneProjectGuide.pdf](../../CapstoneProjectGuide.pdf), pp.1–6. Total assessment: 100 marks. **Checkpoint A is design/foundation only, inside `helpdesk-pro/`.** Proposed URLs and future source locations below are not implemented evidence. Application paths are relative to `helpdesk-pro/`. PASS requires an executed check recorded in ACCEPTANCE_TESTS.md. Every official requirement must ultimately map to implemented UI/code, executed verification and documentation; design-only entries are incomplete evidence until those checkpoints are delivered. No score is guaranteed.
 
 ## Assessment coverage
 
