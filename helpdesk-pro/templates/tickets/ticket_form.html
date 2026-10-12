@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}{% if ticket %}Edit {{ ticket.reference }}{% else %}Submit ticket{% endif %} · HelpDesk Pro{% endblock %}
+{% block content %}
+<a class="back-link" href="{% if ticket %}{% url 'tickets:ticket_detail' ticket.pk %}{% else %}{% url 'tickets:ticket_list' %}{% endif %}">← {% if ticket %}Back to ticket{% else %}Back to tickets{% endif %}</a>
+<div class="page-heading"><div><p class="eyebrow">{% if ticket %}{{ ticket.reference }}{% else %}New support request{% endif %}</p><h1>{% if ticket %}Edit ticket{% else %}Submit a ticket{% endif %}</h1><p class="muted">{% if ticket %}Update the issue details. Workflow actions are managed separately.{% else %}Tell us what is affecting your work. The IT team will assign a technician.{% endif %}</p></div></div>
+<div class="panel form-panel">
+  <form method="post">
+    {% csrf_token %}{% include 'tickets/includes/form_fields.html' %}
+    <div class="actions"><button type="submit">{% if ticket %}Save changes{% else %}Submit ticket{% endif %}</button><a href="{% if ticket %}{% url 'tickets:ticket_detail' ticket.pk %}{% else %}{% url 'tickets:ticket_list' %}{% endif %}">Return without saving</a></div>
+  </form>
+</div>
+{% endblock %}

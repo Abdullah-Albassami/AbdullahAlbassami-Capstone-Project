@@ -1,12 +1,12 @@
 # Checkpoint progress
 
-Last updated: 12 October 2026 (Asia/Riyadh). The user reviewed/approved A and authorized B only, preserving all eight amendments and the `helpdesk-pro/` structure. B is complete; stop for explicit review/approval before C. Approximately 20 focused hours are estimated across two days; actual completion speed is not guaranteed.
+Last updated: 12 October 2026 (Asia/Riyadh). The user reviewed/approved A/B and authorized C only, preserving all amendments and the `helpdesk-pro/` structure. C is complete; stop for explicit review/approval before D. Approximately 20 focused hours are estimated across two days; actual completion speed is not guaranteed.
 
 | Checkpoint | Estimate | Completion condition | Status |
 | --- | --- | --- | --- |
 | A: design/foundation | 1h | Approved amendments, ERD/contracts/wireframes, safe scaffold inside helpdesk-pro, compatibility before install, actual checks and coherent commit | Reviewed/approved |
-| B: data/accounts | 2h | Models/constraints/migrations, guarded admin, roles/seed and integrity/provisioning tests | Complete; awaiting review/approval before C |
-| C: support workflow | 4h | Complete persisted role journey, usable forms/pages and focused security/state tests | Not started; requires approval |
+| B: data/accounts | 2h | Models/constraints/migrations, guarded admin, roles/seed and integrity/provisioning tests | Reviewed/approved |
+| C: support workflow | 4h | Complete persisted role journey, usable forms/pages and focused security/state tests | Complete; awaiting review/approval before D |
 | D: CRUD/reports | 2h | Category CRUD, list queries/pagination, known aggregate/annotation counts | Not started |
 | E: reliability/UX | 3h | Complete important tests and mobile/accessibility/error-state verification | Not started |
 | F: final evidence | 2h | Final README/design/matrix/actual verification/demo documents | Not started |
@@ -28,8 +28,8 @@ Last updated: 12 October 2026 (Asia/Riyadh). The user reviewed/approved A and au
 
 ## Remaining work and blockers
 
-- User review/approval of B before C. The validated B milestone is committed with its report; Git history identifies its commit without a self-referential hash. Historical A checks remain separate from current verification.
-- C–G product features and their acceptance evidence remain to be implemented/verified.
+- User review/approval of C before D. C changes are verified and reported for a coherent milestone commit; Git history identifies the commit without a self-referential hash. Historical A/B results remain separate.
+- D–G features and acceptance evidence remain to be implemented/verified. Full status/backlog/workload reports, category CRUD, filtering and pagination have not begun.
 - External facts unresolved: instructor scope agreement, presentation duration, instructor repository access and available focused development hours. No claim of confirmation is made.
 - No deployment is required. Credentials/secret key are runtime-only; the local ignored database now contains the five fictitious demo accounts. Verification used a generated undisclosed password; choose known local credentials with Django changepassword as documented.
 
@@ -45,3 +45,12 @@ Last updated: 12 October 2026 (Asia/Riyadh). The user reviewed/approved A and au
 ## Acceptance discipline
 
 Record changes, commands/checks and actual outcomes for each checkpoint in ACCEPTANCE_TESTS.md. Maintain traceability in REQUIREMENTS_MATRIX.md. Never turn a planned case into PASS without execution. Commit real validated milestones; do not manufacture development history. Before submission record the final demo commit and verify instructor access. Optional polish cannot replace mandatory reliability or evidence.
+
+## Checkpoint C delivered and verified
+
+- Built-in login/POST logout; server-enforced role dashboards, scoped ticket queues/details and related discussion. Basic summary cards use the final scoped aggregate query; full reports remain D.
+- Explicit business/action forms and shared atomic services for submission, editing, cancellation, assignment/reassignment, progress, resolution and comments. Current role/scope/state and technician eligibility are rechecked; requester/author/metadata are server-derived. Terminal records remain read-only.
+- Inherited local templates/CSS supply role navigation, confirmations, labels/help/errors, status text, responsive grids, scrollable tables, empty states, success messages and friendly 403/404/409/CSRF/500 pages. GET cannot mutate; all mutation forms include CSRF.
+- 41 new service/HTTP tests plus the 60 foundation tests: final 101 tests passed. Includes full persisted role journey, forged fields, scoped GET/POST, CSRF-enforced requests, safe login redirects, invalid/stale account/state handling and reassignment revoking access.
+- Separate fresh temporary SQLite file migrated/seeded twice with normal password hashing. CSRF-enforced seeded resolution plus create/edit/comment/cancel passed; connection reopened and final 13/7/3/3 totals confirmed. Working demo data untouched.
+- Checks/dependency consistency passed; no model changes or pending migrations. The initial targeted run found/fixed nullable-assignee template rendering. Redirect-message consumption assumptions in two tests were corrected. Final tests pass; real browser/mobile/keyboard acceptance, full checkout and student rehearsal remain NOT RUN.

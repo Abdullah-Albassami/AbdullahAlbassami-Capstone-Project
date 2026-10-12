@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}{{ ticket.reference }} · HelpDesk Pro{% endblock %}
+{% block content %}
+<a class="back-link" href="{% url 'tickets:ticket_list' %}">← Back to tickets</a>
+<div class="page-heading"><div><p class="eyebrow">{{ ticket.reference }}</p><h1>{{ ticket.title }}</h1><div class="actions"><span class="badge status-{{ ticket.status }}">{{ ticket.get_status_display }}</span><span class="priority priority-{{ ticket.priority }}">{{ ticket.get_priority_display }} priority</span></div></div>
+  <div class="actions">{% if permissions.edit %}<a class="button button-secondary" href="{% url 'tickets:ticket_update' ticket.pk %}">Edit details</a>{% endif %}{% if permissions.cancel %}<a class="button button-secondary" href="{% url 'tickets:ticket_cancel' ticket.pk %}">Cancel ticket</a>{% endif %}</div>
+</div>
+{% if not ticket.is_active %}<p class="message">This ticket is {{ ticket.get_status_display|lower }} and read-only. Its details and discussion have been retained.</p>{% endif %}
+<div class="detail-layout">
+  <div>
+    <section class="panel" aria-labelledby="description-heading"><h2 id="description-heading">Issue description</h2><div class="text-content">{{ ticket.description }}</div></section>
+    {% if ticket.resolved_at %}<section class="panel section-space" aria-labelledby="resolution-heading"><h2 id="resolution-heading">Resolution</h2><p class="muted">Resolved {{ ticket.resolved_at|date:'j M Y, H:i' }}</p><div class="text-content">{{ ticket.resolution_note }}</div></section>{% endif %}
+    <section class="panel section-space" aria-labelledby="discussion-heading">
+      <h2 id="discussion-heading">Discussion <span class="muted">({{ comments|length }})</span></h2>
+      {% for comment in comments %}<article class="comment"><div class="section-heading"><h3>{{ comment.author.get_full_name|default:comment.author.username }}</h3><time datetime="{{ comment.created_at|date:'c' }}">{{ comment.created_at|date:'j M Y, H:i' }}</time></div><div class="text-content">{{ comment.body }}</div></article>{% empty %}<p class="muted">No comments yet.</p>{% endfor %}
+      {% if permissions.comment %}<form class="section-space" method="post" action="{% url 'tickets:ticket_comment' ticket.pk %}">{% csrf_token %}{% include 'tickets/includes/form_fields.html' with form=comment_form %}<button type="submit">Add comment</button></form>{% endif %}
+    </section>
+  </div>
+  <aside>
+    <section class="panel" aria-labelledby="details-heading"><h2 id="details-heading">Ticket details</h2><dl class="details">
+      <dt>Requester</dt><dd>{{ ticket.requester.get_full_name|default:ticket.requester.username }}</dd>
+      <dt>Department</dt><dd>{{ ticket.department }}</dd><dt>Category</dt><dd>{{ ticket.category }}</dd>
+      <dt>Assigned to</dt><dd>{% if ticket.assigned_to %}{{ ticket.assigned_to.get_full_name|default:ticket.assigned_to.username }}{% else %}Awaiting assignment{% endif %}</dd>
+      <dt>Created</dt><dd>{{ ticket.created_at|date:'j M Y, H:i' }}</dd><dt>Updated</dt><dd>{{ ticket.updated_at|date:'j M Y, H:i' }}</dd>
+    </dl></section>
+    {% if permissions.assign %}<section class="panel section-space" aria-labelledby="assignment-heading"><h2 id="assignment-heading">{% if ticket.assigned_to_id %}Reassign ticket{% else %}Assign ticket{% endif %}</h2><p class="helptext">{% if ticket.assigned_to_id %}Progress is preserved. The previous technician loses access after reassignment.{% else %}An active technician takes ownership of this request.{% endif %}</p><form method="post" action="{% url 'tickets:ticket_assign' ticket.pk %}">{% csrf_token %}{% include 'tickets/includes/form_fields.html' with form=assignment_form %}<button type="submit">{% if ticket.assigned_to_id %}Save assignment{% else %}Assign technician{% endif %}</button></form></section>{% endif %}
+    {% if permissions.start %}<section class="panel section-space" aria-labelledby="start-heading"><h2 id="start-heading">Ready to work?</h2><p class="helptext">Move this request from Assigned to In progress.</p><form method="post" action="{% url 'tickets:ticket_start' ticket.pk %}">{% csrf_token %}<button type="submit">Start progress</button></form></section>{% endif %}
+    {% if permissions.resolve %}<section class="panel section-space" aria-labelledby="resolve-heading"><h2 id="resolve-heading">Resolve ticket</h2><form method="post" action="{% url 'tickets:ticket_resolve' ticket.pk %}">{% csrf_token %}{% include 'tickets/includes/form_fields.html' with form=resolution_form %}<button type="submit">Resolve ticket</button></form></section>{% endif %}
+  </aside>
+</div>
+{% endblock %}

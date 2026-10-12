@@ -12,7 +12,19 @@
     <header class="site-header">
       <div class="container header-content">
         <a class="brand" href="/">HelpDesk <span>Pro</span></a>
-        {% block navigation %}{% endblock %}
+        {% block navigation %}
+          {% if user.is_authenticated %}
+            <nav aria-label="Main navigation">
+              {% if app_role %}
+                <a href="{% url 'tickets:dashboard' %}">Dashboard</a>
+                <a href="{% url 'tickets:ticket_list' %}">Tickets</a>
+                {% if can_create %}<a href="{% url 'tickets:ticket_create' %}">Submit ticket</a>{% endif %}
+                {% if can_setup %}<a href="{% url 'admin:index' %}">Organization setup</a>{% endif %}
+              {% endif %}
+              <form method="post" action="{% url 'logout' %}">{% csrf_token %}<button class="button-secondary" type="submit">Sign out</button></form>
+            </nav>
+          {% endif %}
+        {% endblock %}
       </div>
     </header>
     <main id="main-content" class="container page-content" tabindex="-1">

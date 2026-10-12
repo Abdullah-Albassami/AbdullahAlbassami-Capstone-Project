@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block title %}Tickets · HelpDesk Pro{% endblock %}
+{% block content %}
+<div class="page-heading"><div><p class="eyebrow">{{ app_role }} workspace</p><h1>{% if app_role == 'IT Admin' %}All tickets{% elif app_role == 'Technician' %}Assigned tickets{% else %}My tickets{% endif %}</h1><p class="muted">Support requests, newest first.</p></div>{% if can_create %}<a class="button" href="{% url 'tickets:ticket_create' %}">Submit ticket</a>{% endif %}</div>
+<section class="panel" aria-label="Ticket list">{% include 'tickets/includes/ticket_table.html' %}</section>
+{% endblock %}

@@ -2,7 +2,7 @@
 
 An internal Django IT support application for employees and a small IT team. It is designed to replace scattered email or spreadsheet requests with clear ownership, consistent status, retained discussion and visible backlog.
 
-**Current delivery: Checkpoint B — verified database and authentication foundation.** Four models, migrations, role/permission helpers, guarded administration, deterministic seed and 60 automated tests are delivered. Application login/logout pages, ticket workflow services/views/forms and rendered reports remain later checkpoints. No completed-product claim is made.
+**Current delivery: Checkpoint C — complete ticket web workflow.** Login/POST logout, role dashboards/queues, ticket CRUD through cancellation, assignment/reassignment, progress/resolution and immutable comments are implemented using shared validated services. The four-model schema and deterministic seed are retained; 101 automated tests pass. Category CRUD, advanced filtering/ordering/pagination and full status/category/technician reporting remain D. Real browser acceptance and final readiness checks remain pending.
 
 ## Final project structure
 
@@ -20,14 +20,14 @@ repository-root/
     manage.py
     README.md
     config/          # settings, URLs, ASGI and WSGI
-    tickets/         # models, auth helpers, admin, migrations, seed and tests
-    templates/base.html
+    tickets/         # models, permissions, services, forms, views, URLs, admin, seed/tests
+    templates/       # inherited login, workflow and error pages
     static/css/style.css
     docs/            # design, ERD, wireframes, evidence, progress and demo script
     .venv/           # local only; ignored and recreated at this location
 ```
 
-The `tickets` package now contains final models, shared choices/roles, account guards, permission helpers, Django admin/forms, migrations, seed fixtures/command and tests. Workflow services/forms and application URLs/views are added in C; list/report features finish in D. No temporary alternative model, workflow, account-management, audit-trail or integration subsystem is introduced.
+The `tickets` package contains models, shared choices/roles, account guards, permissions, workflow services/forms/views/URLs, guarded Django admin, migrations, seed and tests. The list has stable newest-first ordering; advanced list controls, category CRUD and full reports finish in D. No alternative model, workflow, account-management, audit-trail or integration subsystem is introduced.
 
 ## Product and agreed scope
 
@@ -94,9 +94,21 @@ Use a password accepted by Django's validators. All five demo accounts initially
 
 Current development data was seeded using a generated password that was not displayed or stored in source. To choose known credentials privately for an existing account, run `python manage.py changepassword employee1` (or technician1/itadmin/etc.); repeating seed with a new environment password does not reset it. To provision a separate setup administrator, use `python manage.py createsuperuser` and choose a non-demo username/private password.
 
-At Checkpoint B only Django admin routes are wired. IT Admin can manage Departments at `/admin/`; a setup superuser can provision accounts and inspect tickets/comments read-only. With DEBUG=true the root still shows Django's development welcome page, not a HelpDesk dashboard. Application login/logout, ticket/category frontend routes and reports are not implemented yet.
+Open `http://127.0.0.1:8000/accounts/login/` and sign in with a demo username and your private password. `/` shows the role dashboard; `/tickets/` lists permitted tickets; `/tickets/new/` accepts Employee/IT Admin submissions. Ticket detail offers only permitted actions and related discussion. Logout is a POST form in the navigation. IT Admin manages Departments at `/admin/`; a setup superuser provisions accounts and inspects tickets/comments read-only. Category frontend routes are reserved for D.
 
-Migrations and seed were verified on the working SQLite database and on a separate fresh temporary SQLite database; the 60-test suite also creates its database from committed migrations. Complete fresh-checkout/environment and real browser/mobile acceptance remain later checks. Automated tests use a fast password hasher only under test overrides; normal application settings retain Django's default password hashing. The current foundation is intended for loopback development, not public hosting or production security certification.
+Migrations and seed were verified on the working database and separate fresh temporary SQLite files. The 101-test suite creates its database from committed migrations. A CSRF-enforced HTTP-client journey also used fresh seeded data with normal password hashing, exercised resolution and cancellation, and confirmed persisted state after reopening the connection. Complete fresh-checkout/environment and real browser/mobile acceptance remain later checks. Tests use a fast hasher only under overrides; normal settings retain Django's default hashing. This setup is for loopback development.
+
+## Ticket workflow and access
+
+| Role | Visible tickets | Actions |
+| --- | --- | --- |
+| Employee | Own | Submit; edit/cancel own unassigned New; comment on own active; read outcomes |
+| Technician | Assigned | Start Assigned; resolve In progress with a note; comment while active |
+| IT Admin | All | Submit/edit active; assign/reassign; start/resolve in valid state; cancel/comment active |
+
+New → Assigned → In progress → Resolved. Admin reassignment preserves Assigned/In progress status and removes the previous technician's access immediately. Employee cancels own New; IT Admin cancels any active ticket. Resolved/Cancelled are read-only, including comments. Cancellation retains the record, assignee and discussion. Requester, author, status and timestamps come from the server, never editable posted fields.
+
+Missing/out-of-scope tickets return a safe 404; forbidden role/action 403; stale/terminal lifecycle requests 409; unsupported methods 405. Invalid values return bound field/non-field errors without saving. Successful mutations redirect with feedback. The dashboard's four summary cards use scoped ORM aggregate counts; complete status/backlog/workload reporting remains D.
 
 ## Design and evidence
 
@@ -109,6 +121,7 @@ Migrations and seed were verified on the working SQLite database and on a separa
 - [Demonstration and technical rehearsal](docs/DEMO_SCRIPT.md)
 - [Amended Checkpoint A file/command/result report](docs/CHECKPOINT_A_REPORT.md)
 - [Checkpoint B file/command/result report](docs/CHECKPOINT_B_REPORT.md)
+- [Checkpoint C file/command/result report](docs/CHECKPOINT_C_REPORT.md)
 
 The [official guide](../CapstoneProjectGuide.pdf) is primary. The [root specification](../HELPDESK_PRO_CODEX_SPEC_FINAL.md), audit corrections and eight user amendments describe the agreed design; evidence documents distinguish planned checks from executed results. Instructor scope approval, presentation duration and instructor repository access have not been independently confirmed.
 
@@ -118,7 +131,7 @@ Demo usernames are `employee1`, `employee2`, `technician1`, `technician2` and `i
 
 Role helpers reject inactive accounts, accounts without an application role, and conflicting roles. Only active regular Technician accounts with exactly that application role are eligible assignees. Guarded built-in admin/forms and auth save/membership hooks prevent active-assignee deactivation, role removal/conflicts and promotion to superuser. Reserved role groups are protected. Ordinary account timestamps are read-only in admin; fixture timestamps/IDs establish seed provenance. Terminal ticket/comment edits are rejected by model validation and all ticket/comment mutations are disabled in admin.
 
-Model save alone does not call full_clean. Bulk updates, through-table inserts and raw SQL are privileged maintenance that bypass parts of Django validation/signals; they are not supported application write paths. Upcoming workflow services must re-fetch, authorize and fully validate every mutation. SQLite concurrency/production guarantees are outside this local capstone scope.
+Model save alone does not call full_clean. Bulk updates, through-table inserts and raw SQL are privileged maintenance that bypass parts of Django validation/signals; they are not supported application write paths. Every web mutation uses a transaction and re-fetches current scope/state, authorizes and validates the complete record before saving. SQLite does not provide row locking through select_for_update; enterprise concurrent-write guarantees are outside this local capstone scope.
 
 All demonstration people and issues are fictional. Git excludes local environments, credentials/configuration, populated databases and generated files. Use Django authentication and keep passwords, keys and personal information out of the repository. Do not share an authenticated demonstration publicly with real data.
 

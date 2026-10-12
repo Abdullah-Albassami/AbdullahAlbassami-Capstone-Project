@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Sign in · HelpDesk Pro{% endblock %}
+{% block content %}
+<div class="login-layout">
+  <section class="login-intro">
+    <p class="eyebrow">IT support, clearly organized</p>
+    <h1>Keep work moving.</h1>
+    <p>Submit an issue, follow its progress and keep the conversation in one place.</p>
+  </section>
+  <section class="panel" aria-labelledby="login-heading">
+    <h2 id="login-heading">Sign in</h2>
+    <p class="muted">Use your organization account.</p>
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      {% include 'tickets/includes/form_fields.html' %}
+      {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+      <button type="submit">Sign in</button>
+    </form>
+    <p class="helptext">Need an account or help signing in? Contact your IT administrator.</p>
+  </section>
+</div>
+{% endblock %}

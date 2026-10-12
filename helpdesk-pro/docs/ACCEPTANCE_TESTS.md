@@ -1,6 +1,6 @@
 # Verification record
 
-Only executed checks may be marked PASS. NOT RUN means planned or unavailable in the current checkpoint. Command-level HTTP/template checks are not a real browser walkthrough. Historical A results below remain separate from the current B database/auth checks.
+Only executed checks may be marked PASS. NOT RUN means planned or unavailable in the current checkpoint. Command-level HTTP/template checks are not a real browser walkthrough. Historical A/B results remain separate from current C workflow checks.
 
 ## Historical Checkpoint A checks before the structure amendment
 
@@ -74,6 +74,39 @@ Exact principal commands, all from helpdesk-pro with a private runtime DJANGO_SE
 
 The subprocess commands above were launched by stdin Python wrappers that generated keys/passwords without printing them. The second real seed ran with DEMO_PASSWORD removed. An additional stdin harness pointed settings at a temporary fresh SQLite file before Django setup, invoked migrate/seed twice/check, asserted exact snapshots/groups/counts and removed the file. Root commands git diff --check and git diff --cached --check plus source/link/ignore assertions establish B08; full command/file detail is in CHECKPOINT_B_REPORT.md.
 
+## Checkpoint C executed verification
+
+Executed 12 October 2026 under Python 3.14.7 / Django 5.2.18. No new packages, schema changes or real credentials. Runtime secrets stayed in process memory.
+
+| ID | Scenario | Expected | Actual | Status | Notes |
+| --- | --- | --- | --- | --- | --- |
+| C01 | System/database/dependency checks | No system/dependency issues | check --database default: zero issues; pip check: no broken requirements | PASS | Same verified dependency pins |
+| C02 | Migration/ERD consistency | No model drift or pending migrations | makemigrations --check --dry-run: no changes; migrate --check: exit 0; B schema/deletion tests still pass | PASS | Model/migration/ERD files unchanged |
+| C03 | Full automated suite | Existing foundation plus complete workflow/security behavior | 101 tests passed in 2.076s; fresh migrated test DB created/destroyed | PASS | 60 B + 41 C; not a coverage-percentage claim |
+| C04 | HTTP security/error semantics | Authentication/scope/action/state/method/CSRF enforced server-side | WorkflowViewTests pass for 302/403/404/405/409; invalid forms 200; success redirects; CSRF enforced client verifies rejection/success | PASS | Role/ownership/forged identity and metadata; logout POST only; state re-fetch |
+| C05 | Related display, role dashboard and workflow persistence | Own/assigned/all summaries and related thread; saved outcomes | Service/HTTP tests verify role counts, related objects, complete journey, retained cancellation and reassignment revocation | PASS | Dashboard summary aggregate is integrated; complete reports/annotation remain D |
+| C06 | Fresh seeded HTTP integration using normal hashing | Seed twice unchanged; CSRF-protected journey; persisted terminal outcomes | Temporary SQLite migrated, seed repeated with exact snapshots; initial 12/8/2/2; resolved seeded ticket and created/edited/commented/cancelled another; after connection reopen total 13/active 7/resolved 3/cancelled 3 | PASS | Django HTTP client; not browser; working demo DB untouched; temporary file removed |
+| C07 | Rendered HTML/form/static integration | Labels target unique IDs, semantic landmarks, POST/CSRF forms, CSS resolves | Parsed login/dashboard/list/detail/create/edit/cancel renders meet all assertions; stylesheet lookup succeeds | PASS | No browser viewport/keyboard/rendering claim |
+| C08 | Source/Git/document hygiene | Unchanged schema/pins/guide; no secrets/generated files; valid links/syntax/whitespace | 61 files, 43 local links, Python syntax, exact 13 modified/16 created inventory, protected baseline and runtime exclusion checked; diff whitespace clean | PASS | Final staged hygiene also checked before commit |
+
+The first 37-test targeted run reported four errors from dereferencing a null assignee in a template filter argument and one assertion failure from an unconsumed prior success message when the test changed roles with force_login. Explicit assignee conditionals fixed the template defect; following the assignment redirect corrected that test setup. The next targeted run found one assertion that fetched the success page twice (assertRedirects already consumed the message); fetch_redirect_response=False corrected it. Then 100 tests passed. The final aggregate summary query was verified in the full suite; a query-free server-error regression raised the final total to 101 passing tests. Earlier failures are not presented as passes.
+
+Exact principal commands (from helpdesk-pro; private runtime DJANGO_SECRET_KEY):
+
+```sh
+.venv/bin/python -B manage.py check
+.venv/bin/python -B manage.py test tickets.tests.test_services tickets.tests.test_views --verbosity 2
+.venv/bin/python -B manage.py test tickets.tests.test_services tickets.tests.test_views --verbosity 1
+.venv/bin/python -B manage.py test --verbosity 1
+.venv/bin/python -B manage.py check --database default
+.venv/bin/python -B manage.py makemigrations --check --dry-run
+.venv/bin/python -B manage.py migrate --check
+.venv/bin/python -B manage.py test tickets.tests --verbosity 1
+.venv/bin/python -m pip --no-cache-dir check
+```
+
+Management commands ran through stdin subprocess wrappers generating the secret privately. An additional `.venv/bin/python -B -` harness configured a temporary SQLite path before Django setup, invoked migrate/seed twice, asserted exact data/password snapshots, and used Client(enforce_csrf_checks=True) for login, assignment, start, comment, resolution, submission/edit/cancellation/logout. It parsed the rendered HTML, reopened the connection to verify persisted state, ran database checks and removed the temporary file. Test classes reproduce the security/workflow behaviors; CHECKPOINT_C_REPORT records command and file detail. This is HTTP/database integration evidence, not final fresh-checkout or manual/browser evidence.
+
 ## Required final manual scenarios
 
 | ID | Scenario | Expected | Actual | Status | Notes |
@@ -97,8 +130,8 @@ The subprocess commands above were launched by stdin Python wrappers that genera
 
 Authentication/no-role/conflicting-role/inactive/staff-only/superuser behavior; session-derived identity and field whitelists; object GET/POST restrictions; all transitions and terminal operations; reassignment/current-state checks; trimmed/choice/FK/name validations; inactive/invalid assignees; database state checks; PROTECT and retained dependencies; guarded admin/provisioning; search/order/pagination/malformed input; known aggregate/annotation and zero/multi-row results; seed idempotency/collisions/change/password preservation; fresh migrations and system checks. Use Django's test tools; no arbitrary coverage quota.
 
-B delivers 60 tests covering the database/auth/admin/seed portions of that list. Session-derived application identities, HTTP workflow/object/state transitions and list/report UI tests still require C/D/E implementation. The permission action matrix is tested now but does not substitute for future view/service enforcement.
+B delivered 60 database/auth/admin/seed tests. C adds 41 service/HTTP tests (101 total), covering identities/whitelists, scoped access, transitions/comments/reassignment, basic summaries, authentication/CSRF and the complete saved journey. Advanced search/order/pagination, full reports and annotation tests remain D/E. Automated HTTP outcomes do not substitute for the required manual record above.
 
 ## Current limitations
 
-Checkpoint B delivers the custom schema, role/permission/account helpers, guarded admin, seeded local data and automated foundation tests. Application ticket/login/report frontend routes, workflow services/forms, real browser/mobile acceptance and full fresh-checkout verification remain pending. Instructor scope approval, access and presentation duration remain unconfirmed. Direct bulk ORM/raw SQL maintenance bypasses some validation/signals; supported admin and upcoming services enforce the approved boundary. No production concurrency assurance or grade guarantee is made.
+Checkpoint C delivers the complete ticket/login frontend workflow, shared validated services/forms and basic role summaries. Category CRUD, advanced list controls and full status/category/technician reports remain D; real browser/mobile acceptance, student rehearsal and full fresh-checkout verification are pending. All M01–M14 manual entries remain NOT RUN. Instructor scope approval/access/duration remain unconfirmed. Direct bulk ORM/raw SQL maintenance bypasses some validation/signals; supported admin/services enforce the approved boundary. No production concurrency assurance or grade guarantee is made.

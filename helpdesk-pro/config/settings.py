@@ -89,4 +89,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = "Lax"
 CSRF_COOKIE_SAMESITE = "Lax"
+CSRF_FAILURE_VIEW = "tickets.views.csrf_failure"
 X_FRAME_OPTIONS = "DENY"

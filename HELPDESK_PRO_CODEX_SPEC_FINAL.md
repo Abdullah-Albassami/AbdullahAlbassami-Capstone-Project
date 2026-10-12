@@ -1,6 +1,6 @@
 # HelpDesk Pro — Codex Implementation Specification
 
-**Status:** Checkpoint A reviewed/approved; Checkpoint B database/auth foundation is complete and verified inside `helpdesk-pro/`. Instructor approval is not independently verified. Checkpoint C has not begun and requires explicit user review and approval.
+**Status:** Checkpoints A and B reviewed/approved. Checkpoint C ticket web workflow is implemented and verified inside `helpdesk-pro/` with 101 passing tests; stop before D pending explicit user review/approval. Full reporting/list enhancements/category CRUD and final browser/readiness evidence remain later checkpoints. Instructor approval is not independently verified.
 **Timebox:** Two calendar days.  
 **Source of requirements:** `CapstoneProjectGuide.pdf`, pages 1–6.
 **Purpose:** Build a presentable, individually explainable Django web app that satisfies the capstone's 100-mark rubric.  
@@ -15,7 +15,7 @@
 3. **Bounded complexity:** Retain four custom models, three application roles and the approved lifecycle. Use built-in Django auth/admin and small shared validation/permission/service functions; do not introduce account-management, event audit-trail or integration subsystems.
 4. **Mandatory grading evidence:** Map every official requirement to its implemented UI/code, executed verification and documentation. Record incomplete/unverified evidence honestly until later checkpoints deliver it.
 5. **Final-first implementation:** Inspect complete responsibilities and integration contracts before edits. Implement intended final behavior at each stage; extend it through planned checkpoints without temporary alternative implementations. Correct discovered defects.
-6. **Checkpoint gates:** Each checkpoint delivers integrated, verified work appropriate to its stage. The latest authorization covers Checkpoint B only. Stop and wait for explicit review/approval before C.
+6. **Checkpoint gates:** Each checkpoint delivers integrated, verified work appropriate to its stage. The latest authorization covers Checkpoint C only. Stop and wait for explicit review/approval before D.
 7. **Two-day priority:** Preserve rubric compliance, working behavior, reproducibility and demonstration readiness. Keep the approximately 20-hour A–G plan including contingency; optional polish follows mandatory evidence.
 8. **Truthful documentation:** Report commands and actual outcomes; distinguish historic checks from revalidation at the corrected path. Never label unexecuted tests, browser checks, migrations or final features as passed.
 
@@ -421,9 +421,9 @@ Store simple ASCII/Markdown wireframes in `docs/WIREFRAMES.md`; do not spend hou
 12. Never optimize for fewer lines or faster completion at the expense of rubric coverage. Preserve time for tests, documentation, the real demonstration, and student explanation.
 13. Do not claim a guaranteed score. Report observable evidence and any unresolved risks honestly.
 
-### Suggested next Codex prompt (AFTER Checkpoint B review)
+### Suggested next Codex prompt (AFTER Checkpoint C review)
 
-> Read the root `HELPDESK_PRO_CODEX_SPEC_FINAL.md` and `helpdesk-pro/docs/DESIGN.md` fully and inspect the repository. Checkpoint B is approved. Work inside `helpdesk-pro/` and implement Checkpoint C only: application login/logout and role-scoped dashboard/list/detail; create/edit/cancel/assign/start/resolve/comment forms, service functions and views; final usable templates and focused authorization/lifecycle tests. Reuse the verified models, role helpers and sample data. Show actual validation results and stop for review before Checkpoint D. Do not add features outside the approved scope.
+> Read the root `HELPDESK_PRO_CODEX_SPEC_FINAL.md` and `helpdesk-pro/docs/DESIGN.md` fully and inspect the repository. Checkpoint C is approved. Work inside `helpdesk-pro/` and implement Checkpoint D only: category CRUD with protected deletion feedback; combined scoped filters, relationship filtering, whitelisted ordering and pagination; five-status breakdown and annotated category/technician reports, retaining zero rows. Reuse the verified schema, workflow services and existing aggregate dashboard summary. Verify known metrics and query/access edge cases, update actual evidence, commit and stop before E. Do not add features outside the approved scope.
 
 ## 15A. Final-first development and grade-maximization rules
 

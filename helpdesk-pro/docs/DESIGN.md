@@ -1,6 +1,6 @@
 # Approved architecture and implementation contracts
 
-Approved by the user's implementation request and subsequent eight amendments on 12 October 2026. Checkpoint A is reviewed/approved and Checkpoint B is delivered; C requires explicit review/approval. The official guide is primary. The database/auth foundation below is implemented and verified; application services/views/forms and reports remain the final target for C/D. Instructor agreement remains unverified.
+Approved by the user's implementation request and subsequent eight amendments on 12 October 2026. A/B are reviewed/approved; C is implemented and verified, stopped before D pending explicit approval. The official guide is primary. Models/auth and the full ticket web workflow are implemented; category CRUD, advanced list queries and complete reports remain D. Instructor agreement remains unverified.
 
 ## Structure and responsibilities
 
@@ -89,7 +89,7 @@ Active statuses are one shared constant: new, assigned, in_progress. Terminal st
 
 All mutations require POST/CSRF. Success redirects and shows a message. Anonymous requests redirect to login; out-of-scope/missing objects return 404; forbidden role/action returns 403; unsupported method returns 405. Invalid form values return 200 with bound form errors; state conflicts return a friendly 409 page without mutation. Resolve/comment/assignment errors render the ticket detail with the appropriate bound form. Filter parameters are independently validated: retain valid fields and ignore invalid ones with useful feedback. Invalid order defaults to newest; nonnumeric page selects first, out-of-range page selects last.
 
-### Final route map (at Checkpoint B only admin routes are wired)
+### Final route map (C implements all rows except category routes reserved for D)
 
 | Name | Path | Methods |
 | --- | --- | --- |
@@ -109,6 +109,14 @@ All mutations require POST/CSRF. Success redirects and shows a message. Anonymou
 | tickets:category_update | /categories/<int:pk>/edit/ | GET+POST |
 | tickets:category_delete | /categories/<int:pk>/delete/ | GET+POST |
 | admin:index | /admin/ | Django admin setup |
+
+### Implemented workflow boundary (C)
+
+`forms.py` defines the five-field Ticket ModelForm plus AssignmentForm, ResolutionForm and CommentForm. `services.py` contains explicit atomic create/update/assign/start/resolve/cancel/comment functions; each re-fetches visible current state and uses the existing permission helpers. Validated form data is passed to the service, never form.save(). Business-field updates require exactly the five-field whitelist. Services set identity and workflow metadata and call full_clean before saving. No ticket schema change or ordinary workflow signal is introduced.
+
+`views.py` binds forms, maps excluded-field validation to non-field errors, renders related objects/discussion, redirects with messages and applies the login/role/method gate. Object retrieval precedes action validation, so missing/out-of-scope IDs are 404. Role-forbidden capabilities and Employee edits/cancellation after assignment are 403. Valid actors requesting a wrong transition or any terminal mutation receive 409. These errors render friendly templates even with local DEBUG enabled; a missing general route uses the configured 404 handler with DEBUG=false. Login/POST logout use Django's built-in authentication views. A custom CSRF rejection page asks the user to refresh; it exposes no failure internals. The 500 handler avoids resolving a database-backed user/messages.
+
+Dashboard summary cards use the final scoped aggregate Count query and five recent tickets. This implements basic role summaries without the full reporting interface: five-status breakdown and annotated category/technician tables remain D. Lists use model newest-first ordering and select_related; no search/order controls or pagination are implemented at C. Detail uses author-related comments and permission-controlled forms. Local CSS supplies responsive grids, navigation, readable status labels, focus, confirmations and empty/error states. Rendered structure/forms are checked; actual desktop/mobile/keyboard browser acceptance remains pending.
 
 ## Queries and metrics
 

@@ -1,6 +1,6 @@
 # HelpDesk Pro wireframes and user journey
 
-Approved target for the final interface. Only the shared HTML/CSS foundation exists at Checkpoint A; these diagrams are design evidence, not screenshots of implemented pages.
+Approved target for the final interface. C implements login, shared role navigation, dashboard summaries/recent tickets, basic lists and all ticket forms/detail/confirmations. Category screens, list filter/pagination controls and full reports remain D. These diagrams are design evidence, not browser screenshots; desktop/mobile acceptance remains pending.
 
 ## Shared layout
 

@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Cancel {{ ticket.reference }} · HelpDesk Pro{% endblock %}
+{% block content %}
+<a class="back-link" href="{% url 'tickets:ticket_detail' ticket.pk %}">← Back to ticket</a>
+<div class="panel form-panel section-space"><p class="eyebrow">{{ ticket.reference }}</p><h1>Cancel this ticket?</h1>
+  <p><strong>{{ ticket.title }}</strong></p><p>This closes the request permanently. The ticket, assignee and discussion will remain available for reference. Cancelled tickets cannot be edited, reopened or commented on.</p>
+  <form method="post">{% csrf_token %}<div class="actions"><button class="button-danger" type="submit">Confirm cancellation</button><a class="button button-secondary" href="{% url 'tickets:ticket_detail' ticket.pk %}">Keep ticket active</a></div></form>
+</div>
+{% endblock %}

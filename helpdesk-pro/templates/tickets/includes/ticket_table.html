@@ -1,0 +1,18 @@
+{% if tickets %}
+<div class="table-wrapper" role="region" aria-label="Ticket table" tabindex="0">
+  <table>
+    <caption>{{ table_caption|default:'Tickets, newest first' }}</caption>
+    <thead><tr><th scope="col">Ticket</th><th scope="col">Status</th><th scope="col">Priority</th><th scope="col">Category / department</th><th scope="col">Assigned to</th><th scope="col">Created</th></tr></thead>
+    <tbody>{% for ticket in tickets %}<tr>
+      <td><a class="ticket-link" href="{% url 'tickets:ticket_detail' ticket.pk %}">{{ ticket.reference }}</a><div class="ticket-title">{{ ticket.title }}</div></td>
+      <td><span class="badge status-{{ ticket.status }}">{{ ticket.get_status_display }}</span></td>
+      <td><span class="priority priority-{{ ticket.priority }}">{{ ticket.get_priority_display }}</span></td>
+      <td>{{ ticket.category }}<div class="muted">{{ ticket.department }}</div></td>
+      <td>{% if ticket.assigned_to %}{{ ticket.assigned_to.get_full_name|default:ticket.assigned_to.username }}{% else %}Awaiting assignment{% endif %}</td>
+      <td class="date-cell">{{ ticket.created_at|date:'j M Y' }}<div class="muted">{{ ticket.created_at|date:'H:i' }}</div></td>
+    </tr>{% endfor %}</tbody>
+  </table>
+</div>
+{% else %}
+<div class="empty-state"><h2>No tickets yet</h2><p class="muted">{% if app_role == 'Technician' %}Tickets assigned to you will appear here.{% else %}Submitted support requests will appear here.{% endif %}</p>{% if can_create %}<a class="button" href="{% url 'tickets:ticket_create' %}">Submit a ticket</a>{% endif %}</div>
+{% endif %}

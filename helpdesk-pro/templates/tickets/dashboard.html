@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard · HelpDesk Pro{% endblock %}
+{% block content %}
+<div class="page-heading">
+  <div><p class="eyebrow">{{ app_role }} workspace</p><h1>Welcome, {{ user.get_full_name|default:user.username }}</h1>
+    <p class="muted">{% if app_role == 'IT Admin' %}Manage support requests and assign clear ownership.{% elif app_role == 'Technician' %}Your assigned requests and their progress.{% else %}Your support requests, from submission to resolution.{% endif %}</p></div>
+  {% if can_create %}<a class="button" href="{% url 'tickets:ticket_create' %}">Submit ticket</a>{% endif %}
+</div>
+<div class="grid summary-grid" aria-label="{% if app_role == 'IT Admin' %}All tickets{% else %}Your tickets{% endif %} summary">
+  <div class="panel metric"><span>Total tickets</span><strong>{{ counts.total }}</strong></div>
+  <div class="panel metric"><span>Active</span><strong>{{ counts.active }}</strong><small>New, assigned or in progress</small></div>
+  <div class="panel metric"><span>Resolved</span><strong>{{ counts.resolved }}</strong></div>
+  <div class="panel metric"><span>Cancelled</span><strong>{{ counts.cancelled }}</strong></div>
+</div>
+<section class="panel section-space" aria-labelledby="recent-heading">
+  <div class="section-heading"><h2 id="recent-heading">Recent tickets</h2><a href="{% url 'tickets:ticket_list' %}">View all tickets</a></div>
+  {% include 'tickets/includes/ticket_table.html' with table_caption='Your five most recent visible tickets' %}
+</section>
+{% endblock %}

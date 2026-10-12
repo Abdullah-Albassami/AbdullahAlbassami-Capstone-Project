@@ -1,0 +1,5 @@
+{% extends 'base.html' %}
+{% block title %}{{ error_status }} · HelpDesk Pro{% endblock %}
+{% block content %}
+<section class="panel form-panel"><p class="eyebrow">{{ error_status }}</p><h1>{% if error_status == 403 %}Access restricted{% elif error_status == 404 %}Page unavailable{% elif error_status == 409 %}Ticket state changed{% else %}Unable to complete request{% endif %}</h1><p>{{ error_detail }}</p><div class="actions">{% if user.is_authenticated %}<a class="button" href="{% url 'tickets:dashboard' %}">Go to dashboard</a>{% else %}<a class="button" href="{% url 'login' %}">Sign in</a>{% endif %}{% if app_role %}<a href="{% url 'tickets:ticket_list' %}">View tickets</a>{% endif %}</div></section>
+{% endblock %}
