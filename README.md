@@ -23,3 +23,5 @@ The original [Capstone Project Guide](CapstoneProjectGuide.pdf) is included in t
 ## Verification
 
 HelpDesk Pro passed **149 Django tests, 39 Chrome checks, and 14 HTTP checks** in a fresh installation. See the [test results](helpdesk-pro/docs/ACCEPTANCE_TESTS.md) and [setup instructions](helpdesk-pro/README.md#installation-and-launch).
+
+Development resources: Django documentation, OpenAI Codex and ChatGPT assistance.
