@@ -37,7 +37,7 @@ unset DEMO_PASSWORD
 python manage.py runserver
 ```
 
-Choose a private demo password when prompted. Use a strong value accepted by Django's validators. Do not commit credentials. `.env.example` describes configuration variables; this project does **not** automatically load `.env` files. A new terminal needs `DJANGO_SECRET_KEY` set again.
+Enter a private password when prompted. `.env.example` lists configuration variables, but `.env` files are not loaded automatically. Set `DJANGO_SECRET_KEY` in each new terminal session.
 
 Open **http://127.0.0.1:8000/accounts/login/**.
 
@@ -49,21 +49,19 @@ Open **http://127.0.0.1:8000/accounts/login/**.
 | `technician1`, `technician2` | Technician |
 | `itadmin` | IT Admin |
 
-These accounts use the private password specified when seed data was first created. Running `seed_demo` again preserves existing records and passwords. For an existing account, change its password locally with `python manage.py changepassword employee1` (substitute the username). Never publish passwords.
+The accounts use the password set during initial seeding. Re-running `seed_demo` preserves existing accounts and passwords. To change one, run `python manage.py changepassword employee1` (replace the username as needed).
 
-The fresh demo seed contains **12 fictional tickets**. Later development snapshots with 13 or 15 tickets are not part of the initial seed.
+The demo seed includes **12 fictional tickets**.
 
 ## Tests
 
-With the virtual environment active and `DJANGO_SECRET_KEY` configured:
+With the environment active and `DJANGO_SECRET_KEY` set:
 
 ```bash
 python manage.py check
 python manage.py test tickets.tests
 python manage.py makemigrations --check --dry-run
 ```
-
-Final independent verification reported **149 passing Django tests**, **39 Chrome browser checks**, **14 HTTP checks** and a working fresh installation. The [acceptance record](docs/ACCEPTANCE_TESTS.md) separately identifies owner-observed manual checks and outstanding scenarios.
 
 ## How it works
 
