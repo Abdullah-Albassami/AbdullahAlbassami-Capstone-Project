@@ -27,8 +27,7 @@ Referenced departments, categories and users are protected from deletion. Commen
 - [Queries](../tickets/queries.py) provide search, pagination and reports.
 - [Templates](../templates/) render the interface.
 
-The system includes server-side permission checks, CSRF protection and controlled record updates. Demo records are fictional.
-
+The system includes server-side permission checks, CSRF protection and controlled record updates.
 
 ## Development priorities
 
@@ -42,10 +41,4 @@ The project was organized around the following priorities:
 | 2 — Important | Category management, search, filtering, ordering and pagination | Complete |
 | 2 — Important | Ticket summaries and category/technician workload reports | Complete |
 | 2 — Important | Responsive interface, testing, documentation and reproducible setup | Complete |
-| 3 — Future | Email notifications, SLA monitoring, integrations and hosted deployment | Outside capstone scope |
-
-This list summarizes development priorities; the Git commit history records the implementation sequence.
-
-## Limits
-
-This is a working capstone prototype, not a production-deployed ITSM service. Email notifications, SLA tracking, API integrations, hosted operations and full assignment-history auditing are outside the delivered scope.
+| 3 — Future | Email notifications, SLA monitoring, integrations and hosted deployment | Planned enhancements |
