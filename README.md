@@ -83,6 +83,3 @@ The recorded final verification includes **149 Django tests, 39 Chrome browser c
 - [Final verification report](helpdesk-pro/docs/FINAL_VERIFICATION_REPORT.md)
 - [Application documentation](helpdesk-pro/README.md)
 
-## Acknowledgments
-
-Developed with reference to the official Django documentation and assistance from OpenAI Codex and ChatGPT.
