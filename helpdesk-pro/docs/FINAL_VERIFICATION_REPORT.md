@@ -18,4 +18,4 @@ The application uses Python **3.14.7** and Django **5.2.18**. The fresh seed con
 
 This report covers **automated verification**, not full manual acceptance, a public deployment, commercial readiness or instructor approval. The owner separately observed M01–M09 as recorded in [ACCEPTANCE_TESTS.md](ACCEPTANCE_TESTS.md). Browser result details are in [results.json](evidence/final-verification/results.json).
 
-For setup and test commands, consult the [application README](../README.md).
+For setup and test commands, consult the [project README](../../README.md).
