@@ -1,6 +1,8 @@
-# HelpDesk Pro entity relationship diagram
+# HelpDesk Pro — Entity Relationship Diagram (ERD)
 
-**Implemented and schema-verified in Checkpoint B; reviewed against unchanged source in F.** This diagram matches [models.py](../tickets/models.py) and [0001_initial.py](../tickets/migrations/0001_initial.py). The [schema test](../tickets/tests/test_models.py) (`test_schema_matches_erd_fields_relationships_and_constraints`) verifies exact fields, BigAutoField keys, nullability, FK targets/deletion choices, database columns and the four named state constraints; it passed in E's 149-test suite. G's fresh migrated database and 149-test suite passed the same schema test with no migration drift; models/migration are unchanged. Confirm the ultimately submitted revision matches this verified source. Built-in auth entities are shown with representative fields, not their entire Django schema.
+This diagram describes the implemented relational database structure for HelpDesk Pro. It shows the four application models—**Department**, **Category**, **Ticket**, and **TicketComment**—alongside Django's built-in **User** and **Group** entities, with primary keys, foreign keys, cardinalities, and deletion behavior.
+
+The design corresponds to [Django models](../tickets/models.py) and the [initial migration](../tickets/migrations/0001_initial.py). The [automated schema tests](../tickets/tests/test_models.py) check the implemented fields, relationships, and constraints; verification results are recorded in the [Checkpoint G report](CHECKPOINT_G_REPORT.md). Built-in authentication entities show only the fields relevant to this application's design.
 
 ```mermaid
 erDiagram
