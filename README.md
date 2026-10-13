@@ -20,3 +20,5 @@ Start setup from `helpdesk-pro/`, following its README. The repository-wide `.gi
 - [Checkpoint F delivery report](helpdesk-pro/docs/CHECKPOINT_F_REPORT.md)
 - [Checkpoint G fresh-installation/results/readiness report](helpdesk-pro/docs/CHECKPOINT_G_REPORT.md)
 - [Remaining human browser checks](helpdesk-pro/docs/MANUAL_BROWSER_CHECKS.md)
+- [Market potential and competitive positioning](helpdesk-pro/docs/MARKET_POTENTIAL.md)
+- [Markdown capstone presentation and speaker notes](helpdesk-pro/docs/CAPSTONE_PRESENTATION.md)
