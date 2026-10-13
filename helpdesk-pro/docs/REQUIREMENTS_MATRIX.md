@@ -1,6 +1,6 @@
 # Capstone requirements and evidence
 
-This table maps the eight assessment criteria in the [Capstone Project Guide](../../CapstoneProjectGuide.pdf) to HelpDesk Pro's implementation and documentation.
+This table maps the eight assessment criteria in the capstone assessment to HelpDesk Pro's implementation and documentation.
 
 | Criterion | Marks | Evidence |
 |---|---:|---|
