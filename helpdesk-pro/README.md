@@ -79,4 +79,4 @@ This is a functional **capstone prototype**, not a deployed commercial ITSM prod
 
 Significant AI development assistance (OpenAI Codex and ChatGPT) and official Django documentation were used during implementation, review and documentation. The work should be evaluated through the actual source, test evidence and submitted explanation.
 
-For the full rubric mapping see [requirements](docs/REQUIREMENTS_MATRIX.md); for submission status see the [checklist](docs/SUBMISSION_CHECKLIST.md).
+For the full rubric mapping see [requirements](docs/REQUIREMENTS_MATRIX.md).
