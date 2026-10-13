@@ -38,7 +38,7 @@ These files are retained for transparency and grading traceability. **They are n
 - [Detailed demonstration and technical Q&A](helpdesk-pro/docs/DEMO_SCRIPT.md)
 - [Manual browser test instructions](helpdesk-pro/docs/MANUAL_BROWSER_CHECKS.md)
 - [Checkpoint G final verification](helpdesk-pro/docs/CHECKPOINT_G_REPORT.md)
-- Checkpoint reports A–F are preserved in [helpdesk-pro/docs/](helpdesk-pro/docs/), alongside test evidence.
+- Earlier development logs are preserved in Git history, not included in the final documentation folder.
 
 ## Run the application
 
