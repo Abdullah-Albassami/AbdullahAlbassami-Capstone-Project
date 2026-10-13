@@ -37,4 +37,4 @@ These figures describe different environments/times, not conflicting seed result
 
 ## Notes
 
-The application was verified using fictional data. Unexecuted checks have not been presented as successful. [Test evidence index](EVIDENCE_INDEX.md) provide context.
+The application was verified using fictional data. Unexecuted checks have not been presented as successful. [Final verification](CHECKPOINT_G_REPORT.md) provide context.
