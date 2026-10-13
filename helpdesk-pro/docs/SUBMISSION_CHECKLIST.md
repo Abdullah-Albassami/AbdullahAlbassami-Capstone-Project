@@ -1,6 +1,6 @@
 # Submission checklist and remaining confirmations
 
-Finalized in G against the official [guide](../../CapstoneProjectGuide.pdf), pp.4–6. Checked entries mean the artifact or specifically labelled verification exists; they do not imply human acceptance, instructor access or submission. G stops after its verified milestone. Outstanding human/external actions require actual confirmation.
+Reconciled after G on 13 October 2026 against the official [guide](../../CapstoneProjectGuide.pdf), pp.4–6. All seven checkpoints are reviewed/approved. Checked entries mean the artifact or specifically labelled verification exists; they do not imply complete human acceptance, instructor access or submission. Outstanding human/external actions require actual confirmation.
 
 ## Delivered artifacts
 
@@ -15,8 +15,10 @@ Finalized in G against the official [guide](../../CapstoneProjectGuide.pdf), pp.
 
 ## Automated setup completed; human acceptance still open
 
-- [ ] Execute M01 remaining employee/technician/admin final HD-10013 detail/thread/read-only checks without changing that record.
-- [ ] Execute M02–M11 input/search/ordering/pagination/edit/cancel/Category/report/access/admin scenarios on fictional temporary records. Record expected/actual/status and notes in ACCEPTANCE_TESTS; counts will change after valid actions.
+- [x] Record M01 owner-observed HD-10013 detail/note/time/thread and absent modification controls for employee1, technician1 and itadmin, 13 October 2026.
+- [x] Record M02–M09 owner-observed validation/query/page/edit/cancel/Category/report results with precise scope/date/references in [ACCEPTANCE_TESTS](ACCEPTANCE_TESTS.md#required-final-manual-scenarios); no browser metadata or screenshots invented.
+- [ ] Complete or explicitly retain unverified facets: additional invalid-value variants, fully empty queue, remaining order/tie/filter-preservation checks, other edit fields/crafted requests, cancellation confirmation GET/Keep ticket back-out and separate In Progress cancellation. Existing automated evidence remains separately labelled; observed M02–M09 PASS does not imply these were performed.
+- [ ] Execute M10–M11 broader role/reassignment/report isolation and guarded-admin/account scenarios; earlier access observations do not close these full scenarios.
 - [ ] Execute M12 desktop/mobile and full human keyboard/zoom/error usability. Record actual browser/device/viewport; explicitly list unavailable physical-device/other-browser/screen-reader checks as limitations rather than PASS.
 - [x] M13 automated fresh setup: G cloned committed source, created a new venv, installed pins without cache, configured a new runtime key, migrated/seeded twice and passed checks/149 tests/server/39 Chrome checks. [Actual G results](CHECKPOINT_G_REPORT.md); no original environment/database/configuration copied.
 - [ ] Independent human setup repeat, if requested by instructor: follow README in another checkout and record actual results; no human installation PASS has been reported.
@@ -51,4 +53,6 @@ git rev-parse HEAD
 - [ ] Student rechecks final submitted revision hygiene after any further human evidence/corrections; historical reports stay.
 - [ ] Supply source/design/evidence/demo package; include deployment URL only if actually deployed (deployment is outside this scope).
 
-G records automated fresh-checkout results and delivers a local candidate hash. Remaining submission fields are **not confirmed**: instructor access/scope, presentation duration, final demo reference, student rehearsal, outstanding human observations and actual submitted revision. No remote publication, instructor approval or submission is performed by G.
+G records automated fresh-checkout results; the later documentation-only reconciliation records owner observations without rerunning the application. The pre-reconciliation local HEAD matched cached origin/main, but live remote verification failed (SSH authentication, HTTPS credentials and connected-reader access). Cached tracking equality does not prove current publication or instructor access. This local documentation commit requires remote delivery verification; no push is authorized or performed by this pass.
+
+Remaining submission fields are **not confirmed**: instructor access/scope, presentation duration, final demo reference, student rehearsal, outstanding human observations and actual submitted revision. No remote publication, instructor approval or submission is claimed.

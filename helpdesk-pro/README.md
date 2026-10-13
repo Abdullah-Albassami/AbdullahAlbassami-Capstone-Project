@@ -2,7 +2,7 @@
 
 An internal Django IT support application for employees and a small IT team. It is designed to replace scattered email or spreadsheet requests with clear ownership, consistent status, retained discussion and visible backlog.
 
-**Current delivery: Checkpoint G — fresh installation and final automated verification.** A genuine clone of the committed repository, with a new Python environment and SQLite database, passed **149 Django tests, 39 real Chrome checks and 14 live HTTP/server checks**. Source/models/pins and working records are unchanged. HD-10013's user-observed lifecycle remains separate from automation. Remaining human acceptance, student rehearsal and instructor confirmations prevent a claim of full approval or submission.
+**Current delivery: A–G reviewed/approved; owner evidence reconciled.** G's genuine clone/new environment/database passed **149 Django tests, 39 real Chrome checks and 14 live HTTP/server checks**. On 13 October 2026 the owner reported **M01–M09 PASS within observed scopes**, including HD-10013's final detail for all three roles; these are separate from automation. This documentation-only pass preserves application source/models/pins and the current working database. M10–M12/M14, unreported facets and instructor confirmations remain open; no full approval or submission is claimed.
 
 ## Final project structure
 
@@ -150,7 +150,7 @@ Dashboard cards and five-status breakdown share one scoped aggregate query and s
 
 In [queries.py](tickets/queries.py), `ticket_summary()` uses `aggregate()` to return one set of queryset totals. `category_backlog()` and `technician_workload()` use `annotate()` to attach a filtered `Count(..., distinct=True)` to each category/eligible technician. They are rendered by the [dashboard](templates/tickets/dashboard.html) and [category table](templates/tickets/includes/category_report_table.html); [report tests](tickets/tests/test_reports.py) verify known values, zero/empty datasets, role scope and multiple related comments/groups. Search uses Q objects for title OR description, ANDs the other filters and traverses `category__name` for explicit related-model filtering.
 
-The pristine seed has 12/8/2/2 total/active/resolved/cancelled. The local database now includes user-created resolved HD-10013; read-only verification found **13/8/3/2**, with status counts 3/3/2/3/2. Reports calculate current persisted values, never seed constants. Repeated seed preserves edits and does not reset the database.
+Data stages must be kept distinct: the **pristine seed has 12/8/2/2** total/active/resolved/cancelled; the **Checkpoint G working snapshot had 13/8/3/2** with resolved HD-10013 and statuses 3/3/2/3/2. The owner's later **13 October 2026 observations had 15/8/3/4**, after creating/cancelling HD-10014 and HD-10015. Before assigning HD-10001 to technician2, statuses were 3/3/2/3/4 and Lina/Sami workloads 3/2; afterward New/Assigned were 2/4 and workloads 3/3, while active/category totals stayed unchanged. These are historical observations, not permanent expectations. See [M09](docs/ACCEPTANCE_TESTS.md#required-final-manual-scenarios). Reports calculate persisted values, never seed constants; repeated seed preserves edits and does not reset the database.
 
 ## Design and evidence
 
@@ -174,7 +174,7 @@ The pristine seed has 12/8/2/2 total/active/resolved/cancelled. The local databa
 
 ## Known issues and verification limits
 
-No unresolved functional defect is known from the executed G checks. Remaining grading evidence includes human review of HD-10013's final detail/thread/controls, full keyboard-only usability, 200% zoom, screen-reader behavior, physical mobile/other browsers, guarded-admin human checks and student demonstration. G completed the automated fresh checkout; an independent human setup repeat is not reported. Automated Chrome covered fixed desktop/mobile viewports, basic key actions and selected computed contrast rules; it is not WCAG certification. M01 remains partial user-observed; M02–M12/M14 human checks remain unexecuted. M13 records automated fresh setup PASS with human repetition NOT RUN.
+No unresolved functional defect is known from executed G checks. M01–M09 are now owner-observed PASS within documented scopes; no browser/version/viewport/screenshots were supplied. M10–M12/M14 remain pending, including broader reassignment/report isolation, guarded admin, full keyboard/200% zoom/device usability and student demonstration. Unreported facets of M02/M04–M07 remain explicit, particularly cancellation confirmation/back-out. G completed automated fresh setup; M13 human repetition is NOT RUN. Automated Chrome covered fixed viewports/basic keys/selected contrast rules; it is not WCAG certification. See [remaining human instructions](docs/MANUAL_BROWSER_CHECKS.md). No tests or browser automation were rerun during this documentation reconciliation.
 
 SQLite transactions preserve validated writes but do not provide enterprise concurrent-write guarantees. Privileged bulk ORM/raw SQL may bypass application validation and is outside supported UI writes. Instructor scope/access/duration remain unconfirmed. G is complete as an automated verification milestone; remaining human checks/access/understanding must be confirmed before full approval or submission. No grade is guaranteed.
 

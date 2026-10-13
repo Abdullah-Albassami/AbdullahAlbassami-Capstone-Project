@@ -1,6 +1,6 @@
 # HelpDesk Pro — Codex Implementation Specification
 
-**Status:** Checkpoints A–F reviewed/approved. G verifies a genuine fresh clone/new environment/migrations/seed twice: 149 Django tests, 39 Chrome checks and 14 actual HTTP/server checks passed. No application/schema/dependency changes; working HD-10013 and all records preserved. Human acceptance and student rehearsal remain pending; instructor scope/access/duration are unconfirmed. Stop after G; no submission or full approval is claimed.
+**Status:** Checkpoints A–G reviewed/approved. G verified a genuine fresh clone/new environment/migrations/seed twice: 149 Django tests, 39 Chrome checks and 14 actual HTTP/server checks passed. The owner's 13 October 2026 M01–M09 observations are reconciled within reported scopes in [the acceptance record](helpdesk-pro/docs/ACCEPTANCE_TESTS.md#required-final-manual-scenarios); M10–M12/M14 and unreported facets remain pending. No application/schema/dependency changes or working-database mutations in this documentation pass; HD-10013 preserved. Instructor scope/access/duration are unconfirmed; no submission or full approval is claimed.
 **Timebox:** Two calendar days.  
 **Source of requirements:** `CapstoneProjectGuide.pdf`, pages 1–6.
 **Purpose:** Build a presentable, individually explainable Django web app that satisfies the capstone's 100-mark rubric.  
@@ -15,7 +15,7 @@
 3. **Bounded complexity:** Retain four custom models, three application roles and the approved lifecycle. Use built-in Django auth/admin and small shared validation/permission/service functions; do not introduce account-management, event audit-trail or integration subsystems.
 4. **Mandatory grading evidence:** Map every official requirement to its implemented UI/code, executed verification and documentation. Record incomplete/unverified evidence honestly until later checkpoints deliver it.
 5. **Final-first implementation:** Inspect complete responsibilities and integration contracts before edits. Implement intended final behavior at each stage; extend it through planned checkpoints without temporary alternative implementations. Correct discovered defects.
-6. **Checkpoint gates:** Each checkpoint delivers integrated, verified work appropriate to its stage. The latest authorization covers Checkpoint G verification/documentation only. Stop after G; remaining human checks and instructor access must be confirmed before declaring full approval or submission.
+6. **Checkpoint gates:** Each checkpoint delivers integrated, verified work appropriate to its stage. The latest authorization covers post-G documentation-only reconciliation of supplied owner observations, link/consistency/hygiene verification and a local commit. No application changes, migrations, seeding or historical-report edits. Stop after delivery; remaining human checks and instructor access must be confirmed before declaring full approval or submission.
 7. **Two-day priority:** Preserve rubric compliance, working behavior, reproducibility and demonstration readiness. Keep the approximately 20-hour A–G plan including contingency; optional polish follows mandatory evidence.
 8. **Truthful documentation:** Report commands and actual outcomes; distinguish historic checks from revalidation at the corrected path. Never label unexecuted tests, browser checks, migrations or final features as passed.
 

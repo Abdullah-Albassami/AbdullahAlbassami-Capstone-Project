@@ -1,6 +1,6 @@
 # Verification evidence index
 
-Updated through Checkpoint G, 13 October 2026 (Asia/Riyadh). This index distinguishes executed evidence and its limits; [ACCEPTANCE_TESTS](ACCEPTANCE_TESTS.md) preserves actual outcomes. F's documentation-only checks remain historical; G genuinely reruns fresh-installation/tests/browser/server verification. Executable source, migrations and pins remain unchanged.
+Updated after Checkpoint G, 13 October 2026 (Asia/Riyadh), with owner-observed M01–M09 results. This index distinguishes executed evidence and its limits; [ACCEPTANCE_TESTS](ACCEPTANCE_TESTS.md) preserves actual outcomes. F's documentation-only checks remain historical; G genuinely reran fresh-installation/tests/browser/server verification. This reconciliation did not rerun application checks. Executable source, migrations and pins remain unchanged.
 
 ## Checkpoint history and evidence types
 
@@ -14,6 +14,7 @@ Updated through Checkpoint G, 13 October 2026 (Asia/Riyadh). This index distingu
 | E | **149 Django tests** (133 + 16), passing in **3.127s**; **39 real headless Chrome checks**; system/database/migration/dependency/hygiene checks | [E report](CHECKPOINT_E_REPORT.md); E01–E08; fixed actual audit defects, preserved working database |
 | F | Guide/source/document audit, links/paths/setup contract/evidence validation, read-only preservation and hygiene | [F report](CHECKPOINT_F_REPORT.md); F01–F05; documentation only; G not started |
 | G | Genuine clone/new venv/uncached pinned install/migrations/seed twice; **149 tests**, **39 Chrome checks**, **14 live HTTP/server checks** | [G report](CHECKPOINT_G_REPORT.md); G01–G07; automated readiness passed, human/external confirmation outstanding |
+| Owner report after G | **M01–M09 PASS (user-observed), within reported scopes**, performed 13 October 2026 in local HelpDesk Pro | [Dated scenario outcomes](ACCEPTANCE_TESTS.md#required-final-manual-scenarios); final HD-10013 detail, whitespace errors, queries/pages, HD-10014/15 edits/cancellations, Category CRUD/access and live reports; no supplied browser metadata/screenshots |
 
 A–E reports are historical records of their stages, including defects found and recovery checks. Their older feature states and test counts are not overwritten with today's totals. The most recent executable application change is **d207e0e0c31450d03fbaf1a24eaec8311f26dced** (E). G freshly cloned/tested **d89f8748a9de33050eeb20ee7720df1eb2c253a1** (F), whose app source is identical. G's candidate hash is delivered after commit; none is represented as an already-submitted revision.
 
@@ -76,7 +77,7 @@ E and F read-only checks preserve 4 Departments, 5 Categories, **13 tickets**, *
 
 No account login, seeding, migrations application or reset is performed against the working database in F. The digest is a preservation check, not a submitted database or disclosure of rows/password hashes. Fresh seed expectations (12/8/2/2) differ from the preserved working values (13/8/3/2); later valid actions will change them.
 
-At F, manual status was **M01 PARTIAL (user-observed), M02–M14 NOT RUN**. G subsequently executes automated setup M13; human observations remain unexecuted as below. Use [human instructions](MANUAL_BROWSER_CHECKS.md) and record actual observations, browser/version/viewport/date and failures. M13 now has automated fresh-setup PASS, human repeat NOT RUN; M14 requires the student's own demonstration/technical explanation. Instructor scope/access/duration remain unconfirmed; automation/documentation cannot close human or external gaps.
+At F, manual status was **M01 PARTIAL (user-observed), M02–M14 NOT RUN**. G subsequently executed automated setup M13; the later owner report adds M01–M09 observations as below. Use [human instructions](MANUAL_BROWSER_CHECKS.md) for remaining checks and record actual scope/date/references, adding browser/viewport metadata only when supplied. M13 has automated fresh-setup PASS, human repeat NOT RUN; M14 requires the student's own demonstration/technical explanation. Instructor scope/access/duration remain unconfirmed.
 
 ## Latest G evidence: genuine fresh checkout
 
@@ -92,4 +93,10 @@ The first ad hoc server probe used DEBUG=false, so ordinary runserver returned 4
 
 G06 verifies the original database bytes and eight-table logical digest unchanged, with HD-10013 still resolved and **13/8/3/2** original counts. Numeric ticket 10013 created in a clone is independent of the preserved original HD-10013. G05 checks final documents, unchanged app source/pins/historical reports, ignored runtime files and tracked history for credential indicators. The local candidate commit is identified by Git at delivery; instructor remote access/submission is not inferred.
 
-Current manual status: **M01 PARTIAL**, **M02–M12/M14 NOT RUN (human)**, **M13 PASS (automated setup), human repeat NOT RUN**. Human full keyboard/zoom/device/screen reader and original HD-10013 detail remain open. Instructor scope/access/duration and the student's M14 understanding/rehearsal still require confirmation.
+## Owner-observed acceptance after G — 13 October 2026
+
+Current manual status: **M01–M09 PASS (user-observed, within reported scopes)**; **M10–M12/M14 pending human acceptance**; **M13 PASS (automated setup), human repeat NOT RUN**. Final HD-10013 note/time/thread and absence of modification controls were observed by employee1, technician1 and itadmin. Whitespace resolution validation used HD-10007; edit/assigned cancellation used HD-10014; New comment/cancellation used HD-10015. Full per-scenario expected/actual/status/date/limits are recorded in [ACCEPTANCE_TESTS](ACCEPTANCE_TESTS.md#required-final-manual-scenarios), without invented browser metadata or captures.
+
+Dataset chronology: pristine seed **12/8/2/2**; G working snapshot **13/8/3/2**; later owner observation **15/8/3/4**. Before HD-10001 → technician2: statuses New/Assigned/In Progress/Resolved/Cancelled **3/3/2/3/4**, categories Hardware/Software/Network/Accounts/Unused **3/2/2/1/0**, Lina/Sami **3/2**. After assignment: New **2**, Assigned **4**, Sami **3**, overall active/category counts unchanged. These are historical observations, not a fixed live baseline; the earlier preservation digest remains evidence for its stage only.
+
+Unreported facets remain unverified: additional invalid-value variants, completely empty queue, date/Low/tie ordering and detailed filter-preserving pagination, remaining edit fields/crafted requests, cancellation confirmation GET/Keep ticket back-out and separate In Progress cancellation. Broader M10/M11 role/reassignment/admin and M12 full human keyboard/zoom/device checks remain pending. Instructor scope/access/duration and M14 student understanding/rehearsal still require confirmation. Historical reports and UC01–UC07 remain unchanged; no executable or working-data mutations are authorized in this reconciliation.

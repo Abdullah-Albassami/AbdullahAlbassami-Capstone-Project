@@ -1,6 +1,6 @@
 # Checkpoint progress
 
-Last updated: 13 October 2026 (Asia/Riyadh). A–F are reviewed/approved; G automated verification is complete: genuine fresh installation, 149 tests, 39 Chrome checks and 14 live HTTP/server checks. Stop after G. Human acceptance/rehearsal and instructor scope/access/duration remain open; no full approval/submission or grade guarantee. HD-10013/working data are unchanged.
+Last updated: 13 October 2026 (Asia/Riyadh). A–G are reviewed/approved; G automated verification completed a genuine fresh installation, 149 tests, 39 Chrome checks and 14 live HTTP/server checks. Subsequent owner-observed M01–M09 results are recorded within reported scopes. M10–M12/M14, unreported facets and instructor scope/access/duration remain open; no full approval/submission or grade guarantee. This reconciliation changes documentation only and preserves the current working database/HD-10013.
 
 | Checkpoint | Estimate | Completion condition | Status |
 | --- | --- | --- | --- |
@@ -10,7 +10,7 @@ Last updated: 13 October 2026 (Asia/Riyadh). A–F are reviewed/approved; G auto
 | D: CRUD/reports | 2h | Category CRUD, list queries/pagination, known aggregate/annotation counts | Reviewed/approved |
 | E: reliability/UX | 3h | Audit/fix/test and actual browser checks where available; truthful remaining manual instructions | Reviewed/approved; 149 tests + 39 Chrome checks; human limitations documented |
 | F: final evidence | 2h | Final README/design/matrix/actual verification/demo documents | Reviewed/approved; complete source-linked documentation/evidence/demo/checklist |
-| G: readiness | 3h | Separate fresh checkout, seed twice, checks/tests/server/browser, truthful remaining human acceptance/rehearsal/access and candidate revision | Automated verification complete; 149 tests/39 Chrome/14 HTTP; human/external approval still open |
+| G: readiness | 3h | Separate fresh checkout, seed twice, checks/tests/server/browser, truthful remaining human acceptance/rehearsal/access and candidate revision | Reviewed/approved; 149 tests/39 Chrome/14 HTTP; remaining human/external acceptance still open |
 | Contingency | 2h | Mandatory blockers fixed; affected checks repeated | Reserved |
 
 ## Completed work
@@ -28,8 +28,8 @@ Last updated: 13 October 2026 (Asia/Riyadh). A–F are reviewed/approved; G auto
 
 ## Remaining work and blockers
 
-- Remaining user human acceptance/rehearsal and instructor scope/access/duration confirmation. G's delivery identifies the local candidate commit; the student records the ultimately submitted/demonstrated revision after any further verified acceptance updates. Historical A–F reports stay unchanged; no push/submission is performed.
-- Human review of local HD-10013's final detail/controls, complete keyboard/zoom/device/screen-reader usability, admin observations and rehearsal remain. G completed automated fresh checkout/server/browser verification; a human setup repeat is not reported. Disposable checks do not upgrade unobserved human rows to PASS.
+- Remaining M10–M12/M14 human acceptance/rehearsal, unreported M02/M04–M07 facets and instructor scope/access/duration confirmation. The student records the ultimately submitted/demonstrated revision after further verified acceptance updates. Historical A–G reports stay unchanged; no push/submission is performed.
+- HD-10013 final detail/controls are now owner-observed PASS for all three roles. Broader role/reassignment/admin checks, complete human keyboard/zoom/device usability and rehearsal remain. G completed automated fresh setup; a human repeat is unreported. Neither automated results nor narrow owner observations upgrade broader unobserved scenarios to PASS.
 - External facts unresolved: instructor scope agreement, presentation duration, instructor repository access and available focused development hours. No claim of confirmation is made.
 - No deployment is required. Credentials/secret key are runtime-only; the local ignored database now contains the five fictitious demo accounts. Verification used a generated undisclosed password; choose known local credentials with Django changepassword as documented.
 
@@ -92,3 +92,11 @@ Record changes, commands/checks and actual outcomes for each checkpoint in ACCEP
 - Genuine JSON/screenshots retained under evidence/checkpoint-g; full file/command/result details in CHECKPOINT_G_REPORT. Original database file bytes/logical rows and HD-10013 unchanged. Historical A–F reports and UC01–UC07 remain intact.
 - Final all-100-mark audit/source/docs cross-check distinguishes automated readiness from human acceptance/understanding/instructor facts. M13 automated setup PASS; M01 partial and M02–M12/M14 human checks open. Student rehearsal/duration/scope/access/submission are not claimed completed.
 - Stop after G. Deliver a local candidate commit/hash/clean-tree result; remaining human/external outcomes must be supplied by the student before full approval/submission. No remote push or messaging occurs.
+
+## Post-G owner evidence reconciliation — 13 October 2026
+
+- Recorded the owner's M01–M09 observations as PASS only within supplied scopes, with expected/actual/status/date and references. M02 whitespace resolution refers to HD-10007; M06 edit/access and M07 assigned cancellation to HD-10014; employee comment/cancellation to HD-10015; M01 retained resolved detail to HD-10013. UC01–UC07 and A–G reports remain unchanged.
+- Distinguished pristine 12-ticket seed, 13-ticket G working snapshot and later owner-observed 15/8/3/4 totals. M09 assignment of HD-10001 to technician2 changes New/Assigned/workload, preserving active/category counts. These are historical observations, not future constants.
+- Reconciled matrix, evidence index, READMEs, manual instructions, demo and submission checklist. Unreported confirmation/back-out and other facets remain explicit; M10–M12/M14 remain pending. No application/tests/migrations/seed/dependency changes or fresh browser/test claims.
+- Reconciliation verification PASS: 10 Markdown files changed; 277 local links/fragments valid across 20 documents; 22 documented shell blocks parse in both bash/zsh. All 81 tracked non-Markdown/historical-report files match pre-pass HEAD; historical acceptance sections and UC01–UC07 are identical. Nine owner-result rows have explicit date/attribution; M10–M12/M14 remain NOT RUN. Git diff has no whitespace errors, credential-indicator scan has no flags and no unexpected untracked/runtime files are included.
+- Read-only database verification PASS: file SHA-256 matches the pre-pass value, integrity is ok, foreign-key violations zero; HD-10013 retains resolved state/requester/assignee/meaningful note/time. The development dataset remains 15 tickets (New 2, Assigned 4, In Progress 2, Resolved 3, Cancelled 4), reflecting the owner's post-G actions. No application checks/migrations/seed/browser runs were performed in this pass. The delivery message supplies the new local commit hash and final tree status. Live remote/instructor access remains unverified; publishing is not performed.

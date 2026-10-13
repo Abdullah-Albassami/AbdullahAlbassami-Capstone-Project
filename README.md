@@ -9,7 +9,7 @@ The Django application and its setup/design/evidence documents live in **`helpde
 - [Checkpoint progress](helpdesk-pro/docs/PROGRESS.md)
 - [Verification record](helpdesk-pro/docs/ACCEPTANCE_TESTS.md)
 
-Checkpoint G verifies a genuine fresh clone with a new environment/database: **149 Django tests, 39 Chrome checks and 14 real HTTP/server checks passed**. Models/source/dependencies and the working HD-10013 remain unchanged. Human acceptance, student rehearsal and instructor confirmations remain open; the project is not declared submitted or fully approved.
+All seven checkpoints are reviewed/approved. Checkpoint G verified a genuine fresh clone with a new environment/database: **149 Django tests, 39 Chrome checks and 14 real HTTP/server checks passed**. The owner subsequently reported **M01–M09 PASS within observed scopes on 13 October 2026**, recorded separately from automation. M10–M12/M14, unreported subchecks and instructor confirmations remain open; the project is not declared submitted or fully approved. This reconciliation changes documentation only and preserves the working database and HD-10013.
 
 Start setup from `helpdesk-pro/`, following its README. The repository-wide `.gitignore` excludes local environments, credentials, databases and generated assets. No credentials or real personal data belong in the submission.
 
