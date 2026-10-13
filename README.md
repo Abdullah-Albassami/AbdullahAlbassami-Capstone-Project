@@ -81,5 +81,4 @@ The recorded final verification includes **149 Django tests, 39 Chrome browser c
 - [Market potential and future improvements](helpdesk-pro/docs/MARKET_POTENTIAL.md)
 - [Capstone requirements mapping](helpdesk-pro/docs/REQUIREMENTS_MATRIX.md)
 - [Final verification report](helpdesk-pro/docs/FINAL_VERIFICATION_REPORT.md)
-- [Application documentation](helpdesk-pro/README.md)
 
