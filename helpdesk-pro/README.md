@@ -73,10 +73,6 @@ Final independent verification reported **149 passing Django tests**, **39 Chrom
 
 Ticket workflow: **New → Assigned → In Progress → Resolved**, with permitted cancellation. Closed tickets are read-only. Referenced categories/departments/users cannot be deleted through supported workflows.
 
-## Limitations and acknowledgments
+## Acknowledgment
 
-This is a functional **capstone prototype**, not a deployed commercial ITSM product. It does not include email notifications, SLAs, integrations, attachments or managed cloud hosting. Market demand and cost savings have not been validated; see [market potential](docs/MARKET_POTENTIAL.md).
-
-Significant AI development assistance (OpenAI Codex and ChatGPT) and official Django documentation were used during implementation, review and documentation. The work should be evaluated through the actual source, test evidence and submitted explanation.
-
-For the full rubric mapping see [requirements](docs/REQUIREMENTS_MATRIX.md).
+Developed with assistance from OpenAI Codex and ChatGPT, with reference to official Django documentation.
