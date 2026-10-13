@@ -1,203 +1,82 @@
 # HelpDesk Pro
 
-An internal Django IT support application for employees and a small IT team. It is designed to replace scattered email or spreadsheet requests with clear ownership, consistent status, retained discussion and visible backlog.
+A Django-based internal IT support system for small and medium-sized businesses. Employees report issues, IT administrators assign work, and technicians record progress and resolutions.
 
-**Current delivery: A–G reviewed/approved; owner evidence reconciled.** G's genuine clone/new environment/database passed **149 Django tests, 39 real Chrome checks and 14 live HTTP/server checks**. On 13 October 2026 the owner reported **M01–M09 PASS within observed scopes**, including HD-10013's final detail for all three roles; these are separate from automation. This documentation-only pass preserves application source/models/pins and the current working database. M10–M12/M14, unreported facets and instructor confirmations remain open; no full approval or submission is claimed.
+## Features
 
-## Final project structure
+- Three roles: **Employee**, **Technician**, **IT Admin**, with record-level access controls
+- Ticket creation, editing, comments, assignment, reassignment, cancellation and resolution
+- Category management, search, filtering, ordering and pagination
+- Status totals, category backlog and technician workload using Django ORM
+- Input validation, protected relationships and responsive templates
 
-The user requires the application inside `helpdesk-pro/`. The source guide/specification, repository-wide `.gitignore` and entry-point README remain one directory above. Application setup, templates, static assets, environment and design/evidence documents belong here.
+See the [ERD](docs/ERD.md), [design overview](docs/DESIGN.md), [wireframes](docs/WIREFRAMES.md) and [Markdown presentation](docs/CAPSTONE_PRESENTATION.md).
 
-```text
-repository-root/
-  CapstoneProjectGuide.pdf
-  HELPDESK_PRO_CODEX_SPEC_FINAL.md
-  .gitignore
-  README.md
-  helpdesk-pro/
-    .env.example
-    requirements.txt
-    manage.py
-    README.md
-    config/          # settings, URLs, ASGI and WSGI
-    tickets/         # models, permissions, services, forms, views, URLs, admin, seed/tests
-    templates/       # inherited login, workflow and error pages
-    static/css/style.css
-    docs/            # design, ERD, wireframes, evidence, progress and demo script
-    scripts/         # optional isolated Chrome verification, no app dependency
-    .venv/           # local only; ignored and recreated at this location
-```
+## Requirements
 
-The `tickets` package contains models, shared roles/account guards/permissions, validated ticket/category services and forms, HTTP views/URLs, scoped queries/reports in queries.py, guarded Django admin, migrations, seed and tests. No alternative model, workflow, account-management, audit-trail or integration subsystem is introduced.
+- Python **3.14.7** (version used for verification)
+- Django **5.2.18**, with versions pinned in [requirements.txt](requirements.txt)
+- SQLite (included with Python)
+- No external services or JavaScript packages required to run the application
 
-## Product and agreed scope
+## Installation and launch
 
-Employees submit and follow their requests; IT Admin assigns and prioritizes work; technicians start, discuss and resolve assigned requests. Tickets are retained through cancellation. Administrators manage categories and inspect backlog by category and technician. Departments are selected per issue.
+From a fresh repository checkout, use macOS/Linux Terminal:
 
-The proposed organizational value is less ambiguity over responsibility and unresolved requests. Those benefits are hypotheses, not measured customer results; no market study or paying-customer claim is made. An organization could adopt the tool internally. No commercial launch or deployment is part of this capstone. The final product retains discussion and outcomes, not a complete status/assignment audit log.
-
-The target is a small organization's employees, its technicians and the person coordinating IT support. Compared with email/shared spreadsheets, each request has one persisted owner, controlled lifecycle, related discussion and live workload counts. A realistic adoption model is a pilot within one IT team: a setup administrator provisions roles/departments/categories, employees submit requests and IT Admin assigns work. Staff could then review whether ownership and backlog visibility help them before any wider rollout. This is an adoption proposal, not a deployed pilot or validated demand. Executed workflows and reports demonstrate feasibility; they do not measure time savings or user satisfaction.
-
-No API, file uploads, email notifications, AI, external services, multi-tenancy, SLA scheduling, Docker, payments or charts library is included. Authentication, role/object access, CRUD, search, ordering, reporting, validation, documentation and verification are required final features.
-
-## Verified environment
-
-- Python 3.14.7
-- Django 5.2.18 LTS
-- SQLite 3.53.4 on the development machine (other Django-supported SQLite versions may be used)
-- asgiref 3.12.1 and sqlparse 0.6.0
-
-`requirements.txt` pins the installed dependencies. Use Python 3.14 for a matching environment. The application uses SQLite and local assets; no third-party service is needed.
-
-Compatibility was checked **before installation into this application environment** in A: official Django documentation supports Python 3.14 from 5.2.8, and the supported-release table at that verification listed Django 5.2.18 LTS with extended support through April 2028. The pinned Django/asgiref/sqlparse package metadata permits Python >=3.10. These are recorded compatibility checks, not a claim that this pin is the latest available patch. [Python support](https://docs.djangoproject.com/en/5.2/releases/5.2/), [supported releases](https://www.djangoproject.com/download/).
-
-## Installation and configuration
-
-Start from a checkout of this repository, not a copy of the local database or virtual environment. On macOS/Linux, ensure `python3 --version` reports the verified Python 3.14.7 (or select that installed interpreter explicitly). These commands use a bash/zsh shell; no application packages need to be installed globally.
-
-```sh
+```bash
 cd helpdesk-pro
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip --isolated install --no-cache-dir -r requirements.txt
+python -m pip install -r requirements.txt
 export DJANGO_SECRET_KEY="$(python -c 'import secrets; print(secrets.token_urlsafe(64))')"
-python manage.py check
-```
-
-Generate your own key; the command captures it into the environment rather than displaying it. Never put the actual key in a commit, screenshot or shared command log. A new shell needs the environment variable again. `.env.example` documents the variable names only; the application does not load `.env` files automatically.
-
-If you are already inside `helpdesk-pro/`, omit the first `cd`. Recreate the environment at this path instead of moving an old `.venv`, because activation scripts and executable paths depend on its location. G executed a genuine fresh clone, independent environment, uncached isolated installation, migrations, seed twice, tests and server/browser checks. No original database/environment/configuration was copied. See the [G commands/results](docs/CHECKPOINT_G_REPORT.md); instructor remote access and human acceptance remain separate.
-
-| Variable | Behavior |
-| --- | --- |
-| `DJANGO_SECRET_KEY` | Required runtime random key, at least 50 characters; missing/example keys are rejected |
-| `DJANGO_DEBUG` | Defaults to `true` for local development; accepts true/false/1/0 |
-| `DJANGO_ALLOWED_HOSTS` | Defaults to localhost, 127.0.0.1 and [::1]; explicit hosts required, wildcard rejected |
-| `DEMO_PASSWORD` | Required by seed_demo only for newly created users; no value belongs in the repository |
-
-## Database, sample accounts and tests
-
-After installation above, from `helpdesk-pro/` with the virtual environment active and runtime secret key set:
-
-```sh
-python manage.py migrate --noinput
-# Type a private demo password and press Enter; read hides your input.
+python manage.py migrate
 read -rs DEMO_PASSWORD
 export DEMO_PASSWORD
 python manage.py seed_demo
 unset DEMO_PASSWORD
-# Repeat without a password: recognized records and credentials are preserved.
-python manage.py seed_demo
-python -m pip --isolated --no-cache-dir check
-python manage.py check --database default
+python manage.py runserver
+```
+
+Choose a private demo password when prompted. Use a strong value accepted by Django's validators. Do not commit credentials. `.env.example` describes configuration variables; this project does **not** automatically load `.env` files. A new terminal needs `DJANGO_SECRET_KEY` set again.
+
+Open **http://127.0.0.1:8000/accounts/login/**.
+
+### Demo accounts
+
+| Username | Role |
+|---|---|
+| `employee1`, `employee2` | Employee |
+| `technician1`, `technician2` | Technician |
+| `itadmin` | IT Admin |
+
+These accounts use the private password specified when seed data was first created. Running `seed_demo` again preserves existing records and passwords. For an existing account, change its password locally with `python manage.py changepassword employee1` (substitute the username). Never publish passwords.
+
+The fresh demo seed contains **12 fictional tickets**. Later development snapshots with 13 or 15 tickets are not part of the initial seed.
+
+## Tests
+
+With the virtual environment active and `DJANGO_SECRET_KEY` configured:
+
+```bash
+python manage.py check
+python manage.py test tickets.tests
 python manage.py makemigrations --check --dry-run
-python manage.py migrate --check
-python manage.py test tickets.tests --verbosity 1
-python manage.py runserver 127.0.0.1:8000
 ```
 
-Use a password accepted by Django's validators. All five demo accounts initially use your runtime value, hashed by Django. The seed refuses unrelated reserved IDs/names, preserves recognized edited records and existing passwords, and can be rerun without DEMO_PASSWORD once all demo users exist. It is not a database reset. The command is intended for a local fictional demonstration.
+Final independent verification reported **149 passing Django tests**, **39 Chrome browser checks**, **14 HTTP checks** and a working fresh installation. The [acceptance record](docs/ACCEPTANCE_TESTS.md) separately identifies owner-observed manual checks and outstanding scenarios.
 
-Current development data was seeded using a generated password that was not displayed or stored in source. To choose known credentials privately for an existing account, run `python manage.py changepassword employee1` (or technician1/itadmin/etc.); repeating seed with a new environment password does not reset it. To provision a separate setup administrator, use `python manage.py createsuperuser` and choose a non-demo username/private password.
+## How it works
 
-Open `http://127.0.0.1:8000/accounts/login/` and sign in with a demo username and your private password. `/` shows the role dashboard; `/tickets/` searches/filters/orders/pages permitted tickets; `/tickets/new/` accepts Employee/IT Admin submissions. Ticket detail offers permitted actions and related discussion. `/categories/` gives IT Admin Category CRUD and active counts; each category has a detail page and related-ticket link. Referenced categories cannot be deleted, including references from terminal tickets. Logout is a POST form. IT Admin manages Departments at `/admin/`; a setup superuser provisions accounts and inspects tickets/comments read-only.
+- **Employee:** create a ticket, follow its status, comment on active requests, edit/cancel own unassigned New requests.
+- **IT Admin:** view all tickets, assign/reassign, manage categories and inspect reports.
+- **Technician:** work on assigned tickets, mark progress and submit a resolution note.
 
-G migrated a newly cloned database from scratch and verified exact seed snapshots unchanged on the second run, including credentials/timestamps. All 149 tests passed in 3.130s on the fresh environment. Chrome ran from that clone on a separate disposable seeded WSGI fixture: 34 page audits, three basic keyboard cases, one combined lifecycle/Category/query scenario and guarded admin (39 checks). A real Django runserver passed 14 additional normal-hasher/CSRF HTTP checks. This is automated fresh-checkout/server/browser evidence, not human acceptance. Fast hashing is only under test overrides; normal settings retain default hashing.
+Ticket workflow: **New → Assigned → In Progress → Resolved**, with permitted cancellation. Closed tickets are read-only. Referenced categories/departments/users cannot be deleted through supported workflows.
 
-For human acceptance, follow [MANUAL_BROWSER_CHECKS](docs/MANUAL_BROWSER_CHECKS.md) with your existing private demo credentials. Optional browser automation requires installed Node and Chrome, separate from application dependencies: Node 21.7.2 was verified; earlier runs used Chrome 154.0.8037.99 and the final run reported Chrome 155.0.8059.40.
+## Limitations and acknowledgments
 
-```sh
-# From the repository root. Uses a new temporary DB/profile; refuses an existing DB.
-HELPDESK_BROWSER_EVIDENCE=/private/tmp/helpdesk-browser-review-evidence node helpdesk-pro/scripts/verify_browser.mjs
-```
+This is a functional **capstone prototype**, not a deployed commercial ITSM product. It does not include email notifications, SLAs, integrations, attachments or managed cloud hosting. Market demand and cost savings have not been validated; see [market potential](docs/MARKET_POTENTIAL.md).
 
-HELPDESK_CHROME may point to another installed compatible Chrome binary. Without an evidence path the script creates a separate temporary evidence directory and prints its path. It generates runtime-only credentials, deletes its DB/profile/server, and retains screenshots/result JSON without secrets. It does not use or reset your working database. Sandbox execution may require local-port/browser approval. No browser packages or frontend dependencies are installed. [Latest browser evidence](docs/evidence/checkpoint-g/results.json) and [G report](docs/CHECKPOINT_G_REPORT.md) distinguish measured checks from remaining accessibility/human review.
+Significant AI development assistance (OpenAI Codex and ChatGPT) and official Django documentation were used during implementation, review and documentation. The work should be evaluated through the actual source, test evidence and submitted explanation.
 
-For this local `runserver` workflow, leave DJANGO_DEBUG at its default `true` (or explicitly set `true`) so Django serves the local stylesheet. DEBUG=false does not serve static files through the ordinary development server; deployment/static hosting is outside the capstone scope. G corrected a probe that used DEBUG=false and verified the documented local setting.
-
-## Ticket workflow and access
-
-| Role | Visible tickets | Actions |
-| --- | --- | --- |
-| Employee | Own | Submit; edit/cancel own unassigned New; comment on own active; read outcomes |
-| Technician | Assigned | Start Assigned; resolve In progress with a note; comment while active |
-| IT Admin | All | Submit/edit active; assign/reassign; start/resolve in valid state; cancel/comment active |
-
-New → Assigned → In progress → Resolved. Admin reassignment preserves Assigned/In progress status and removes the previous technician's access immediately. Employee cancels own New; IT Admin cancels any active ticket. Resolved/Cancelled are read-only, including comments. Cancellation retains the record, assignee and discussion. Requester, author, status and timestamps come from the server, never editable posted fields.
-
-Missing/out-of-scope tickets return safe 404; forbidden role/action 403; stale/terminal lifecycle requests 409; unsupported methods 405. Invalid values return bound field/non-field errors without saving. Successful mutations redirect with feedback.
-
-Login/logout use small Django-view subclasses to clear previous-account feedback, including the existing admin logout URL; authentication, CSRF, sessions and safe redirects remain Django's responsibility. Authenticated application pages use no-store/private cache headers. Method failures retain 405/Allow with navigation guidance. Assignment choices show Full Name (username), falling back to username; IDs/eligibility are unchanged. Queues display requester/assignee consistently. Mobile tables scroll locally with a hint/focus; valid long names/titles wrap in confirmations.
-
-## Database design
-
-Four custom models use integer BigAutoField keys. Department has a required unique name; Category has a required unique name and optional description. Ticket holds the issue, priority/state, requesting department/category/requester, optional assignee and timestamps/resolution. TicketComment holds immutable discussion with an author and timestamp. Name uniqueness is case-sensitive; meaningful required text is trimmed. User and Group are Django's built-in models, with exactly one application role per regular account.
-
-| Foreign key | Required? | Deletion behavior |
-| --- | --- | --- |
-| Ticket → Category / Department / requester User | Yes, each | PROTECT |
-| Ticket → assignee User | No | PROTECT |
-| TicketComment → Ticket | Yes | CASCADE |
-| TicketComment → author User | Yes | PROTECT |
-
-Each parent has zero or more children; each child has one parent except the optional ticket assignee. There is no User–Department relationship: the department is selected for each issue. Database checks constrain allowed priority/status, assignment by state and resolution note/timestamp pairing. Model validation enforces meaningful text; services enforce actor, current state and terminal rules. `full_clean()` is explicit because `save()` does not invoke it. PROTECT retains referenced records; cancellation provides safe ticket retirement. CASCADE describes privileged physical deletion, which the supported application/admin ticket interfaces prohibit. See the [matching ERD](docs/ERD.md) and [business-rule design](docs/DESIGN.md).
-
-## Search, pagination and reports
-
-Ticket filters are optional: q (case-insensitive title/description search, maximum 200 characters), status, priority and category. Valid filters combine with AND; category filtering traverses category__name using the selected category. Order choices are newest, oldest, priority (High → Medium → Low) and recently updated, with ID/time tie-breakers. Invalid fields are ignored independently with visible errors; ambiguous repeated filters are ignored; unexpected keys never enter the queries or pagination links. Valid selections are retained across ten-ticket pages. Missing/nonnumeric/negative/zero/repeated page values select the first page; positive out-of-range numbers select the last.
-
-Dashboard cards and five-status breakdown share one scoped aggregate query and show zeros for absent states. Only IT Admin sees every-category active-ticket annotations and eligible-technician active-assignment annotations, including zero rows. Active always means New + Assigned + In progress. Category backlog helps identify issue areas needing attention; workload supports assignment decisions and measures assigned work, not actual availability. Independent queries and distinct counts prevent relationship-based inflation. Employees see own metrics; technicians see assigned metrics.
-
-In [queries.py](tickets/queries.py), `ticket_summary()` uses `aggregate()` to return one set of queryset totals. `category_backlog()` and `technician_workload()` use `annotate()` to attach a filtered `Count(..., distinct=True)` to each category/eligible technician. They are rendered by the [dashboard](templates/tickets/dashboard.html) and [category table](templates/tickets/includes/category_report_table.html); [report tests](tickets/tests/test_reports.py) verify known values, zero/empty datasets, role scope and multiple related comments/groups. Search uses Q objects for title OR description, ANDs the other filters and traverses `category__name` for explicit related-model filtering.
-
-Data stages must be kept distinct: the **pristine seed has 12/8/2/2** total/active/resolved/cancelled; the **Checkpoint G working snapshot had 13/8/3/2** with resolved HD-10013 and statuses 3/3/2/3/2. The owner's later **13 October 2026 observations had 15/8/3/4**, after creating/cancelling HD-10014 and HD-10015. Before assigning HD-10001 to technician2, statuses were 3/3/2/3/4 and Lina/Sami workloads 3/2; afterward New/Assigned were 2/4 and workloads 3/3, while active/category totals stayed unchanged. These are historical observations, not permanent expectations. See [M09](docs/ACCEPTANCE_TESTS.md#required-final-manual-scenarios). Reports calculate persisted values, never seed constants; repeated seed preserves edits and does not reset the database.
-
-## Design and evidence
-
-- [Approved architecture, role matrix and URL contracts](docs/DESIGN.md)
-- [Implemented ERD](docs/ERD.md)
-- [Wireframes](docs/WIREFRAMES.md)
-- [Rubric and working-evidence matrix](docs/REQUIREMENTS_MATRIX.md)
-- [Verification record](docs/ACCEPTANCE_TESTS.md)
-- [Checkpoint progress and blockers](docs/PROGRESS.md)
-- [Demonstration and technical rehearsal](docs/DEMO_SCRIPT.md)
-- [Amended Checkpoint A file/command/result report](docs/CHECKPOINT_A_REPORT.md)
-- [Checkpoint B file/command/result report](docs/CHECKPOINT_B_REPORT.md)
-- [Checkpoint C file/command/result report](docs/CHECKPOINT_C_REPORT.md)
-- [Checkpoint D file/command/result report](docs/CHECKPOINT_D_REPORT.md)
-- [Checkpoint E audit/file/command/result report](docs/CHECKPOINT_E_REPORT.md)
-- [Remaining human acceptance instructions](docs/MANUAL_BROWSER_CHECKS.md)
-- [Consolidated evidence and its limits](docs/EVIDENCE_INDEX.md)
-- [Actionable submission checklist](docs/SUBMISSION_CHECKLIST.md)
-- [Checkpoint F documentation delivery report](docs/CHECKPOINT_F_REPORT.md)
-- [Checkpoint G fresh-installation and readiness report](docs/CHECKPOINT_G_REPORT.md)
-
-## Known issues and verification limits
-
-No unresolved functional defect is known from executed G checks. M01–M09 are now owner-observed PASS within documented scopes; no browser/version/viewport/screenshots were supplied. M10–M12/M14 remain pending, including broader reassignment/report isolation, guarded admin, full keyboard/200% zoom/device usability and student demonstration. Unreported facets of M02/M04–M07 remain explicit, particularly cancellation confirmation/back-out. G completed automated fresh setup; M13 human repetition is NOT RUN. Automated Chrome covered fixed viewports/basic keys/selected contrast rules; it is not WCAG certification. See [remaining human instructions](docs/MANUAL_BROWSER_CHECKS.md). No tests or browser automation were rerun during this documentation reconciliation.
-
-SQLite transactions preserve validated writes but do not provide enterprise concurrent-write guarantees. Privileged bulk ORM/raw SQL may bypass application validation and is outside supported UI writes. Instructor scope/access/duration remain unconfirmed. G is complete as an automated verification milestone; remaining human checks/access/understanding must be confirmed before full approval or submission. No grade is guaranteed.
-
-The [official guide](../CapstoneProjectGuide.pdf) is primary. The [root specification](../HELPDESK_PRO_CODEX_SPEC_FINAL.md), audit corrections and eight user amendments describe the agreed design; evidence documents distinguish planned checks from executed results. Instructor scope approval, presentation duration and instructor repository access have not been independently confirmed.
-
-## Sample identities and security
-
-Demo usernames are `employee1`, `employee2`, `technician1`, `technician2` and `itadmin`. The seed creates 12 tickets: 3 New, 3 Assigned, 2 In Progress, 2 Resolved and 2 Cancelled; 8 are active. Initial category active counts are Hardware 3, Software 2, Network 2, Accounts 1, Unused 0; technician counts are 3 and 2. These expectations describe the initial seed, not a reset after edits. A setup superuser is separate and optional.
-
-Role helpers reject inactive accounts, accounts without an application role, and conflicting roles. Only active regular Technician accounts with exactly that application role are eligible assignees. Guarded built-in admin/forms and auth save/membership hooks prevent active-assignee deactivation, role removal/conflicts and promotion to superuser. Reserved role groups are protected. Ordinary account timestamps are read-only in admin; fixture timestamps/IDs establish seed provenance. Terminal ticket/comment edits are rejected by model validation and all ticket/comment mutations are disabled in admin.
-
-Model save alone does not call full_clean. Bulk updates, through-table inserts and raw SQL are privileged maintenance that bypass parts of Django validation/signals; they are not supported application write paths. Every web mutation uses a transaction and re-fetches current scope/state, authorizes and validates the complete record before saving. SQLite does not provide row locking through select_for_update; enterprise concurrent-write guarantees are outside this local capstone scope.
-
-All demonstration people and issues are fictional. Git excludes local environments, credentials/configuration, populated databases and generated files. Use Django authentication and keep passwords, keys and personal information out of the repository. Do not share an authenticated demonstration publicly with real data.
-
-## Resources and assistance
-
-This individual capstone uses the official course guide and significant OpenAI Codex assistance for requirements analysis, architecture, source preparation and verification. The student must review and understand the code, verify its behavior and personally explain the final application.
-
-- [Django 5.2 documentation](https://docs.djangoproject.com/en/5.2/)
-- [Django 5.2 Python compatibility](https://docs.djangoproject.com/en/5.2/releases/5.2/)
-- [Django supported releases](https://www.djangoproject.com/download/)
-- [Chrome DevTools Protocol](https://chromedevtools.github.io/devtools-protocol/) for the optional browser-verification harness.
-- [W3C contrast guidance](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html), [control/focus contrast](https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast.html) for measured interface checks. Human accessibility review remains required.
-
-Future improvement after this agreed scope could include verified email notifications or a true event history, selected according to user feedback. Neither is a missing capstone requirement.
+For the full rubric mapping see [requirements](docs/REQUIREMENTS_MATRIX.md); for submission status see the [checklist](docs/SUBMISSION_CHECKLIST.md).
