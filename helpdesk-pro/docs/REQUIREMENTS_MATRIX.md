@@ -9,7 +9,7 @@ This table maps the eight assessment criteria in the [Capstone Project Guide](..
 | Database and ORM | 20 | [ERD](ERD.md), model constraints, relationships, search, `aggregate()` and `annotate()` reports |
 | Django and Python | 15 | Named URLs, views, forms, shared services, templates and permissions |
 | Interface and usability | 10 | [Wireframes](WIREFRAMES.md), responsive templates, form feedback; automated Chrome checks |
-| Verification and reproducibility | 10 | Fresh install, 149 tests, 39 Chrome checks, 14 HTTP checks; [verification](CHECKPOINT_G_REPORT.md) |
+| Verification and reproducibility | 10 | Fresh install, 149 tests, 39 Chrome checks, 14 HTTP checks; [verification](FINAL_VERIFICATION_REPORT.md) |
 | Git and documentation | 5 | Versioned source, pinned dependencies, README, design and acceptance records |
 | Explanation and demonstration | 10 | [Markdown presentation](CAPSTONE_PRESENTATION.md) and technical explanation |
 | **Total** | **100** | |

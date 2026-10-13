@@ -16,7 +16,7 @@ HelpDesk Pro is a Django application for submitting, assigning, tracking and res
 | [Market potential](helpdesk-pro/docs/MARKET_POTENTIAL.md) | Audience, competitive positioning and adoption model |
 | [Requirements and evidence](helpdesk-pro/docs/REQUIREMENTS_MATRIX.md) | Mapping to the course rubric |
 | [Acceptance tests](helpdesk-pro/docs/ACCEPTANCE_TESTS.md) | Automated and manually observed results |
-| [Final verification](helpdesk-pro/docs/CHECKPOINT_G_REPORT.md) | Fresh installation and test summary |
+| [Final verification](helpdesk-pro/docs/FINAL_VERIFICATION_REPORT.md) | Fresh installation and test summary |
 
 The original [Capstone Project Guide](CapstoneProjectGuide.pdf) is included in the repository.
 

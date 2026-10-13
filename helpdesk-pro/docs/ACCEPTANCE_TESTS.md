@@ -4,7 +4,7 @@
 
 ## Automated verification
 
-An independent fresh installation passed **149 Django tests, 39 Chrome browser checks and 14 HTTP/server checks**. Migrations and repeatable fictional seed data were verified. See the [final verification report](CHECKPOINT_G_REPORT.md) and [test suite](../tickets/tests/).
+An independent fresh installation passed **149 Django tests, 39 Chrome browser checks and 14 HTTP/server checks**. Migrations and repeatable fictional seed data were verified. See the [final verification report](FINAL_VERIFICATION_REPORT.md) and [test suite](../tickets/tests/).
 
 ## Manual acceptance
 
@@ -37,4 +37,4 @@ These figures describe different environments/times, not conflicting seed result
 
 ## Notes
 
-The application was verified using fictional data. Unexecuted checks have not been presented as successful. See the [final verification report](CHECKPOINT_G_REPORT.md) for details.
+The application was verified using fictional data. Unexecuted checks have not been presented as successful. See the [final verification report](FINAL_VERIFICATION_REPORT.md) for details.
