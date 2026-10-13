@@ -35,7 +35,6 @@ These files are retained for transparency and grading traceability. **They are n
 
 - [Evidence index](helpdesk-pro/docs/EVIDENCE_INDEX.md)
 - [Progress and development milestones](helpdesk-pro/docs/PROGRESS.md)
-- [Detailed demonstration and technical Q&A](helpdesk-pro/docs/DEMO_SCRIPT.md)
 - [Manual browser test instructions](helpdesk-pro/docs/MANUAL_BROWSER_CHECKS.md)
 - [Checkpoint G final verification](helpdesk-pro/docs/CHECKPOINT_G_REPORT.md)
 - Earlier development logs are preserved in Git history, not included in the final documentation folder.
