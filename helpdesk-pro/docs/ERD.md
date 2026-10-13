@@ -1,8 +1,6 @@
-# HelpDesk Pro — Entity Relationship Diagram (ERD)
+# Entity Relationship Diagram (ERD)
 
-This diagram describes the implemented relational database structure for HelpDesk Pro. It shows the four application models—**Department**, **Category**, **Ticket**, and **TicketComment**—alongside Django's built-in **User** and **Group** entities, with primary keys, foreign keys, cardinalities, and deletion behavior.
-
-The design corresponds to [Django models](../tickets/models.py) and the [initial migration](../tickets/migrations/0001_initial.py). The [automated schema tests](../tickets/tests/test_models.py) check the implemented fields, relationships, and constraints; verification results are recorded in the [Checkpoint G report](FINAL_VERIFICATION_REPORT.md). Built-in authentication entities show only the fields relevant to this application's design.
+HelpDesk Pro uses four application models—**Department**, **Category**, **Ticket**, and **TicketComment**—alongside Django's built-in **User** and **Group** models. The diagram shows their keys, relationships, and field requirements. See the [Django models](../tickets/models.py) for the implementation.
 
 ```mermaid
 erDiagram
@@ -59,24 +57,22 @@ erDiagram
     }
 ```
 
-## Cardinality and optionality
+## Relationships
 
-| Parent | Child relationship |
-| --- | --- |
-| Category | Zero or more tickets; each ticket has exactly one category |
-| Department | Zero or more tickets; each ticket has exactly one requesting department |
-| User as requester | Zero or more tickets; each ticket has exactly one requester |
-| User as assignee | Zero or more tickets; each ticket has zero or one assignee |
-| Ticket | Zero or more comments; each comment has exactly one ticket |
-| User as author | Zero or more comments; each comment has exactly one author |
-| User/Group | Built-in many-to-many through Django's automatically managed membership table |
+| Relationship | Cardinality |
+|---|---|
+| Category → Ticket | One category to many tickets; category required |
+| Department → Ticket | One department to many tickets; department required |
+| User → Ticket (requester) | One user to many tickets; requester required |
+| User → Ticket (assignee) | One user to many tickets; assignee optional |
+| Ticket → TicketComment | One ticket to many comments |
+| User → TicketComment | One author to many comments |
+| User ↔ Group | Many-to-many through Django's built-in membership table |
 
-There is no User–Department foreign key and no custom profile or group join model. Application roles constrain eligible memberships separately from the general auth M2M cardinality.
+## Data integrity
 
-## Integrity and rationale
-
-Category/Department names are required and unique; FK references prevent repeated organizational names on tickets. Requester and comment author are persisted references rather than copied account data. Status and priority use choices and database allowed-value checks. Required text is trimmed and validated. Database checks cover assignment/state and resolution fields as described in [DESIGN.md](DESIGN.md).
-
-PROTECT prevents deletion of categories, departments and users referenced by tickets/comments, including terminal history. A user referenced only as an assignee is also protected. Cancelled tickets keep their record and any assignee/comments. CASCADE describes comment cleanup if a ticket is deleted by privileged maintenance; application/admin ticket deletion is disabled. Role/eligibility changes and previous-state transitions are application rules, not cross-table database constraints.
-
-Applied constraints: ticket_valid_status, ticket_valid_priority, ticket_assignment_matches_status and ticket_resolution_matches_status. Validation additionally trims required text, rejects null optional text for non-null columns, requires a meaningful resolution note, validates active assignee eligibility and rejects terminal/comment edits. Transitional actor authorization and lifecycle services are implemented in C; B helpers establish their permission contracts.
+- Category and department names are unique.
+- **PROTECT** prevents deletion of referenced categories, departments, and users.
+- **CASCADE** removes related comments if a ticket is deleted at the database level; ticket deletion is disabled in normal application workflows.
+- Database constraints validate ticket status, priority, assignment, and resolution consistency: `ticket_valid_status`, `ticket_valid_priority`, `ticket_assignment_matches_status`, and `ticket_resolution_matches_status`.
+- Forms and application services validate required text, role permissions, and permitted ticket status transitions.
