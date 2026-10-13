@@ -1,8 +1,51 @@
 {% if categories %}
-{% if show_management %}<p class="helptext table-hint">On narrow screens, scroll the table sideways to see all columns.</p>{% endif %}
+{% if show_management %}
+<p class="helptext table-hint">On narrow screens, scroll the table sideways to see all columns.</p>
+{% endif %}
 <div class="table-wrapper" role="region" aria-label="Category backlog table" tabindex="0">
-  <table{% if show_management %} class="management-table"{% endif %}><caption>Active tickets by category</caption><thead><tr><th scope="col">Category</th>{% if show_management %}<th scope="col">Description</th>{% endif %}<th scope="col">Active tickets</th>{% if show_management %}<th scope="col">Actions</th>{% endif %}</tr></thead>
-    <tbody>{% for category in categories %}<tr><td><a href="{% url 'tickets:category_detail' category.pk %}">{{ category.name }}</a></td>{% if show_management %}<td class="text-content">{{ category.description|truncatechars:120|default:'No description' }}</td>{% endif %}<td>{{ category.open_ticket_count }}</td>{% if show_management %}<td><div class="actions"><a href="{% url 'tickets:category_update' category.pk %}">Edit <span class="visually-hidden">{{ category.name }}</span></a><a href="{% url 'tickets:category_delete' category.pk %}">Delete <span class="visually-hidden">{{ category.name }}</span></a></div></td>{% endif %}</tr>{% endfor %}</tbody>
+  <table{% if show_management %} class="management-table"{% endif %}>
+    <caption>Active tickets by category</caption>
+    <thead>
+      <tr>
+        <th scope="col">Category</th>
+        {% if show_management %}
+        <th scope="col">Description</th>
+        {% endif %}
+        <th scope="col">Active tickets</th>
+        {% if show_management %}
+        <th scope="col">Actions</th>
+        {% endif %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for category in categories %}
+      <tr>
+        <td>
+          <a href="{% url 'tickets:category_detail' category.pk %}">
+            {{ category.name }}
+          </a>
+        </td>
+        {% if show_management %}
+        <td class="text-content">
+          {{ category.description|truncatechars:120|default:'No description' }}
+        </td>
+        {% endif %}
+        <td>
+          {{ category.open_ticket_count }}
+        </td>
+        {% if show_management %}
+        <td>
+          <div class="actions">
+            <a href="{% url 'tickets:category_update' category.pk %}">Edit <span class="visually-hidden">
+              {{ category.name }}</span>
+          </a>
+          <a href="{% url 'tickets:category_delete' category.pk %}">Delete <span class="visually-hidden">
+            {{ category.name }}
+          </span></a></div></td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
   </table>
 </div>
 {% else %}<p class="muted">No categories yet. Create a category so employees can classify their requests.</p>{% endif %}

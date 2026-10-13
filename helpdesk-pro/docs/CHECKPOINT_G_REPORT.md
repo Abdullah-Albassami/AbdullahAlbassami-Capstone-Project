@@ -16,6 +16,6 @@ A clean, independent checkout was used to verify that HelpDesk Pro works without
 
 The application uses Python **3.14.7** and Django **5.2.18**. The fresh seed contains **12 demo tickets**. Later development database snapshots (13 and then 15 tickets) are historical and should not be treated as fresh-seed expectations.
 
-This report covers **automated verification**, not full manual acceptance, a public deployment, commercial readiness or instructor approval. The owner separately observed M01–M09 as recorded in [ACCEPTANCE_TESTS.md](ACCEPTANCE_TESTS.md). Browser result details are in [results.json](evidence/checkpoint-g/results.json).
+This report covers **automated verification**, not full manual acceptance, a public deployment, commercial readiness or instructor approval. The owner separately observed M01–M09 as recorded in [ACCEPTANCE_TESTS.md](ACCEPTANCE_TESTS.md). Browser result details are in [results.json](evidence/final-verification/results.json).
 
 For setup and test commands, consult the [application README](../README.md).
