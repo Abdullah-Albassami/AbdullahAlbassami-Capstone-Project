@@ -22,6 +22,4 @@ The original [Capstone Project Guide](CapstoneProjectGuide.pdf) is included in t
 
 ## Verification
 
-A fresh installation passed **149 Django tests, 39 Chrome checks and 14 HTTP checks**. Manual acceptance scenarios **M01–M09** were also reported as passed by the project owner within their recorded scope. Additional checks remain unperformed, as noted in the [acceptance record](helpdesk-pro/docs/ACCEPTANCE_TESTS.md).
-
-The project is a functional capstone prototype, not a production deployment. To run it locally, follow the [application setup instructions](helpdesk-pro/README.md#installation-and-launch).
+HelpDesk Pro passed **149 Django tests, 39 Chrome checks, and 14 HTTP checks** in a fresh installation. See the [test results](helpdesk-pro/docs/ACCEPTANCE_TESTS.md) and [setup instructions](helpdesk-pro/README.md#installation-and-launch).
