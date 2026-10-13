@@ -36,4 +36,4 @@ Dashboard
 [Filters or form / list / ticket detail]
 ```
 
-Forms have labels and validation feedback. Tables can scroll at narrow widths, and navigation adapts to smaller screens. Automated browser checks covered responsive layouts; full human mobile, zoom and assistive-technology review remains unreported. See [verification](ACCEPTANCE_TESTS.md).
+Forms include labels and validation feedback. On smaller screens, navigation adapts and wide tables can scroll horizontally.
