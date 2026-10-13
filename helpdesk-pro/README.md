@@ -72,7 +72,3 @@ Final independent verification reported **149 passing Django tests**, **39 Chrom
 - **Technician:** work on assigned tickets, mark progress and submit a resolution note.
 
 Ticket workflow: **New → Assigned → In Progress → Resolved**, with permitted cancellation. Closed tickets are read-only. Referenced categories/departments/users cannot be deleted through supported workflows.
-
-## Acknowledgment
-
-Developed with assistance from OpenAI Codex and ChatGPT, with reference to official Django documentation.
