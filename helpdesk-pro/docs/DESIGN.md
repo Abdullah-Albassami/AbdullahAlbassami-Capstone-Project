@@ -29,6 +29,23 @@ Referenced departments, categories and users are protected from deletion. Commen
 
 The system includes server-side permission checks, CSRF protection and controlled record updates. Demo records are fictional.
 
+
+## Development priorities
+
+The project was organized around the following priorities:
+
+| Priority | Work | Result |
+|---|---|---|
+| 1 — Essential | Database models, migrations, roles and safe sample data | Complete |
+| 1 — Essential | Submit, assign, track, resolve and cancel support tickets with validation | Complete |
+| 1 — Essential | Server-side access control and related ticket comments | Complete |
+| 2 — Important | Category management, search, filtering, ordering and pagination | Complete |
+| 2 — Important | Ticket summaries and category/technician workload reports | Complete |
+| 2 — Important | Responsive interface, testing, documentation and reproducible setup | Complete |
+| 3 — Future | Email notifications, SLA monitoring, integrations and hosted deployment | Outside capstone scope |
+
+This list summarizes development priorities; the Git commit history records the implementation sequence.
+
 ## Limits
 
 This is a working capstone prototype, not a production-deployed ITSM service. Email notifications, SLA tracking, API integrations, hosted operations and full assignment-history auditing are outside the delivered scope.
