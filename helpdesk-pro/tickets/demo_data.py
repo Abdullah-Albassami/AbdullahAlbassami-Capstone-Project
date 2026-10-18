@@ -6,11 +6,11 @@ from .constants import Priority, Role, Status
 
 SEED_TIME = datetime(2026, 10, 10, 6, 0, tzinfo=timezone.utc)
 USERS = (
-    (9001, "employee1", "Nora", "Demo", Role.EMPLOYEE),
+    (9001, "employee1", "Ammar", "", Role.EMPLOYEE),
     (9002, "employee2", "Omar", "Demo", Role.EMPLOYEE),
-    (9003, "technician1", "Lina", "Demo", Role.TECHNICIAN),
-    (9004, "technician2", "Sami", "Demo", Role.TECHNICIAN),
-    (9005, "itadmin", "Rana", "Demo", Role.IT_ADMIN),
+    (9003, "technician1", "Nasser", "", Role.TECHNICIAN),
+    (9004, "technician2", "Mohammad", "", Role.TECHNICIAN),
+    (9005, "itadmin", "Abdullah", "", Role.IT_ADMIN),
 )
 DEPARTMENTS = ((1101, "Finance"), (1102, "Human Resources"), (1103, "Operations"), (1104, "Sales"))
 CATEGORIES = (
