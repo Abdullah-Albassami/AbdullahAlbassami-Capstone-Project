@@ -1,0 +1,10 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block nav-global %}
+  {{ block.super }}
+  <a href="{% url 'tickets:dashboard' %}"
+     style="display:inline-block;margin-left:1rem;padding:0.45rem 0.8rem;border:1px solid currentColor;border-radius:5px;color:inherit;text-decoration:none;font-size:0.85rem;font-weight:600;">
+    ← Back to HelpDesk Pro Dashboard
+  </a>
+{% endblock %}
